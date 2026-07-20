@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141414" />
+      <stop offset="50%" stop-color="#0F0F0F" />
+      <stop offset="100%" stop-color="#060606" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)" />
+  
+  <!-- Architectural Square Tiles Grid -->
+  <g transform="translate(200, 100)" stroke="#F5B800" stroke-width="2" stroke-opacity="0.4">
+    <rect x="0" y="0" width="180" height="180" rx="4" fill="#222" />
+    <rect x="200" y="0" width="180" height="180" rx="4" fill="#1C1C1C" />
+    <rect x="0" y="200" width="180" height="180" rx="4" fill="#1A1A1A" />
+    <rect x="200" y="200" width="180" height="180" rx="4" fill="#262626" stroke="#FFD45A" stroke-opacity="0.8" />
+    
+    <!-- Cross Inner Pattern on Highlight Tile -->
+    <path d="M 220 220 L 360 360 M 360 220 L 220 360" stroke="#F5B800" stroke-opacity="0.3" stroke-width="1.5" />
+  </g>
+  
+  <!-- Badge Label -->
+  <rect x="40" y="40" width="170" height="32" rx="6" fill="rgba(245, 184, 0, 0.15)" stroke="#F5B800" stroke-opacity="0.4" />
+  <text x="125" y="61" fill="#FFD45A" font-family="sans-serif" font-size="13" font-weight="bold" letter-spacing="2" text-anchor="middle">CONCRETE TILES</text>
+</svg>

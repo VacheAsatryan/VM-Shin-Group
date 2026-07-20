@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141414" />
+      <stop offset="50%" stop-color="#0E0E0E" />
+      <stop offset="100%" stop-color="#060606" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)" />
+  
+  <!-- Concrete Manhole Circular Cover Graphic -->
+  <g transform="translate(400, 300)">
+    <!-- Outer Rim -->
+    <ellipse cx="0" cy="0" rx="220" ry="140" fill="#1C1C1C" stroke="#F5B800" stroke-width="3" />
+    <ellipse cx="0" cy="0" rx="180" ry="110" fill="#242424" stroke="#F5B800" stroke-opacity="0.6" stroke-width="2" />
+    <ellipse cx="0" cy="0" rx="140" ry="80" fill="#181818" stroke="#FFD45A" stroke-opacity="0.8" stroke-width="2" />
+    
+    <!-- Ribbing Lines on Manhole Ring -->
+    <line x1="-140" y1="0" x2="140" y2="0" stroke="#F5B800" stroke-opacity="0.3" stroke-width="2" />
+    <line x1="0" y1="-80" x2="0" y2="80" stroke="#F5B800" stroke-opacity="0.3" stroke-width="2" />
+  </g>
+  
+  <!-- Badge Label -->
+  <rect x="40" y="40" width="190" height="32" rx="6" fill="rgba(245, 184, 0, 0.15)" stroke="#F5B800" stroke-opacity="0.4" />
+  <text x="135" y="61" fill="#FFD45A" font-family="sans-serif" font-size="13" font-weight="bold" letter-spacing="2" text-anchor="middle">CONCRETE MANHOLES</text>
+</svg>

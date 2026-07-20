@@ -1,0 +1,210 @@
+{
+  "header": {
+    "logo": "VM Shin Group",
+    "home": "Home",
+    "products": "Products",
+    "about": "About Us",
+    "projects": "Projects",
+    "contact": "Contact",
+    "cta": "Order Now"
+  },
+  "hero": {
+    "eyebrow": "Manufacturing • Quality • Trust",
+    "title": "Solid Foundation for Every Project",
+    "description": "Modern manufacturing of concrete construction products for residential, commercial, and infrastructure projects.",
+    "primaryBtn": "View Products",
+    "secondaryBtn": "Calculate Quantity"
+  },
+  "products": {
+    "title": "Product Catalog",
+    "viewProduct": "View",
+    "categories": {
+      "pemzablok": "Pumice Blocks",
+      "concrete-block": "Concrete Blocks",
+      "concrete": "Ready-Mix Concrete",
+      "paving-stones": "Paving Stones",
+      "tiles": "Concrete Tiles",
+      "curbstones": "Curbstones",
+      "manholes": "Concrete Manholes"
+    }
+  },
+  "advantages": {
+    "eyebrow": "OUR ADVANTAGES",
+    "title": "Why Choose VM Shin Group",
+    "description": "Manufacturing capacity, controlled quality, and reliable partnership for every construction project.",
+    "items": {
+      "production": {
+        "title": "In-House Manufacturing",
+        "description": "The entire production process is organized and strictly monitored by our specialists."
+      },
+      "quality": {
+        "title": "Quality Control",
+        "description": "Every product undergoes multi-stage inspection to guarantee consistent strength and durability."
+      },
+      "delivery": {
+        "title": "Timely Delivery",
+        "description": "Streamlined production and logistics process ensuring strict adherence to agreed deadlines."
+      },
+      "custom": {
+        "title": "Tailored Solutions",
+        "description": "Customized technical solutions tailored specifically to the scope and requirements of each project."
+      }
+    }
+  },
+  "production": {
+    "eyebrow": "OUR MANUFACTURING",
+    "title": "Modern Manufacturing for Consistent Quality",
+    "description": "VM Shin Group's production process combines state-of-the-art industrial machinery, expert engineering, and continuous quality control.",
+    "primaryCta": "Explore Manufacturing",
+    "badge": "IN-HOUSE PRODUCTION CAPACITY",
+    "mainImageAlt": "VM Shin Group modern concrete manufacturing plant and machinery",
+    "facts": {
+      "equipment": {
+        "title": "Modern Equipment",
+        "description": "High-efficiency, reliable automated industrial machinery utilized throughout production."
+      },
+      "process": {
+        "title": "Controlled Process",
+        "description": "Every manufacturing phase is executed in strict compliance with defined quality standards."
+      },
+      "capacity": {
+        "title": "Stable Capacity",
+        "description": "Robust production capabilities allowing us to fulfill orders of any scale."
+      }
+    }
+  },
+  "applications": {
+    "eyebrow": "AREAS OF APPLICATION",
+    "title": "Solutions for Various Construction Projects",
+    "description": "VM Shin Group products can be used for residential, industrial, road construction, and landscape development projects.",
+    "supporting": "VM Shin Group products are suitable for projects of various scales and technical specifications.",
+    "technicalLabel": "Application Field",
+    "selectCategory": "Select application category",
+    "items": {
+      "residential": {
+        "title": "Residential Construction",
+        "description": "Multi-apartment buildings, private houses, and residential complexes.",
+        "label": "Residential Projects",
+        "imageAlt": "Application of VM Shin Group products in residential construction"
+      },
+      "industrial": {
+        "title": "Industrial Facilities",
+        "description": "Manufacturing plants, warehouses, and technical facilities.",
+        "label": "Industrial Facilities",
+        "imageAlt": "Application of VM Shin Group products in industrial construction"
+      },
+      "road": {
+        "title": "Road Construction",
+        "description": "Roadways, sidewalks, curbstones, and infrastructure solutions.",
+        "label": "Roads & Infrastructure",
+        "imageAlt": "Application of VM Shin Group products in road construction"
+      },
+      "landscape": {
+        "title": "Site & Landscape Improvement",
+        "description": "Courtyards, parks, public spaces, and landscape design projects.",
+        "label": "Landscaping & Public Spaces",
+        "imageAlt": "Application of VM Shin Group products in landscaping"
+      },
+      "publicBuilding": {
+        "title": "Public Buildings",
+        "description": "Educational, medical, administrative, and municipal facilities.",
+        "label": "Municipal & Public Buildings",
+        "imageAlt": "Application of VM Shin Group products in public building construction"
+      },
+      "commercial": {
+        "title": "Commercial Spaces",
+        "description": "Retail stores, business centers, and commercial service infrastructure.",
+        "label": "Commercial & Business Facilities",
+        "imageAlt": "Application of VM Shin Group products in commercial construction"
+      }
+    }
+  },
+  "calculator": {
+    "eyebrow": "MATERIAL CALCULATOR",
+    "title": "Estimate the Approximate Material Quantity",
+    "description": "Enter key dimensions to get an instant preliminary material calculation for your project.",
+    "explanationTitle": "Precise Planning for Your Project",
+    "explanationText": "Use our product-aware estimator to calculate quantities, packaging, and approximate pricing for your construction needs. Our team is available to verify final specifications.",
+    "categories": {
+      "pemzablok": "Pumice Block",
+      "concrete-block": "Concrete Block",
+      "concrete": "Ready-Mix Concrete",
+      "paving-stones": "Paving Stones",
+      "tiles": "Concrete Tiles",
+      "curbstones": "Curbstones",
+      "manholes": "Manholes"
+    },
+    "inputs": {
+      "wallLength": "Wall Length (m)",
+      "wallHeight": "Wall Height (m)",
+      "wallCount": "Identical Walls Count",
+      "surfaceLength": "Surface Length (m)",
+      "surfaceWidth": "Surface Width (m)",
+      "linearLength": "Total Linear Length (m)",
+      "directVolume": "Volume (m³)",
+      "concreteDepth": "Depth / Thickness (m)",
+      "quantity": "Quantity (pcs)",
+      "reservePercent": "Reserve (%)",
+      "variantLabel": "Product Variant / Size",
+      "modeLabel": "Calculation Mode",
+      "modeDirect": "Direct Volume (m³)",
+      "modeDimensions": "By Dimensions (L x W x Depth)"
+    },
+    "blocks": {
+      "block20": "Pumice Block 20 (20x20x40 cm)",
+      "block25": "Pumice Block 25 (25x20x40 cm)",
+      "block30": "Pumice Block 30 (30x20x40 cm)",
+      "concreteBlock15": "Concrete Block 15 (15x20x40 cm)",
+      "concreteBlock20": "Concrete Block 20 (20x20x40 cm)",
+      "concreteM250": "Concrete M250 (B20)",
+      "concreteM300": "Concrete M300 (B22.5)",
+      "concreteM350": "Concrete M350 (B25)",
+      "pavingClassic6": "Paving Stone Classic (6 cm)",
+      "pavingClassic8": "Paving Stone Classic (8 cm)",
+      "tile30x30": "Concrete Tile 30x30 cm (4 cm)",
+      "tile40x40": "Concrete Tile 40x40 cm (5 cm)",
+      "curbstoneRoad100": "Road Curbstone (100x30x15 cm)",
+      "curbstoneSidewalk50": "Sidewalk Curbstone (50x20x8 cm)",
+      "manholeRing100": "Manhole Ring (D100 cm)",
+      "manholeCover100": "Manhole Cover (D100 cm)"
+    },
+    "units": {
+      "blocks": "pcs",
+      "m2": "m²",
+      "m3": "m³",
+      "lm": "lm",
+      "pcs": "pcs",
+      "pallets": "pallets",
+      "currency": "AMD"
+    },
+    "results": {
+      "title": "Estimation Summary",
+      "primaryQuantity": "Required Quantity",
+      "secondaryQuantity": "Estimated Item Count",
+      "palletsCount": "Estimated Pallets",
+      "subtotal": "Product Subtotal",
+      "delivery": "Estimated Delivery",
+      "total": "Estimated Total",
+      "disclaimer": "The result is an initial estimate and may differ from actual site requirements.",
+      "pricingDisclaimer": "Displayed prices are temporary demonstration values and are not a commercial offer.",
+      "cta": "Request an offer"
+    },
+    "delivery": {
+      "title": "Delivery Estimator",
+      "toggleLabel": "Include Delivery Estimation",
+      "originLabel": "Production Origin",
+      "originAddress": "Armavir, Yerevan Highway 12/4",
+      "destinationLabel": "Destination Address",
+      "destinationPlaceholder": "Enter delivery address (e.g. Yerevan)",
+      "distanceLabel": "Distance",
+      "mapPlaceholderTitle": "Map Integration Demo",
+      "mapPlaceholderText": "Integration-ready map module (Yandex / Google Maps)"
+    }
+  },
+  "seo": {
+    "title": "VM Shin Group | Concrete Products Manufacturing & Supply",
+    "description": "VM Shin Group is a leading manufacturer of concrete and pumice blocks in Armavir, Armenia. High quality concrete, paving stones, tiles and curbstones.",
+    "ogTitle": "VM Shin Group | Concrete Products Manufacturing & Supply",
+    "ogDescription": "VM Shin Group is a leading manufacturer of concrete and pumice blocks in Armavir, Armenia. High quality concrete, paving stones, tiles and curbstones."
+  }
+}

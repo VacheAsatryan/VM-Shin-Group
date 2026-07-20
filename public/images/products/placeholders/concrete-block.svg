@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A1A1A" />
+      <stop offset="50%" stop-color="#111111" />
+      <stop offset="100%" stop-color="#080808" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F5B800" />
+      <stop offset="100%" stop-color="#FFD45A" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)" />
+  
+  <!-- Architectural Construction Grid -->
+  <g opacity="0.1" stroke="#F5B800" stroke-width="1">
+    <path d="M 0 100 H 800 M 0 200 H 800 M 0 300 H 800 M 0 400 H 800 M 0 500 H 800" />
+    <path d="M 100 0 V 600 M 200 0 V 600 M 300 0 V 600 M 400 0 V 600 M 500 0 V 600 M 600 0 V 600 M 700 0 V 600" />
+  </g>
+  
+  <!-- Heavy Concrete Block 3D Illustration -->
+  <g transform="translate(240, 170)">
+    <polygon points="160,0 320,55 160,110 0,55" fill="#2E2E2E" stroke="#F5B800" stroke-width="2.5" />
+    <polygon points="0,55 160,110 160,240 0,185" fill="#202020" stroke="#F5B800" stroke-width="2" />
+    <polygon points="160,110 320,55 320,185 160,240" fill="#181818" stroke="#F5B800" stroke-width="2" />
+    
+    <!-- Ribbing Lines -->
+    <line x1="50" y1="128" x2="50" y2="200" stroke="#F5B800" stroke-opacity="0.3" stroke-width="2" />
+    <line x1="100" y1="145" x2="100" y2="218" stroke="#F5B800" stroke-opacity="0.3" stroke-width="2" />
+    <line x1="210" y1="145" x2="210" y2="218" stroke="#F5B800" stroke-opacity="0.3" stroke-width="2" />
+    <line x1="260" y1="128" x2="260" y2="200" stroke="#F5B800" stroke-opacity="0.3" stroke-width="2" />
+  </g>
+  
+  <!-- Badge Label -->
+  <rect x="40" y="40" width="180" height="32" rx="6" fill="rgba(245, 184, 0, 0.15)" stroke="#F5B800" stroke-opacity="0.4" />
+  <text x="130" y="61" fill="#FFD45A" font-family="sans-serif" font-size="13" font-weight="bold" letter-spacing="2" text-anchor="middle">CONCRETE BLOCK</text>
+</svg>

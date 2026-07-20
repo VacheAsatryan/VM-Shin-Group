@@ -1,26 +1,264 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #080808;
+  --foreground: #f5f5f5;
+  
+  --surface: #111111;
+  --surface-elevated: #171717;
+  
+  --primary-yellow: #f5b800;
+  --primary-yellow-light: #ffd45a;
+  --primary-yellow-dark: #c49300;
+  
+  --text-primary: #ffffff;
+  --text-secondary: #a3a3a3;
+  
+  --border: rgba(245, 184, 0, 0.1);
+  --border-hover: rgba(245, 184, 0, 0.25);
+  
+  --blur: 12px;
+  --border-radius: 12px;
+  
+  --shadow-glow: 0 0 20px rgba(245, 184, 0, 0.15);
+  --shadow-glow-hover: 0 0 30px rgba(245, 184, 0, 0.3);
+  
+  --container-width: 1280px;
 }
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  
+  --color-primary-yellow: var(--primary-yellow);
+  --color-primary-yellow-light: var(--primary-yellow-light);
+  --color-primary-yellow-dark: var(--primary-yellow-dark);
+  
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  
+  --color-accent-border: var(--border);
+  --color-accent-border-hover: var(--border-hover);
+  
+  --font-sans: var(--font-inter), var(--font-noto-armenian), system-ui, sans-serif;
+  
+  --radius-custom: var(--border-radius);
+  --shadow-glow: var(--shadow-glow);
+  --shadow-glow-hover: var(--shadow-glow-hover);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Ensure smooth scrolling to sections leaves space for fixed header */
+section[id], [id] {
+  scroll-margin-top: 5rem;
 }
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), var(--font-noto-armenian), system-ui, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbars for the premium dark industrial aesthetic */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-elevated);
+  border-radius: 4px;
+  border: 2px solid var(--background);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-yellow);
+}
+
+/* Base focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--primary-yellow);
+  outline-offset: 4px;
+}
+
+/* Prevent layout shift during loading */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Yellow line animated background ───────────────────────────────────────── */
+.yellow-lines-bg {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.yellow-lines-bg::before,
+.yellow-lines-bg::after {
+  content: "";
+  position: absolute;
+  inset: -60%;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 70px,
+      rgba(245, 184, 0, 0.35) 70px,
+      rgba(245, 184, 0, 0.35) 73px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 100px,
+      rgba(255, 212, 90, 0.25) 100px,
+      rgba(255, 212, 90, 0.25) 103px
+    );
+  animation: linesRotateA 24s linear infinite;
+  transform-origin: center center;
+}
+
+.yellow-lines-bg::after {
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 85px,
+      rgba(245, 184, 0, 0.3) 85px,
+      rgba(245, 184, 0, 0.3) 88px
+    ),
+    repeating-linear-gradient(
+      135deg,
+      transparent,
+      transparent 115px,
+      rgba(255, 212, 90, 0.2) 115px,
+      rgba(255, 212, 90, 0.2) 118px
+    );
+  animation: linesRotateB 34s linear infinite reverse;
+}
+
+/* Third layer — chaotic glowing pulses and diagonal sweeps */
+.yellow-lines-layer2 {
+  position: absolute;
+  inset: -60%;
+  background-image:
+    radial-gradient(circle at 25% 35%, rgba(245, 184, 0, 0.4) 0%, transparent 40%),
+    radial-gradient(circle at 75% 65%, rgba(255, 212, 90, 0.35) 0%, transparent 45%),
+    repeating-linear-gradient(
+      -35deg,
+      transparent,
+      transparent 120px,
+      rgba(245, 184, 0, 0.25) 120px,
+      rgba(245, 184, 0, 0.25) 123px
+    );
+  animation: linesRotateC 44s linear infinite;
+  transform-origin: center center;
+  pointer-events: none;
+}
+
+@keyframes linesRotateA {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes linesRotateB {
+  from { transform: rotate(0deg) scale(1.15); }
+  to   { transform: rotate(360deg) scale(1.15); }
+}
+@keyframes linesRotateC {
+  from { transform: rotate(0deg) scale(1.25); }
+  to   { transform: rotate(-360deg) scale(1.25); }
+}
+
+/* ── Fireflies twinkle & drift animation ───────────────────────────────── */
+.animate-firefly {
+  animation: fireflyFloat infinite ease-in-out;
+  will-change: transform, opacity;
+}
+
+@keyframes fireflyFloat {
+  0% {
+    opacity: 0.15;
+    transform: translate(0, 0) scale(0.7);
+  }
+  25% {
+    opacity: 1;
+    transform: translate(var(--tx1), var(--ty1)) scale(1.35);
+  }
+  50% {
+    opacity: 0.25;
+    transform: translate(calc(var(--tx1) * -0.5), calc(var(--ty1) * 1.3)) scale(0.8);
+  }
+  75% {
+    opacity: 0.9;
+    transform: translate(var(--tx2), var(--ty2)) scale(1.25);
+  }
+  100% {
+    opacity: 0.15;
+    transform: translate(0, 0) scale(0.7);
+  }
+}
+
+/* Animated yellow/black cinematic fallback gradient */
+@keyframes heroGradientPulse {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-hero-gradient-pulse {
+  background: linear-gradient(
+    -45deg,
+    #080808,
+    #14120a,
+    rgba(245, 184, 0, 0.22),
+    #0e0e0e,
+    rgba(255, 212, 90, 0.16),
+    #080808
+  );
+  background-size: 400% 400%;
+  animation: heroGradientPulse 14s ease infinite;
+}
+
+/* Respect prefers-reduced-motion — freeze animations */
+@media (prefers-reduced-motion: reduce) {
+  .yellow-lines-bg::before,
+  .yellow-lines-bg::after,
+  .yellow-lines-layer2,
+  .animate-firefly,
+  .animated-hero-gradient-pulse {
+    animation: none;
+  }
+}
+
+
+
+

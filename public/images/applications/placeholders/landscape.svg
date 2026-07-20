@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141414"/>
+      <stop offset="100%" stop-color="#090909"/>
+    </linearGradient>
+    <linearGradient id="gold-accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F5B800"/>
+      <stop offset="100%" stop-color="#FFD45A"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bg-grad)"/>
+  <rect width="800" height="600" fill="url(#grid)"/>
+
+  <!-- Landscape Paving Stones & Park Promenade -->
+  <g transform="translate(180, 120)">
+    <!-- Hexagonal / Interlocking Paving Grid -->
+    <path d="M 100 80 L 150 50 L 200 80 L 200 130 L 150 160 L 100 130 Z" fill="rgba(245,184,0,0.05)" stroke="url(#gold-accent)" stroke-width="2"/>
+    <path d="M 200 80 L 250 50 L 300 80 L 300 130 L 250 160 L 200 130 Z" fill="rgba(245,184,0,0.05)" stroke="url(#gold-accent)" stroke-width="2"/>
+    <path d="M 150 160 L 200 130 L 250 160 L 250 210 L 200 240 L 150 210 Z" fill="rgba(245,184,0,0.1)" stroke="url(#gold-accent)" stroke-width="2.5"/>
+    <path d="M 250 160 L 300 130 L 350 160 L 350 210 L 300 240 L 250 210 Z" fill="rgba(245,184,0,0.05)" stroke="url(#gold-accent)" stroke-width="2"/>
+    <path d="M 50 160 L 100 130 L 150 160 L 150 210 L 100 240 L 50 210 Z" fill="rgba(245,184,0,0.05)" stroke="url(#gold-accent)" stroke-width="2"/>
+
+    <!-- Decorative Plant / Tree Outline -->
+    <path d="M 380 240 C 380 180 340 140 340 140 C 340 140 300 180 300 240 Z" fill="none" stroke="#F5B800" stroke-opacity="0.4" stroke-width="2"/>
+    <line x1="340" y1="240" x2="340" y2="280" stroke="#F5B800" stroke-width="2"/>
+  </g>
+
+  <!-- Technical Marks -->
+  <path d="M 40 60 L 40 40 L 60 40" fill="none" stroke="#F5B800" stroke-width="2"/>
+  <path d="M 760 60 L 760 40 L 740 40" fill="none" stroke="#F5B800" stroke-width="2"/>
+  <path d="M 40 540 L 40 560 L 60 560" fill="none" stroke="#F5B800" stroke-width="2"/>
+  <path d="M 760 540 L 760 560 L 740 560" fill="none" stroke="#F5B800" stroke-width="2"/>
+
+  <text x="100" y="535" fill="#F5B800" font-family="monospace" font-size="12" font-weight="bold" letter-spacing="2">CATEGORY 04 // LANDSCAPE &amp; SITE IMPROVEMENT</text>
+  <text x="100" y="555" fill="#a3a3a3" font-family="sans-serif" font-size="11">VM SHIN GROUP • PAVING STONES, TILES &amp; PARK PROMENADES</text>
+</svg>

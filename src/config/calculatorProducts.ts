@@ -123,33 +123,7 @@ export const CALCULATOR_PRODUCTS: ProductCategoryConfig[] = [
       },
     ],
   },
-  {
-    id: "tiles",
-    nameKey: "tiles",
-    unitLabelKey: "m2",
-    image: "/images/applications/placeholders/landscape.svg",
-    calculationType: "paving_area",
-    variants: [
-      {
-        id: "tile-30x30",
-        nameKey: "tile30x30",
-        itemsPerSqMeter: 11.1,
-        thicknessCm: 4,
-        itemsPerPallet: 220,
-        pricePerUnit: 3900,
-        pricingUnit: "per_sq_meter",
-      },
-      {
-        id: "tile-40x40",
-        nameKey: "tile40x40",
-        itemsPerSqMeter: 6.25,
-        thicknessCm: 5,
-        itemsPerPallet: 150,
-        pricePerUnit: 4500,
-        pricingUnit: "per_sq_meter",
-      },
-    ],
-  },
+
   {
     id: "curbstones",
     nameKey: "curbstones",

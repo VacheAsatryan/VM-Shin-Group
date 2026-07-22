@@ -87,10 +87,10 @@ export default function Header() {
   }, [mobileMenuOpen]);
 
   const navigationItems = [
-    { label: t("home"), href: "/" },
+    { label: t("home"), href: "#hero" },
     { label: t("products"), href: "#products" },
-    { label: t("about"), href: "#about" },
-    { label: t("projects"), href: "#projects" },
+    { label: t("about"), href: "#production" },
+    { label: t("projects"), href: "#applications" },
     { label: t("contact"), href: "#contact" },
   ];
 

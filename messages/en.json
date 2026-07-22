@@ -124,12 +124,25 @@
     "title": "Estimate the Approximate Material Quantity",
     "description": "Enter key dimensions to get an instant preliminary material calculation for your project.",
     "explanationTitle": "Precise Planning for Your Project",
-    "explanationText": "Use our product-aware estimator to calculate quantities, packaging, and approximate pricing for your construction needs. Our team is available to verify final specifications.",
+    "explanationText": "Use our product-aware estimator to calculate quantities, packaging, and approximate pricing for your construction needs.",
+    "stepper": {
+      "question": "What do you want to calculate?",
+      "step1": "1. Product",
+      "step2": "2. Parameters",
+      "step3": "3. Estimate",
+      "step4": "4. Delivery",
+      "showEstimate": "Show estimate",
+      "changeParameters": "Change parameters",
+      "addDelivery": "Calculate delivery",
+      "notCalculated": "Not calculated"
+    },
     "categories": {
       "pemzablok": "Pumice Block",
       "concrete-block": "Concrete Block",
+      "concreteBlock": "Concrete Block",
       "concrete": "Ready-Mix Concrete",
       "paving-stones": "Paving Stones",
+      "pavingStones": "Paving Stones",
       "tiles": "Concrete Tiles",
       "curbstones": "Curbstones",
       "manholes": "Manholes"
@@ -183,10 +196,10 @@
       "secondaryQuantity": "Estimated Item Count",
       "palletsCount": "Estimated Pallets",
       "subtotal": "Product Subtotal",
-      "delivery": "Estimated Delivery",
+      "delivery": "Delivery Fee",
       "total": "Estimated Total",
       "disclaimer": "The result is an initial estimate and may differ from actual site requirements.",
-      "pricingDisclaimer": "Displayed prices are temporary demonstration values and are not a commercial offer.",
+      "pricingDisclaimer": "Displayed prices are demonstration values and are not a commercial offer.",
       "cta": "Request an offer"
     },
     "delivery": {
@@ -195,10 +208,59 @@
       "originLabel": "Production Origin",
       "originAddress": "Armavir, Yerevan Highway 12/4",
       "destinationLabel": "Destination Address",
-      "destinationPlaceholder": "Enter delivery address (e.g. Yerevan)",
+      "destinationPlaceholder": "Start typing a delivery address",
       "distanceLabel": "Distance",
-      "mapPlaceholderTitle": "Map Integration Demo",
-      "mapPlaceholderText": "Integration-ready map module (Yandex / Google Maps)"
+      "mapUnavailable": "Road-route calculation will become available after map integration.",
+      "mapPlaceholderTitle": "Yandex Maps Route",
+      "autocompletePlaceholder": "Start typing a delivery address (e.g. Yerevan)",
+      "noSuggestionsFound": "No addresses found",
+      "loadingSuggestions": "Searching...",
+      "addressInvalidated": "Please select a valid address from the suggestions list",
+      "retryButton": "Retry search",
+      "routeCalculating": "Calculating road route..."
+    }
+  },
+  "footer": {
+    "company": {
+      "tagline": "Quality Construction Solutions",
+      "description": "VM Shin Group is a leading manufacturer of high-quality concrete products and pumice blocks in Armenia."
+    },
+    "nav": {
+      "title": "Navigation",
+      "home": "Home",
+      "products": "Products",
+      "about": "About Us",
+      "production": "Production",
+      "applications": "Applications",
+      "calculator": "Calculator",
+      "contacts": "Contacts"
+    },
+    "products": {
+      "title": "Products",
+      "pemzablok": "Pumice Blocks",
+      "concreteBlock": "Concrete Blocks",
+      "concrete": "Ready-Mix Concrete",
+      "pavingStones": "Paving Stones",
+      "tiles": "Concrete Tiles",
+      "curbstones": "Curbstones",
+      "manholes": "Manhole Products"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "addressLabel": "Address",
+      "address": "Armavir, Yerevan Highway 12/4, Armenia",
+      "phoneLabel": "Phone",
+      "phone": "+374 77 770330",
+      "emailLabel": "Email",
+      "email": "vm.shingroup@gmail.com",
+      "workingHoursLabel": "Working Hours",
+      "workingHours": "Mon - Sat: 09:00 - 19:00"
+    },
+    "bottom": {
+      "copyright": "© {year} VM Shin Group. All rights reserved.",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy"
     }
   },
   "seo": {

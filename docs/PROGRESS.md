@@ -1,19 +1,18 @@
 # Progress Log: VM Shin Group Website
 
 ## Current Task
-- **TASK 0.6:** Premium Material Calculator Section ("Estimate Material Quantities").
+- **TASK 0.7:** Premium Corporate Footer ("VM Shin Group Corporate Footer").
 
 ## Status
 - **Task Status:** ✅ COMPLETED
 
 ## Completed Work
-- [x] Created typed configuration `src/config/calculator.ts` for block types (Pumice Block 20, 25, 30) & default dimensions.
-- [x] Created isolated business math calculation logic in `src/lib/calculator/calculateMaterials.ts` (wall area $m^2$, block count, pallet count, waste factor).
-- [x] Added complete translations in Armenian (`hy`), English (`en`), and Russian (`ru`) in `messages/*.json`.
-- [x] Built modular component architecture (`CalculatorSection.tsx`, `CalculatorForm.tsx`, `CalculatorResult.tsx`, `CalculatorField.tsx`).
-- [x] Applied darker, architectural, professional graphite styling with restrained yellow accents.
-- [x] Included initial calculation disclaimer statement & primary CTA button ("Get Quote").
-- [x] Updated homepage composition flow in `src/app/[locale]/page.tsx` (Hero → Product Carousel → ProductionSection → ApplicationsSection → CalculatorSection).
+- [x] Designed and built reusable `Footer` component (`src/components/layout/Footer.tsx`).
+- [x] Implemented desktop 4-column layout (Company, Navigation, Products, Contact) and mobile stacked layout.
+- [x] Added social media icons (Facebook, Instagram, YouTube, LinkedIn) with hover animations and visible focus outlines.
+- [x] Created bottom copyright bar with dynamic year generation (`new Date().getFullYear()`) and secondary policy links.
+- [x] Added complete translations in Armenian (`hy`), English (`en`), and Russian (`ru`) under `"footer"` namespace.
+- [x] Integrated `<Footer />` globally into `src/app/[locale]/layout.tsx`.
 - [x] Verified ESLint, TypeScript, and Next.js production build pass with 0 errors.
 
 ## Installed Dependencies

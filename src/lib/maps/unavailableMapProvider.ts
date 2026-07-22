@@ -1,7 +1,7 @@
 import { FACTORY_ORIGIN } from "@/config/delivery";
 import type { MapProvider, MapRouteEstimate } from "./mapProvider.types";
 
-export class DemoMapProvider implements MapProvider {
+export class UnavailableMapProvider implements MapProvider {
   async calculateRoute(destinationAddress: string): Promise<MapRouteEstimate> {
     return {
       origin: FACTORY_ORIGIN,
@@ -14,4 +14,4 @@ export class DemoMapProvider implements MapProvider {
   }
 }
 
-export const demoMapProvider = new DemoMapProvider();
+export const unavailableMapProvider = new UnavailableMapProvider();

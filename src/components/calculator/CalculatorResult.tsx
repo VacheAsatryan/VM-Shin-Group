@@ -26,7 +26,7 @@ export default function CalculatorResult({
   distanceKm,
   onRequestOffer,
 }: CalculatorResultProps) {
-  const t = useTranslations("calculator.results");
+  const t = useTranslations("calculator");
 
   const handleRequestOfferClick = () => {
     const payload: EstimateSummaryPayload = {
@@ -61,10 +61,10 @@ export default function CalculatorResult({
       {/* Header */}
       <div className="flex items-center justify-between pb-3 border-b border-white/10">
         <h3 className="text-xs font-mono font-bold tracking-widest text-primary-yellow uppercase">
-          {t("title")}
+          {t("results.title")}
         </h3>
         <span className="text-[11px] font-mono text-text-secondary uppercase">
-          {t(`../blocks.${result.variant.nameKey}`)}
+          {t(`blocks.${result.variant.nameKey}`)}
         </span>
       </div>
 
@@ -73,14 +73,14 @@ export default function CalculatorResult({
         {/* Primary Quantity */}
         <div className="p-4 rounded-lg bg-background/60 border border-white/5 flex flex-col">
           <span className="text-xs text-text-secondary mb-1">
-            {t("primaryQuantity")}
+            {t("results.primaryQuantity")}
           </span>
           <div className="flex items-baseline gap-1.5 mt-auto">
             <span className="text-2xl sm:text-3xl font-black font-mono text-primary-yellow tracking-tight">
               {result.metrics.primaryQuantity.toLocaleString()}
             </span>
             <span className="text-xs font-bold text-primary-yellow/80 font-mono uppercase">
-              {t(`../units.${result.metrics.primaryUnitKey}`)}
+              {t(`units.${result.metrics.primaryUnitKey}`)}
             </span>
           </div>
         </div>
@@ -89,28 +89,28 @@ export default function CalculatorResult({
         {result.metrics.palletsCount ? (
           <div className="p-4 rounded-lg bg-background/60 border border-white/5 flex flex-col">
             <span className="text-xs text-text-secondary mb-1">
-              {t("palletsCount")}
+              {t("results.palletsCount")}
             </span>
             <div className="flex items-baseline gap-1.5 mt-auto">
               <span className="text-2xl sm:text-3xl font-black font-mono text-text-primary tracking-tight">
                 {result.metrics.palletsCount}
               </span>
               <span className="text-xs font-bold text-primary-yellow/80 font-mono uppercase">
-                {t("../units.pallets")}
+                {t("units.pallets")}
               </span>
             </div>
           </div>
         ) : result.metrics.secondaryQuantity ? (
           <div className="p-4 rounded-lg bg-background/60 border border-white/5 flex flex-col">
             <span className="text-xs text-text-secondary mb-1">
-              {t("secondaryQuantity")}
+              {t("results.secondaryQuantity")}
             </span>
             <div className="flex items-baseline gap-1.5 mt-auto">
               <span className="text-2xl sm:text-3xl font-black font-mono text-text-primary tracking-tight">
                 {result.metrics.secondaryQuantity.toLocaleString()}
               </span>
               <span className="text-xs font-bold text-primary-yellow/80 font-mono uppercase">
-                {t(`../units.${result.metrics.secondaryUnitKey}`)}
+                {t(`units.${result.metrics.secondaryUnitKey}`)}
               </span>
             </div>
           </div>
@@ -140,7 +140,7 @@ export default function CalculatorResult({
       {/* Disclaimer */}
       <div className="p-3 rounded-lg bg-white/[0.02] border border-white/5">
         <p className="text-[11px] text-text-secondary leading-relaxed font-mono">
-          ⚠ {t("disclaimer")}
+          ⚠ {t("results.disclaimer")}
         </p>
       </div>
 
@@ -152,7 +152,7 @@ export default function CalculatorResult({
           className="w-full text-center"
           onClick={handleRequestOfferClick}
         >
-          {t("cta")}
+          {t("results.cta")}
         </LinkButton>
       </div>
     </div>

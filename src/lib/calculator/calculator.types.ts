@@ -100,7 +100,7 @@ export interface CalculationMetrics {
 
 export interface PricingBreakdown {
   productSubtotal: number;
-  deliveryEstimate: number;
+  deliveryEstimate: number | null;
   estimatedTotal: number;
   currency: string;
   isDemoPricing: boolean;

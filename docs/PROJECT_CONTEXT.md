@@ -50,11 +50,12 @@ It must avoid looking like a cheap template, a generic landing page, or an clutt
 - Strict layout shift prevention and lightweight asset loading.
 - Respect users' reduced motion preferences globally.
 
-## Completed Homepage Foundation (Tasks 0.1, 0.3, 0.3R-FIX, 0.5, 0.6)
+## Completed Homepage Foundation (Tasks 0.1, 0.3, 0.3R-FIX, 0.5, 0.6R-UX, 0.7)
 - Sticky responsive header with official logo, scroll blur effects, and focus-trapped animated mobile menu drawer.
 - Immersive background video Hero with autoplay check and automatic poster/geometric CSS fallbacks.
 - Native CSS scroll-snapped Product Carousel supporting manual scroll triggers, mobile swipe, and accessibility-friendly autoplay.
 - Approved Editorial Manufacturing / Why Choose Us Section ("Why Choose VM Shin Group") with asymmetric layout and production facts.
 - Premium Product Applications Section ("Where Our Products Are Used") with interactive category tabs, smooth image crossfade, dark directional gradients, and local SVG placeholders.
-- Premium Material Calculator Section ("Estimate Material Quantities") with isolated business math logic, graphite technical UI, live numeric updates, initial disclaimer, and primary CTA.
+- Simplified 4-Step Product-Aware Material Calculator (`1. Product`, `2. Parameters`, `3. Estimate`, `4. Delivery`) with Yandex Maps driving-route integration, zero raw translation keys, and clean graphite UI.
+- Premium Corporate Footer featuring 4-column desktop grid, social media links, dynamic copyright year, policy links, and complete multilingual translations.
 

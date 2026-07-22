@@ -125,8 +125,8 @@ export default function ProductCarousel() {
         role="region"
         aria-label="Products list"
       >
-        {PRODUCTS.map((product) => (
-          <ProductCard key={product.id} product={product} />
+        {PRODUCTS.map((product, idx) => (
+          <ProductCard key={product.id} product={product} index={idx} />
         ))}
       </div>
     </section>
@@ -134,13 +134,15 @@ export default function ProductCarousel() {
 }
 
 // ─── Product Card ─────────────────────────────────────────────────────────────
-function ProductCard({ product }: { product: ProductItem }) {
+function ProductCard({ product, index }: { product: ProductItem; index: number }) {
   const [imageError, setImageError] = useState(false);
   const t = useTranslations("products");
+  const isPlaceholder = product.image.includes("/placeholders/");
+  const isPriority = index < 2;
 
   return (
     <Link
-      href={`/products/${product.slug}`}
+      href="#calculator"
       className={
         "group relative flex-none " +
         // card width: nearly half-screen on mobile, ~1/3 on tablet, ~1/4 on desktop
@@ -155,16 +157,42 @@ function ProductCard({ product }: { product: ProductItem }) {
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary-yellow to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
 
       {/* Image or placeholder */}
-      <div className="absolute inset-0 bg-[#111]">
+      <div className="absolute inset-0 bg-[#0f0f0f] overflow-hidden">
         {!imageError ? (
-          <Image
-            src={product.image}
-            alt={t(`categories.${product.translationKey}`)}
-            fill
-            sizes="(max-width: 640px) 80vw, (max-width: 768px) 45vw, (max-width: 1024px) 32vw, 24vw"
-            className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
-            onError={() => setImageError(true)}
-          />
+          isPlaceholder ? (
+            <Image
+              src={product.image}
+              alt={t(`categories.${product.translationKey}`)}
+              fill
+              priority={isPriority}
+              sizes="(max-width: 640px) 80vw, (max-width: 768px) 45vw, (max-width: 1024px) 32vw, 24vw"
+              className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <>
+              {/* Blurred background for real portrait/landscape images to prevent harsh cropping */}
+              <Image
+                src={product.image}
+                alt=""
+                fill
+                priority={isPriority}
+                sizes="(max-width: 640px) 80vw, (max-width: 768px) 45vw, (max-width: 1024px) 32vw, 24vw"
+                className="object-cover blur-xl opacity-30 scale-110 pointer-events-none"
+                aria-hidden="true"
+              />
+              {/* Main Image */}
+              <Image
+                src={product.image}
+                alt={t(`categories.${product.translationKey}`)}
+                fill
+                priority={isPriority}
+                sizes="(max-width: 640px) 80vw, (max-width: 768px) 45vw, (max-width: 1024px) 32vw, 24vw"
+                className="object-contain p-2 opacity-95 group-hover:opacity-100 group-hover:scale-[1.02] transition-all duration-500"
+                onError={() => setImageError(true)}
+              />
+            </>
+          )
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-[#121212] via-[#161616] to-[#0c0c0c] flex items-center justify-center relative">
             <div

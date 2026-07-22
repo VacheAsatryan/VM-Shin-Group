@@ -5,7 +5,9 @@ export interface MapRouteEstimate {
   destinationAddress: string;
   distanceKm: number;
   estimatedDurationMinutes: number;
-  isDemoProvider: boolean;
+  isAvailable: boolean;
+  statusMessageKey?: string;
+  error?: string;
 }
 
 export interface MapProvider {

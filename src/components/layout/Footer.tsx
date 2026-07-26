@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { motion, useReducedMotion } from "motion/react";
 import { fadeInUp, reducedMotionVariants } from "@/config/animations";
 
@@ -107,28 +107,33 @@ export default function Footer() {
             </h3>
             <ul className="flex flex-col gap-2.5 text-xs font-semibold">
               <li>
-                <Link href="#hero" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
+                <Link href="/" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
                   {t("nav.home")}
                 </Link>
               </li>
               <li>
-                <Link href="#products" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
+                <Link href="/products" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
                   {t("nav.products")}
                 </Link>
               </li>
               <li>
-                <Link href="#production" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
+                <Link href="/#production" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
                   {t("nav.production")}
                 </Link>
               </li>
               <li>
-                <Link href="#applications" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
+                <Link href="/#applications" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
                   {t("nav.applications")}
                 </Link>
               </li>
               <li>
-                <Link href="#calculator" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
+                <Link href="/#calculator" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
                   {t("nav.calculator")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/documents" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
+                  {t("nav.documents")}
                 </Link>
               </li>
             </ul>

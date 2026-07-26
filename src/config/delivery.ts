@@ -1,3 +1,5 @@
+import { VM_SHIN_GROUP_FACTORY_COORDINATES } from "@/lib/maps/mapConstants";
+
 export interface FactoryOriginConfig {
   name: string;
   address: string;
@@ -17,8 +19,8 @@ export const FACTORY_ORIGIN: FactoryOriginConfig = {
   region: "Armavir Province",
   country: "Armenia",
   coordinates: {
-    lat: 40.1544,
-    lng: 44.0384,
+    lat: VM_SHIN_GROUP_FACTORY_COORDINATES[0],
+    lng: VM_SHIN_GROUP_FACTORY_COORDINATES[1],
   },
 };
 

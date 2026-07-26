@@ -6,6 +6,7 @@ import ProductCarousel from "@/components/sections/ProductCarousel";
 import ProductionSection from "@/components/sections/ProductionSection";
 import ApplicationsSection from "@/components/sections/ApplicationsSection";
 import CalculatorSection from "@/components/sections/CalculatorSection";
+import HomeTrustSection from "@/components/sections/HomeTrustSection";
 import FirefliesBackground from "@/components/ui/FirefliesBackground";
 import IndustrialDustParticles from "@/components/ui/IndustrialDustParticles";
 
@@ -65,6 +66,7 @@ export default function HomePage() {
         <ProductionSection />
         <ApplicationsSection />
         <CalculatorSection />
+        <HomeTrustSection />
       </div>
     </div>
   );

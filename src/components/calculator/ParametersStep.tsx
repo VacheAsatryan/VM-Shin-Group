@@ -36,7 +36,7 @@ export default function ParametersStep({
       <div className="flex items-center gap-4 p-4 rounded-xl bg-surface/80 border border-white/10 shadow-lg">
         <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg relative overflow-hidden shrink-0 border border-white/10">
           <Image
-            src={category.image}
+            src={selectedVariant.image || category.image}
             alt={t(`categories.${category.nameKey}`)}
             fill
             className="object-cover"

@@ -6,8 +6,10 @@ import type { CalculationResult, EstimateSummaryPayload } from "@/lib/calculator
 import type { AddressSuggestion } from "@/lib/maps/addressProvider.types";
 import type { MapRouteEstimate } from "@/lib/maps/mapProvider.types";
 import AddressAutocomplete from "./AddressAutocomplete";
-import YandexMapView from "./YandexMapView";
+import YandexDeliveryMap from "./YandexDeliveryMap";
 import { Button, LinkButton } from "@/components/ui/Button";
+import type { RouteStatus } from "@/hooks/useDeliveryRoute";
+import type { Coordinates } from "@/lib/routing/types";
 
 interface DeliveryStepProps {
   result: CalculationResult;
@@ -18,7 +20,11 @@ interface DeliveryStepProps {
   onInvalidateAddress: () => void;
   isMapAvailable: boolean;
   routeEstimate: MapRouteEstimate | null;
-  isRouteCalculating: boolean;
+  routeGeometry: Coordinates[] | null;
+  destinationCoords: Coordinates | null;
+  routeStatus: RouteStatus;
+  errorMessageKey?: string;
+  onConfirmCoordinates: (coords: Coordinates) => void;
   onBackToEstimate: () => void;
   onRequestOffer?: (payload: EstimateSummaryPayload) => void;
 }
@@ -32,7 +38,11 @@ export default function DeliveryStep({
   onInvalidateAddress,
   isMapAvailable,
   routeEstimate,
-  isRouteCalculating,
+  routeGeometry,
+  destinationCoords,
+  routeStatus,
+  errorMessageKey,
+  onConfirmCoordinates,
   onBackToEstimate,
   onRequestOffer,
 }: DeliveryStepProps) {
@@ -43,7 +53,7 @@ export default function DeliveryStep({
 
   const deliveryCostText = isAddressValidated && result.pricing.deliveryEstimate !== null
     ? `${result.pricing.deliveryEstimate.toLocaleString()} ${currency}`
-    : t("stepper.notCalculated");
+    : t("delivery.deliveryNotCalculated");
 
   const handleRequestOfferClick = () => {
     const payload: EstimateSummaryPayload = {
@@ -60,6 +70,10 @@ export default function DeliveryStep({
       estimatedDistanceKm: isAddressValidated ? routeEstimate?.distanceKm || 0 : 0,
       isDemoData: true,
       timestamp: new Date().toISOString(),
+      productName: t(`categories.${result.category}`),
+      variantName: t(`blocks.${result.variant.nameKey}`),
+      imageFilename: result.variant.image ? result.variant.image.split("/").pop() : undefined,
+      note: result.pricing.priceStatus === "to_be_confirmed" ? "exact size and price pending confirmation" : undefined,
     };
 
     if (onRequestOffer) {
@@ -106,24 +120,53 @@ export default function DeliveryStep({
         />
 
         {/* Address Invalidation Warning if user typed text but didn't pick from dropdown */}
-        {destinationAddress.trim().length > 0 && !selectedSuggestion && isMapAvailable && (
+        {destinationAddress.trim().length > 0 && !selectedSuggestion && isMapAvailable && routeStatus !== "selectingOnMap" && (
           <div className="p-3 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-mono">
             ⚠ {t("delivery.addressInvalidated")}
           </div>
         )}
 
-        {/* Yandex Map View with Route Loading Overlay */}
-        <div className="relative">
-          <YandexMapView
-            destinationAddress={destinationAddress}
-            isAvailable={isMapAvailable}
-            routeEstimate={isAddressValidated ? routeEstimate : null}
-          />
+        {/* Map Instruction */}
+        {routeStatus === "selectingOnMap" && (
+          <div className="p-3 rounded bg-blue-500/10 border border-blue-500/30 text-blue-300 text-xs font-mono text-center animate-pulse">
+            📍 {t("delivery.selectOnMap")}
+          </div>
+        )}
 
-          {isRouteCalculating && (
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm rounded-xl flex items-center justify-center text-primary-yellow font-mono text-xs gap-2">
+        {/* Yandex Map View with Route Loading Overlay */}
+        <div className="relative flex flex-col gap-2">
+          <YandexDeliveryMap
+            routeStatus={routeStatus}
+            routeGeometry={isAddressValidated ? routeGeometry : null}
+            destinationCoords={isAddressValidated || routeStatus === "buildingRoute" || routeStatus === "selectingOnMap" ? destinationCoords : null}
+            routeEstimate={isAddressValidated ? routeEstimate : null}
+            onConfirmCoordinates={onConfirmCoordinates}
+            onMapError={(key) => alert(t(`delivery.${key}`))}
+          />
+          
+          {/* Distance Text Below Map */}
+          {isAddressValidated && routeEstimate?.distanceKm ? (
+            <div className="flex flex-col items-center gap-3 mt-2">
+              <div className="text-sm font-mono text-primary-yellow text-center">
+                {t("delivery.routeDistance", { distance: routeEstimate.distanceKm.toFixed(1) })}
+              </div>
+              <Button variant="secondary" onClick={onInvalidateAddress} className="text-xs max-w-xs">
+                {t("delivery.changeDeliveryPoint")}
+              </Button>
+            </div>
+          ) : null}
+
+          {(routeStatus === "buildingRoute") && (
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm rounded-xl flex flex-col items-center justify-center text-primary-yellow font-mono text-xs gap-2">
               <span className="animate-spin text-base">⚙</span>
               <span>{t("delivery.routeCalculating")}</span>
+            </div>
+          )}
+          
+          {errorMessageKey && (
+            <div className="absolute inset-0 bg-black/80 backdrop-blur-md rounded-xl flex flex-col items-center justify-center text-red-400 font-mono text-xs gap-3 p-6 text-center" style={{ zIndex: 10 }}>
+              <span className="text-3xl">⚠</span>
+              <span>{t(`delivery.${errorMessageKey}`)}</span>
             </div>
           )}
         </div>

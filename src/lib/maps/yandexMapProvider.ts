@@ -11,23 +11,44 @@ declare global {
 
 export class YandexMapProvider implements MapProvider {
   private apiKey: string;
+  private suggestApiKey: string;
   private scriptLoadingPromise: Promise<void> | null = null;
 
   constructor() {
     this.apiKey = process.env.NEXT_PUBLIC_YANDEX_MAPS_API_KEY || "";
+    this.suggestApiKey = process.env.NEXT_PUBLIC_YANDEX_SUGGEST_API_KEY || "";
+
+    if (process.env.NODE_ENV !== "production") {
+      console.log("Yandex Maps key configured:", Boolean(this.apiKey));
+      console.log("Yandex Suggest key configured:", Boolean(this.suggestApiKey));
+      console.log("Yandex Suggest key length:", this.suggestApiKey.length);
+    }
   }
 
   public get isApiKeyAvailable(): boolean {
     return Boolean(this.apiKey && this.apiKey.trim().length > 0);
   }
 
-  private loadScript(): Promise<void> {
+  public get isSuggestApiKeyAvailable(): boolean {
+    return Boolean(
+      this.suggestApiKey &&
+      this.suggestApiKey.trim().length > 0
+    );
+  }
+
+  public loadScript(): Promise<void> {
+    if (typeof window === "undefined") {
+      return Promise.reject(new Error("Yandex Maps can only load in browser"));
+    }
+
     if (!this.isApiKeyAvailable) {
-      return Promise.reject(new Error("Yandex Maps API Key missing"));
+      return Promise.reject(new Error("Yandex Maps API key missing"));
     }
 
     if (window.ymaps) {
-      return Promise.resolve();
+      return new Promise((resolve) => {
+        window.ymaps.ready(resolve);
+      });
     }
 
     if (this.scriptLoadingPromise) {
@@ -35,18 +56,43 @@ export class YandexMapProvider implements MapProvider {
     }
 
     this.scriptLoadingPromise = new Promise((resolve, reject) => {
-      const script = document.createElement("script");
-      script.src = `https://api-maps.yandex.ru/2.1/?lang=en_US&apikey=${this.apiKey}`;
-      script.type = "text/javascript";
-      script.async = true;
-      script.onload = () => {
-        if (window.ymaps) {
-          window.ymaps.ready(() => resolve());
-        } else {
-          resolve();
+      const existingScript = document.querySelector(
+        'script[data-yandex-maps="true"]'
+      ) as HTMLScriptElement | null;
+
+      const handleReady = () => {
+        if (!window.ymaps) {
+          reject(new Error("Yandex script loaded but window.ymaps is unavailable"));
+          return;
         }
+
+        window.ymaps.ready(() => resolve());
       };
-      script.onerror = (err) => reject(err);
+
+      if (existingScript) {
+        existingScript.addEventListener("load", handleReady, { once: true });
+        existingScript.addEventListener(
+          "error",
+          () => reject(new Error("Existing Yandex Maps script failed")),
+          { once: true }
+        );
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.dataset.yandexMaps = "true";
+      
+      const url = `https://api-maps.yandex.ru/2.1/?apikey=${encodeURIComponent(this.apiKey)}&suggest_apikey=${encodeURIComponent(this.suggestApiKey)}&lang=ru_RU`;
+
+      script.src = url;
+      script.async = true;
+
+      script.onload = handleReady;
+      script.onerror = () => {
+        this.scriptLoadingPromise = null;
+        reject(new Error("Failed to load Yandex Maps JavaScript API"));
+      };
+
       document.head.appendChild(script);
     });
 

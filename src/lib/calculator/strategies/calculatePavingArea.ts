@@ -8,11 +8,19 @@ export function calculatePavingArea(
   const width = Math.max(0, input.widthMeters || 0);
   const reserve = Math.max(0, input.reservePercent || 0) / 100;
 
-  const rawArea = length * width;
-  const coverageAreaSqMeters = Number((rawArea * (1 + reserve)).toFixed(2));
-
   const itemsPerSqM = variant.itemsPerSqMeter || 50;
-  const secondaryQuantity = Math.ceil(coverageAreaSqMeters * itemsPerSqM);
+
+  let coverageAreaSqMeters = 0;
+  let secondaryQuantity = 0;
+
+  if (input.mode === "quantity") {
+    secondaryQuantity = Math.max(0, input.quantity || 0);
+    coverageAreaSqMeters = Number((secondaryQuantity / itemsPerSqM).toFixed(2));
+  } else {
+    const rawArea = length * width;
+    coverageAreaSqMeters = Number((rawArea * (1 + reserve)).toFixed(2));
+    secondaryQuantity = Math.ceil(coverageAreaSqMeters * itemsPerSqM);
+  }
 
   const palletsCount =
     variant.itemsPerPallet && variant.itemsPerPallet > 0

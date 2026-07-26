@@ -55,7 +55,13 @@ export default function CalculatorField({
             id={id}
             type="number"
             value={value}
-            onChange={onChange}
+            onChange={(e) => {
+              // Strip leading zeroes before a number (e.g. "0111" -> "111")
+              if (e.target.value.length > 1 && /^0+(?=\d)/.test(e.target.value)) {
+                e.target.value = e.target.value.replace(/^0+(?=\d)/, "");
+              }
+              onChange(e);
+            }}
             min={min}
             max={max}
             step={step}

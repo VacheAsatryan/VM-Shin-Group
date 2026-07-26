@@ -32,13 +32,10 @@ export default function CalculatorResult({
     const payload: EstimateSummaryPayload = {
       category: result.category,
       variantId: result.variant.id,
-      input: {
-        type: "quantity_product",
-        quantity: result.metrics.primaryQuantity,
-        variantId: result.variant.id,
-      },
+      input: result.input,
       metrics: result.metrics,
       pricing: result.pricing,
+      accessories: result.input.accessories,
       deliveryAddress: destinationAddress,
       estimatedDistanceKm: distanceKm,
       isDemoData: true,
@@ -67,6 +64,25 @@ export default function CalculatorResult({
           {t(`blocks.${result.variant.nameKey}`)}
         </span>
       </div>
+
+      {/* Selected Accessories / Configuration */}
+      {result.input.accessories && Object.keys(result.input.accessories).length > 0 && (
+        <div className="bg-white/5 border border-white/10 rounded-xl p-4 -mt-2">
+          <h4 className="text-[10px] font-semibold text-text-muted mb-1.5 uppercase tracking-wider">
+            {t("stepper.configuration")}
+          </h4>
+          <div className="flex flex-wrap gap-2">
+            {Object.entries(result.input.accessories).map(([groupId, optionId]) => (
+              <span
+                key={groupId}
+                className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-primary-yellow/90 bg-primary-yellow/10 text-xs font-medium border border-primary-yellow/20"
+              >
+                {t(`accessories.${optionId}`)}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Primary Metrics Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

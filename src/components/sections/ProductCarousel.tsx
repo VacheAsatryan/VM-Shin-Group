@@ -93,10 +93,26 @@ export default function ProductCarousel() {
       onFocus={() => setIsPaused(true)}
       onBlur={() => setIsPaused(false)}
     >
+      {/* Scrollable strip — full viewport width, no side padding */}
+      <div
+        ref={scrollerRef}
+        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar relative z-10"
+        role="region"
+        aria-label="Products list"
+      >
+        {PRODUCTS.map((product, idx) => (
+          <ProductCard key={product.id} product={product} index={idx} />
+        ))}
+      </div>
+
       {/* Arrow controls — absolute, centred vertically on the strip */}
-      <div className="absolute inset-y-0 left-0 right-0 pointer-events-none z-20 flex items-center justify-between px-3 sm:px-5">
+      <div className="absolute inset-y-0 left-0 right-0 pointer-events-none z-50 flex items-center justify-between px-3 sm:px-5">
         <button
-          onClick={() => scrollBy("left")}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            scrollBy("left");
+          }}
           disabled={!canScrollLeft}
           className="pointer-events-auto w-10 h-10 rounded-full bg-black/60 border border-primary-yellow/20 flex items-center justify-center text-white disabled:opacity-20 hover:border-primary-yellow/50 hover:text-primary-yellow active:scale-90 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow backdrop-blur-sm"
           aria-label="Scroll left"
@@ -107,7 +123,11 @@ export default function ProductCarousel() {
         </button>
 
         <button
-          onClick={() => scrollBy("right")}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            scrollBy("right");
+          }}
           disabled={!canScrollRight}
           className="pointer-events-auto w-10 h-10 rounded-full bg-black/60 border border-primary-yellow/20 flex items-center justify-center text-white disabled:opacity-20 hover:border-primary-yellow/50 hover:text-primary-yellow active:scale-90 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow backdrop-blur-sm"
           aria-label="Scroll right"
@@ -116,18 +136,6 @@ export default function ProductCarousel() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
           </svg>
         </button>
-      </div>
-
-      {/* Scrollable strip — full viewport width, no side padding */}
-      <div
-        ref={scrollerRef}
-        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar"
-        role="region"
-        aria-label="Products list"
-      >
-        {PRODUCTS.map((product, idx) => (
-          <ProductCard key={product.id} product={product} index={idx} />
-        ))}
       </div>
     </section>
   );
@@ -142,7 +150,7 @@ function ProductCard({ product, index }: { product: ProductItem; index: number }
 
   return (
     <Link
-      href="#calculator"
+      href={`/products/${product.slug}?from=home`}
       className={
         "group relative flex-none " +
         // card width: nearly half-screen on mobile, ~1/3 on tablet, ~1/4 on desktop

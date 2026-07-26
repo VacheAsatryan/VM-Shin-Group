@@ -87,11 +87,12 @@ export default function Header() {
   }, [mobileMenuOpen]);
 
   const navigationItems = [
-    { label: t("home"), href: "#hero" },
-    { label: t("products"), href: "#products" },
-    { label: t("about"), href: "#production" },
-    { label: t("projects"), href: "#applications" },
-    { label: t("contact"), href: "#contact" },
+    { label: t("home"), href: "/#hero" },
+    { label: t("products"), href: "/products" },
+    { label: t("about"), href: "/#production" },
+    { label: t("projects"), href: "/#applications" },
+    { label: t("contact"), href: "/#contact" },
+    { label: t("documents"), href: "/documents" },
   ];
 
   const languages = [
@@ -101,7 +102,10 @@ export default function Header() {
   ] as const;
 
   const handleLanguageChange = (newLocale: "hy" | "ru" | "en") => {
-    router.replace(pathname, { locale: newLocale });
+    const searchParamsStr = typeof window !== "undefined" ? window.location.search : "";
+    const hashStr = typeof window !== "undefined" ? window.location.hash : "";
+    const targetUrl = `${pathname}${searchParamsStr}${hashStr}`;
+    router.replace(targetUrl, { locale: newLocale });
   };
 
   return (

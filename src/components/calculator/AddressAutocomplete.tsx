@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef, useCallback, KeyboardEvent, ChangeEvent } from "react";
 import { useTranslations } from "next-intl";
 import type { AddressSuggestion } from "@/lib/maps/addressProvider.types";
-import { yandexAddressProvider } from "@/lib/maps/yandexAddressProvider";
 
 interface AddressAutocompleteProps {
   value: string;
@@ -32,7 +31,7 @@ export default function AddressAutocomplete({
   // Debounced Suggestion Fetching
   const fetchSuggestionsDebounced = useCallback(
     async (query: string) => {
-      if (!isMapAvailable || query.trim().length < 2) {
+      if (!isMapAvailable || query.trim().length < 3) {
         setSuggestions([]);
         setIsOpen(false);
         setIsLoading(false);
@@ -42,14 +41,91 @@ export default function AddressAutocomplete({
       setIsLoading(true);
       setHasSearched(true);
 
+      if (typeof window === "undefined" || !window.ymaps || !window.ymaps.suggest) {
+        setIsLoading(false);
+        return;
+      }
+
       try {
-        const results = await yandexAddressProvider.fetchSuggestions(query);
-        setSuggestions(results);
-        setIsOpen(results.length > 0);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const rawResults: any[] = await window.ymaps.suggest(query, {
+          provider: "yandex#map",
+          results: 5,
+          boundedBy: [
+            [38.8, 43.4],
+            [41.3, 46.7]
+          ],
+          strictBounds: false
+        });
+
+        if (!Array.isArray(rawResults)) {
+          setSuggestions([]);
+          setIsOpen(false);
+          setHighlightedIndex(-1);
+          return;
+        }
+
+        const formattedResults = rawResults.map((item, idx) => {
+          console.log("SUGGEST ITEM", item);
+          
+          let coordinates;
+          // Some Yandex suggest responses (e.g. from v2) contain coordinates natively
+          if (item.center && Array.isArray(item.center) && item.center.length >= 2) {
+            coordinates = { lat: item.center[0], lng: item.center[1] };
+          } else if (item.geometry && item.geometry.coordinates) {
+            coordinates = { lat: item.geometry.coordinates[0], lng: item.geometry.coordinates[1] };
+          } else if (item.ll) { // sometimes returned as ll: [lon, lat] or "lon,lat"
+            const parts = Array.isArray(item.ll) ? item.ll : item.ll.split(',');
+            if (parts.length >= 2) {
+              coordinates = { lat: parseFloat(parts[1]), lng: parseFloat(parts[0]) };
+            }
+          }
+
+          return {
+            id: `yandex-suggest-${idx}-${item.value}`,
+            label: item.displayName || item.value,
+            subtitle: item.value !== item.displayName ? item.value : undefined,
+            coordinates
+          };
+        });
+
+        setSuggestions(formattedResults);
+        setIsOpen(formattedResults.length > 0);
         setHighlightedIndex(-1);
-      } catch (err) {
-        console.warn("Autocomplete fetch error:", err);
-        setSuggestions([]);
+      } catch (err: unknown) {
+        console.warn("Suggest API forbidden/failed, falling back to Geocoder:", err);
+        
+        try {
+          // Fallback to Geocoder if Suggest API is not active/configured correctly
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const geocodeResult: any = await window.ymaps.geocode(query, {
+            results: 5,
+            boundedBy: [
+              [38.8, 43.4],
+              [41.3, 46.7]
+            ],
+            strictBounds: false
+          });
+
+          const geoObjects = geocodeResult.geoObjects.toArray();
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const fallbackResults = geoObjects.map((obj: any, idx: number) => {
+            const name = obj.properties.get("name");
+            const description = obj.properties.get("description");
+            return {
+              id: `yandex-geocode-${idx}-${name}`,
+              label: name,
+              subtitle: description,
+            };
+          });
+
+          setSuggestions(fallbackResults);
+          setIsOpen(fallbackResults.length > 0);
+          setHighlightedIndex(-1);
+        } catch (fallbackErr) {
+          console.warn("Geocoder fallback also failed:", fallbackErr);
+          setSuggestions([]);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -59,7 +135,7 @@ export default function AddressAutocomplete({
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (value.trim().length >= 2) {
+      if (value.trim().length >= 3) {
         fetchSuggestionsDebounced(value);
       } else {
         setSuggestions([]);
@@ -181,7 +257,7 @@ export default function AddressAutocomplete({
       )}
 
       {/* No Suggestions State */}
-      {hasSearched && !isLoading && value.trim().length >= 2 && suggestions.length === 0 && isMapAvailable && (
+      {hasSearched && !isLoading && value.trim().length >= 3 && suggestions.length === 0 && isMapAvailable && (
         <p className="text-[11px] text-text-secondary font-mono pt-1">
           ℹ {t("noSuggestionsFound")}
         </p>

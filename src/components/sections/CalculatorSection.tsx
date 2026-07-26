@@ -12,9 +12,10 @@ import type {
   EstimateSummaryPayload,
 } from "@/lib/calculator/calculator.types";
 import type { AddressSuggestion } from "@/lib/maps/addressProvider.types";
-import type { MapRouteEstimate } from "@/lib/maps/mapProvider.types";
+
 import { calculateProductEstimate } from "@/lib/calculator/calculateProductEstimate";
 import { yandexMapProvider } from "@/lib/maps/yandexMapProvider";
+import { useDeliveryRoute } from "@/hooks/useDeliveryRoute";
 import { staggerContainer, fadeInUp, reducedMotionVariants } from "@/config/animations";
 
 import CalculatorStepper from "@/components/calculator/CalculatorStepper";
@@ -25,11 +26,20 @@ import DeliveryStep from "@/components/calculator/DeliveryStep";
 
 interface CalculatorSectionProps {
   initialProductCategory?: ProductCategoryType;
+  initialVariantId?: string;
+  initialAccessories?: Record<string, string>;
   onRequestOffer?: (payload: EstimateSummaryPayload) => void;
 }
 
-function getDefaultInputForCategory(category: ProductCategoryConfig): CalculatorProductInput {
-  const variantId = category.variants[0]?.id || "";
+function getDefaultInputForCategory(
+  category: ProductCategoryConfig,
+  variantIdOverride?: string
+): CalculatorProductInput {
+  const variantId =
+    variantIdOverride ||
+    (category.variants.find((v) => v.id === variantIdOverride)?.id) ||
+    category.variants[0]?.id ||
+    "";
 
   switch (category.calculationType) {
     case "wall_blocks":
@@ -78,6 +88,8 @@ function getDefaultInputForCategory(category: ProductCategoryConfig): Calculator
 
 export default function CalculatorSection({
   initialProductCategory,
+  initialVariantId,
+  initialAccessories,
   onRequestOffer,
 }: CalculatorSectionProps) {
   const t = useTranslations("calculator");
@@ -87,22 +99,74 @@ export default function CalculatorSection({
   const defaultCategory =
     CALCULATOR_PRODUCTS.find((p) => p.id === initialProductCategory) || CALCULATOR_PRODUCTS[0];
 
+  const defaultVariant =
+    (initialVariantId && defaultCategory.variants.find((v) => v.id === initialVariantId)) ||
+    defaultCategory.variants[0];
+
   // Step state
   const [step, setStep] = useState<1 | 2 | 3 | 4>(isProductPageMode ? 2 : 1);
   const [maxAccessibleStep, setMaxAccessibleStep] = useState<1 | 2 | 3 | 4>(isProductPageMode ? 2 : 1);
 
   // Category & Variant State
   const [selectedCategory, setSelectedCategory] = useState<ProductCategoryConfig>(defaultCategory);
-  const [selectedVariant, setSelectedVariant] = useState<ProductVariantConfig>(defaultCategory.variants[0]);
-  const [input, setInput] = useState<CalculatorProductInput>(getDefaultInputForCategory(defaultCategory));
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariantConfig>(defaultVariant);
+  const [input, setInput] = useState<CalculatorProductInput>(() => {
+    const defInput = getDefaultInputForCategory(defaultCategory, defaultVariant.id);
+    if (initialAccessories) {
+      defInput.accessories = initialAccessories;
+    }
+    return defInput;
+  });
+
+  const [prevVariantId, setPrevVariantId] = useState(initialVariantId);
+  const [prevAccessories, setPrevAccessories] = useState(initialAccessories);
+
+  // Sync state during render when initialVariantId or initialAccessories prop changes
+  let stateSynced = false;
+  if (initialVariantId && initialVariantId !== prevVariantId) {
+    setPrevVariantId(initialVariantId);
+    stateSynced = true;
+  }
+  
+  // Basic deep compare for accessories
+  const accessoriesChanged = JSON.stringify(initialAccessories) !== JSON.stringify(prevAccessories);
+  if (accessoriesChanged) {
+    setPrevAccessories(initialAccessories);
+    stateSynced = true;
+  }
+
+  if (stateSynced) {
+    const matchedVariant = initialVariantId
+      ? selectedCategory.variants.find((v) => v.id === initialVariantId) || selectedVariant
+      : selectedVariant;
+
+    if (matchedVariant !== selectedVariant) {
+      setSelectedVariant(matchedVariant);
+    }
+    
+    setInput((prev) => ({ 
+      ...prev, 
+      variantId: matchedVariant.id,
+      accessories: initialAccessories || prev.accessories
+    }));
+  }
 
   // Delivery Autocomplete & Route State
   const [destinationAddress, setDestinationAddress] = useState<string>("");
   const [selectedSuggestion, setSelectedSuggestion] = useState<AddressSuggestion | null>(null);
-  const [routeEstimate, setRouteEstimate] = useState<MapRouteEstimate | null>(null);
-  const [isRouteCalculating, setIsRouteCalculating] = useState<boolean>(false);
 
   const isMapAvailable = yandexMapProvider.isApiKeyAvailable;
+
+  const {
+    status: routeStatus,
+    routeEstimate,
+    routeGeometry,
+    destinationCoords,
+    startMapSelection,
+    confirmCoordinates,
+    clearRoute,
+    errorMessageKey,
+  } = useDeliveryRoute(isMapAvailable);
 
   // Handle Category Selection (Step 1 -> Step 2)
   const handleSelectCategory = (newCategory: ProductCategoryConfig) => {
@@ -139,24 +203,16 @@ export default function CalculatorSection({
   // Handle Address Invalidation when user types manually
   const handleInvalidateAddress = () => {
     setSelectedSuggestion(null);
-    setRouteEstimate(null);
+    clearRoute();
   };
 
-  // Handle Autocomplete Selection -> Triggers Automatic Route Calculation
+  // Handle Autocomplete Selection -> Triggers Map Selection
   const handleSelectSuggestion = (suggestion: AddressSuggestion) => {
     setSelectedSuggestion(suggestion);
     setDestinationAddress(suggestion.label);
 
     if (isMapAvailable) {
-      setIsRouteCalculating(true);
-      yandexMapProvider
-        .calculateRoute(suggestion.label)
-        .then((est) => {
-          setRouteEstimate(est);
-        })
-        .finally(() => {
-          setIsRouteCalculating(false);
-        });
+      startMapSelection(suggestion.label);
     }
   };
 
@@ -261,7 +317,11 @@ export default function CalculatorSection({
                 onInvalidateAddress={handleInvalidateAddress}
                 isMapAvailable={isMapAvailable}
                 routeEstimate={routeEstimate}
-                isRouteCalculating={isRouteCalculating}
+                routeGeometry={routeGeometry}
+                destinationCoords={destinationCoords}
+                routeStatus={routeStatus}
+                errorMessageKey={errorMessageKey}
+                onConfirmCoordinates={confirmCoordinates}
                 onBackToEstimate={() => setStep(3)}
                 onRequestOffer={onRequestOffer}
               />

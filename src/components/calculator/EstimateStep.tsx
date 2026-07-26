@@ -24,15 +24,16 @@ export default function EstimateStep({
     const payload: EstimateSummaryPayload = {
       category: result.category,
       variantId: result.variant.id,
-      input: {
-        type: "quantity_product",
-        quantity: result.metrics.primaryQuantity,
-        variantId: result.variant.id,
-      },
+      input: result.input,
       metrics: result.metrics,
       pricing: result.pricing,
+      accessories: result.input.accessories,
       isDemoData: true,
       timestamp: new Date().toISOString(),
+      productName: t(`categories.${result.category}`),
+      variantName: t(`blocks.${result.variant.nameKey}`),
+      imageFilename: result.variant.image ? result.variant.image.split("/").pop() : undefined,
+      note: result.pricing.priceStatus === "to_be_confirmed" ? "exact size and price pending confirmation" : undefined,
     };
 
     if (onRequestOffer) {
@@ -58,6 +59,25 @@ export default function EstimateStep({
             {t(`blocks.${result.variant.nameKey}`)}
           </span>
         </div>
+
+        {/* Selected Accessories / Configuration */}
+        {result.input.accessories && Object.keys(result.input.accessories).length > 0 && (
+          <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+            <h4 className="text-xs font-semibold text-text-muted mb-2 uppercase tracking-wider">
+              {t("stepper.configuration")}
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {Object.entries(result.input.accessories).map(([groupId, optionId]) => (
+                <span
+                  key={groupId}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 text-white text-sm font-medium"
+                >
+                  {t(`accessories.${optionId}`)}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* 1. Large Main Primary Result */}
         <div className="p-6 rounded-xl bg-background/80 border border-white/5 flex flex-col items-center text-center">

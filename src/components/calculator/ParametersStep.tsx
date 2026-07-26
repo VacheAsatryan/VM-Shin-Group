@@ -33,8 +33,8 @@ export default function ParametersStep({
   return (
     <div className="max-w-3xl mx-auto flex flex-col gap-6">
       {/* Supportive Header with Compact Product Banner */}
-      <div className="flex items-center gap-4 p-4 rounded-xl bg-surface/80 border border-white/10 shadow-lg">
-        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg relative overflow-hidden shrink-0 border border-white/10">
+      <div className="flex items-center gap-4 p-4 rounded-xl bg-surface/80 border border-gold-border/40 shadow-lg">
+        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg relative overflow-hidden shrink-0 border border-gold-border/40">
           <Image
             src={selectedVariant.image || category.image}
             alt={t(`categories.${category.nameKey}`)}
@@ -56,7 +56,7 @@ export default function ParametersStep({
       </div>
 
       {/* Input Parameters Box */}
-      <div className="p-6 sm:p-8 rounded-xl bg-surface/90 border border-white/10 shadow-xl flex flex-col gap-6">
+      <div className="p-6 sm:p-8 rounded-xl bg-surface/90 border border-gold-border/40 shadow-xl flex flex-col gap-6">
         {/* Product Variant Picker */}
         <ProductVariantFields
           variants={category.variants}
@@ -68,7 +68,7 @@ export default function ParametersStep({
         <DynamicCalculatorForm input={input} onChangeInput={onChangeInput} />
 
         {/* Primary Action Button */}
-        <div className="pt-4 border-t border-white/10">
+        <div className="pt-4 border-t border-gold-border/30">
           <Button
             type="button"
             variant="primary"

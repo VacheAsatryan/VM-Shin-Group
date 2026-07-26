@@ -35,7 +35,7 @@ export default function ProductVariantFields({
               className={`p-3 rounded-lg border text-left transition-all duration-200 flex items-center justify-between gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow ${
                 isSelected
                   ? "bg-surface-elevated border-primary-yellow/60 text-primary-yellow shadow-glow/10"
-                  : "bg-background/80 border-white/10 text-text-primary hover:border-primary-yellow/30"
+                  : "bg-background/80 border-gold-border text-text-primary hover:border-primary-yellow/30"
               }`}
             >
               <span className="text-xs font-bold font-mono">

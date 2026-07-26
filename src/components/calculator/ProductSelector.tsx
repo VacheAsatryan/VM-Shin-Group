@@ -34,10 +34,10 @@ export default function ProductSelector({
               className={`p-3 rounded-lg border transition-all duration-300 text-left flex items-center gap-3 relative overflow-hidden group focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow ${
                 isSelected
                   ? "bg-surface-elevated/90 border-primary-yellow/60 shadow-glow/20"
-                  : "bg-surface/50 border-white/10 hover:border-primary-yellow/30 hover:bg-surface-elevated/40"
+                  : "bg-surface/50 border-gold-border hover:border-primary-yellow/30 hover:bg-surface-elevated/40"
               }`}
             >
-              <div className="w-10 h-10 rounded-md bg-background/80 relative overflow-hidden shrink-0 border border-white/5">
+              <div className="w-10 h-10 rounded-md bg-background/80 relative overflow-hidden shrink-0 border border-gold-border">
                 <Image
                   src={prod.image}
                   alt={t(`categories.${prod.nameKey}`)}

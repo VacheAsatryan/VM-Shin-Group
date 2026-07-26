@@ -70,7 +70,7 @@ export default function VariantGallery({
               aria-label={t("previousVariant") || "Previous variant"}
               disabled={!canScrollLeft}
               onClick={() => scroll("left")}
-              className="w-7 h-7 rounded-md border border-white/10 bg-surface flex items-center justify-center text-white disabled:opacity-30 disabled:cursor-not-allowed hover:bg-surface-light hover:border-primary-yellow/30 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-yellow"
+              className="w-7 h-7 rounded-md border border-gold-border bg-surface flex items-center justify-center text-white disabled:opacity-30 disabled:cursor-not-allowed hover:bg-surface-light hover:border-primary-yellow/30 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-yellow"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -81,7 +81,7 @@ export default function VariantGallery({
               aria-label={t("nextVariant") || "Next variant"}
               disabled={!canScrollRight}
               onClick={() => scroll("right")}
-              className="w-7 h-7 rounded-md border border-white/10 bg-surface flex items-center justify-center text-white disabled:opacity-30 disabled:cursor-not-allowed hover:bg-surface-light hover:border-primary-yellow/30 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-yellow"
+              className="w-7 h-7 rounded-md border border-gold-border bg-surface flex items-center justify-center text-white disabled:opacity-30 disabled:cursor-not-allowed hover:bg-surface-light hover:border-primary-yellow/30 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-yellow"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -118,7 +118,7 @@ export default function VariantGallery({
           aria-label={t("previousVariant") || "Previous variant"}
           disabled={!canScrollLeft}
           onClick={() => scroll("left")}
-          className={`w-8 h-8 rounded-full border border-white/10 bg-surface/80 backdrop-blur-sm flex items-center justify-center text-white pointer-events-auto transition-all shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-yellow ${!canScrollLeft ? 'opacity-0 scale-90' : 'opacity-100 scale-100 hover:bg-primary-yellow hover:text-black hover:border-primary-yellow -ml-2'}`}
+          className={`w-8 h-8 rounded-full border border-gold-border bg-surface/80 backdrop-blur-sm flex items-center justify-center text-white pointer-events-auto transition-all shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-yellow ${!canScrollLeft ? 'opacity-0 scale-90' : 'opacity-100 scale-100 hover:bg-primary-yellow hover:text-black hover:border-primary-yellow -ml-2'}`}
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -129,7 +129,7 @@ export default function VariantGallery({
           aria-label={t("nextVariant") || "Next variant"}
           disabled={!canScrollRight}
           onClick={() => scroll("right")}
-          className={`w-8 h-8 rounded-full border border-white/10 bg-surface/80 backdrop-blur-sm flex items-center justify-center text-white pointer-events-auto transition-all shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-yellow ${!canScrollRight ? 'opacity-0 scale-90' : 'opacity-100 scale-100 hover:bg-primary-yellow hover:text-black hover:border-primary-yellow -mr-2'}`}
+          className={`w-8 h-8 rounded-full border border-gold-border bg-surface/80 backdrop-blur-sm flex items-center justify-center text-white pointer-events-auto transition-all shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-yellow ${!canScrollRight ? 'opacity-0 scale-90' : 'opacity-100 scale-100 hover:bg-primary-yellow hover:text-black hover:border-primary-yellow -mr-2'}`}
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -178,8 +178,8 @@ function VariantCard({
       whileTap={{ scale: 0.98 }}
       className={`group relative flex-none w-[170px] sm:w-[190px] p-3 rounded-xl border text-left transition-all duration-300 snap-start focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a] ${
         isSelected
-          ? "bg-surface border-primary-yellow shadow-[0_0_20px_rgba(255,215,0,0.25)] ring-1 ring-primary-yellow/50"
-          : "bg-surface/60 border-white/5 hover:border-primary-yellow/40 hover:bg-surface"
+          ? "bg-surface border-gold-primary shadow-gold-glow/35 ring-1 ring-gold-primary/60"
+          : "bg-surface/60 border-gold-border/30 hover:border-gold-primary/60 hover:bg-surface"
       }`}
     >
       {/* Selected Indicator Badge */}
@@ -192,7 +192,7 @@ function VariantCard({
       )}
 
       {/* Variant Thumbnail Image */}
-      <div className="relative aspect-[4/3] w-full rounded-lg bg-[#0a0a0a] overflow-hidden mb-2.5 p-1 border border-white/5">
+      <div className="relative aspect-[4/3] w-full rounded-lg bg-[#0a0a0a] overflow-hidden mb-2.5 p-1 border border-gold-border/30">
         <Image
           src={imageSrc}
           alt={variant.altKey ? tGlobal(variant.altKey) : variant.sizeLabel}
@@ -214,7 +214,7 @@ function VariantCard({
         </div>
 
         {/* Price & Stock */}
-        <div className="mt-1 pt-1.5 border-t border-white/5 flex items-center justify-between text-xs">
+        <div className="mt-1 pt-1.5 border-t border-gold-border/30 flex items-center justify-between text-xs">
           <span className="font-bold text-primary-yellow">
             {variant.priceStatus === "to_be_confirmed"
               ? t("priceTBC")

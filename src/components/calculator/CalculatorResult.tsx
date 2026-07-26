@@ -48,7 +48,7 @@ export default function CalculatorResult({
   };
 
   return (
-    <div className="flex flex-col gap-6 p-6 sm:p-8 rounded-xl bg-surface-elevated/90 backdrop-blur-md border border-white/10 relative overflow-hidden shadow-2xl">
+    <div className="flex flex-col gap-6 p-6 sm:p-8 rounded-xl bg-surface-elevated/90 backdrop-blur-md border border-gold-border relative overflow-hidden shadow-2xl">
       {/* Top Subtle Yellow Accent Line */}
       <div
         className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary-yellow/60 to-transparent"
@@ -56,7 +56,7 @@ export default function CalculatorResult({
       />
 
       {/* Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-white/10">
+      <div className="flex items-center justify-between pb-3 border-b border-gold-border">
         <h3 className="text-xs font-mono font-bold tracking-widest text-primary-yellow uppercase">
           {t("results.title")}
         </h3>
@@ -67,7 +67,7 @@ export default function CalculatorResult({
 
       {/* Selected Accessories / Configuration */}
       {result.input.accessories && Object.keys(result.input.accessories).length > 0 && (
-        <div className="bg-white/5 border border-white/10 rounded-xl p-4 -mt-2">
+        <div className="bg-white/5 border border-gold-border rounded-xl p-4 -mt-2">
           <h4 className="text-[10px] font-semibold text-text-muted mb-1.5 uppercase tracking-wider">
             {t("stepper.configuration")}
           </h4>
@@ -87,7 +87,7 @@ export default function CalculatorResult({
       {/* Primary Metrics Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Primary Quantity */}
-        <div className="p-4 rounded-lg bg-background/60 border border-white/5 flex flex-col">
+        <div className="p-4 rounded-lg bg-background/60 border border-gold-border flex flex-col">
           <span className="text-xs text-text-secondary mb-1">
             {t("results.primaryQuantity")}
           </span>
@@ -103,7 +103,7 @@ export default function CalculatorResult({
 
         {/* Secondary / Pallet Metrics */}
         {result.metrics.palletsCount ? (
-          <div className="p-4 rounded-lg bg-background/60 border border-white/5 flex flex-col">
+          <div className="p-4 rounded-lg bg-background/60 border border-gold-border flex flex-col">
             <span className="text-xs text-text-secondary mb-1">
               {t("results.palletsCount")}
             </span>
@@ -117,7 +117,7 @@ export default function CalculatorResult({
             </div>
           </div>
         ) : result.metrics.secondaryQuantity ? (
-          <div className="p-4 rounded-lg bg-background/60 border border-white/5 flex flex-col">
+          <div className="p-4 rounded-lg bg-background/60 border border-gold-border flex flex-col">
             <span className="text-xs text-text-secondary mb-1">
               {t("results.secondaryQuantity")}
             </span>
@@ -154,7 +154,7 @@ export default function CalculatorResult({
       )}
 
       {/* Disclaimer */}
-      <div className="p-3 rounded-lg bg-white/[0.02] border border-white/5">
+      <div className="p-3 rounded-lg bg-white/[0.02] border border-gold-border">
         <p className="text-[11px] text-text-secondary leading-relaxed font-mono">
           ⚠ {t("results.disclaimer")}
         </p>

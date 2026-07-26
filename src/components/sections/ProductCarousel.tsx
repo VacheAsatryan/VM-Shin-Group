@@ -156,7 +156,7 @@ function ProductCard({ product, index }: { product: ProductItem; index: number }
         // card width: nearly half-screen on mobile, ~1/3 on tablet, ~1/4 on desktop
         "w-[80vw] sm:w-[45vw] md:w-[32vw] lg:w-[24vw] " +
         "aspect-[3/2] snap-start overflow-hidden " +
-        "border border-white/5 hover:border-primary-yellow/25 " +
+        "border border-gold-border/40 hover:border-gold-primary hover:shadow-gold-glow/25 " +
         "bg-surface transition-all duration-300 " +
         "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-yellow"
       }
@@ -207,12 +207,12 @@ function ProductCard({ product, index }: { product: ProductItem; index: number }
               className="absolute inset-0 opacity-[0.04]"
               style={{
                 backgroundImage:
-                  "linear-gradient(rgba(255,255,255,1) 1px,transparent 1px)," +
-                  "linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)",
+                  "linear-gradient(rgba(245,194,27,1) 1px,transparent 1px)," +
+                  "linear-gradient(90deg,rgba(245,194,27,1) 1px,transparent 1px)",
                 backgroundSize: "20px 20px",
               }}
             />
-            <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-primary-yellow/30 group-hover:bg-primary-yellow/5 transition-all">
+            <div className="w-12 h-12 rounded-xl bg-white/5 border border-gold-border flex items-center justify-center group-hover:border-primary-yellow/30 group-hover:bg-primary-yellow/5 transition-all">
               <span className="text-primary-yellow font-black text-sm tracking-wide">VM</span>
             </div>
           </div>
@@ -233,7 +233,7 @@ function ProductCard({ product, index }: { product: ProductItem; index: number }
           </span>
         </div>
 
-        <div className="ml-3 flex-none w-8 h-8 rounded-full bg-black/50 border border-white/10 flex items-center justify-center text-white/60 group-hover:bg-primary-yellow group-hover:border-primary-yellow group-hover:text-black transition-all duration-300">
+        <div className="ml-3 flex-none w-8 h-8 rounded-full bg-black/50 border border-gold-border flex items-center justify-center text-white/60 group-hover:bg-primary-yellow group-hover:border-primary-yellow group-hover:text-black transition-all duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4">
             <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
           </svg>

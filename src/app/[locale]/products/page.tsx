@@ -31,8 +31,8 @@ export default async function ProductsCatalogPage({
 
       <main className="flex-1 pt-28 pb-20">
         {/* Breadcrumbs & Hero Header */}
-        <section className="relative overflow-hidden border-b border-white/5 bg-surface/50 py-12 md:py-16">
-          <div className="absolute top-0 right-1/4 w-96 h-96 bg-primary-yellow/5 rounded-full blur-3xl pointer-events-none" />
+        <section className="relative overflow-hidden border-b border-gold-border/30 bg-surface/50 py-12 md:py-16">
+          <div className="absolute top-0 right-1/4 w-96 h-96 bg-gold-primary/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             {/* Back Button */}
@@ -50,8 +50,8 @@ export default async function ProductsCatalogPage({
             </nav>
 
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-yellow/10 border border-primary-yellow/20 text-primary-yellow text-xs font-semibold uppercase tracking-wider mb-4">
-                <span className="w-2 h-2 rounded-full bg-primary-yellow animate-pulse" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-primary/10 border border-gold-border/40 text-gold-primary text-xs font-semibold uppercase tracking-wider mb-4">
+                <span className="w-2 h-2 rounded-full bg-gold-primary animate-pulse" />
                 VM SHIN GROUP
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
@@ -70,7 +70,7 @@ export default async function ProductsCatalogPage({
             {PRODUCTS.map((product) => (
               <div
                 key={product.id}
-                className="group relative bg-surface border border-white/5 rounded-xl overflow-hidden hover:border-primary-yellow/30 transition-all duration-300 flex flex-col"
+                className="group relative bg-surface border border-gold-border/30 rounded-xl overflow-hidden hover:border-gold-primary/50 hover:shadow-gold-glow/20 transition-all duration-300 flex flex-col"
               >
                 {/* Top Gold Shimmer */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary-yellow to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
@@ -111,7 +111,7 @@ export default async function ProductsCatalogPage({
                     </p>
                   </div>
 
-                  <div className="pt-4 border-t border-white/5 flex items-center justify-between">
+                  <div className="pt-4 border-t border-gold-border flex items-center justify-between">
                     <span className="text-xs font-semibold text-text-muted group-hover:text-white transition-colors">
                       VM SHIN GROUP
                     </span>

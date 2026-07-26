@@ -18,10 +18,10 @@ export default function ProductionFact({ fact }: ProductionFactProps) {
   return (
     <motion.div
       variants={variants}
-      className="group relative flex items-start gap-5 p-5 rounded-custom bg-surface-elevated/30 backdrop-blur-md border border-white/5 hover:border-primary-yellow/30 transition-all duration-300 shadow-md hover:bg-surface-elevated/50"
+      className="group relative flex items-start gap-5 p-5 rounded-custom bg-surface-elevated/30 backdrop-blur-md border border-gold-border hover:border-primary-yellow/30 transition-all duration-300 shadow-md hover:bg-surface-elevated/50"
     >
       {/* Number Badge */}
-      <div className="flex-none flex items-center justify-center w-10 h-10 rounded-custom bg-white/5 border border-white/10 group-hover:border-primary-yellow/40 group-hover:bg-primary-yellow/10 transition-all">
+      <div className="flex-none flex items-center justify-center w-10 h-10 rounded-custom bg-white/5 border border-gold-border group-hover:border-primary-yellow/40 group-hover:bg-primary-yellow/10 transition-all">
         <span className="font-mono text-xs font-bold text-primary-yellow tracking-wider">
           {fact.number}
         </span>

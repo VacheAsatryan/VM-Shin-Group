@@ -31,7 +31,7 @@ function ModeCard({
         ${
           isActive
             ? "bg-surface-elevated border-primary-yellow shadow-[0_0_20px_rgba(252,211,77,0.15)] -translate-y-1"
-            : "bg-background/40 border-white/10 hover:border-primary-yellow/40 hover:bg-surface-elevated hover:shadow-lg hover:-translate-y-1"
+            : "bg-background/40 border-gold-border hover:border-primary-yellow/40 hover:bg-surface-elevated hover:shadow-lg hover:-translate-y-1"
         }
       `}
     >
@@ -46,7 +46,7 @@ function ModeCard({
           ${
             isActive
               ? "bg-primary-yellow/20 border border-primary-yellow/50 text-primary-yellow"
-              : "bg-white/5 border border-white/10 text-text-secondary group-hover:text-text-primary group-hover:border-white/20"
+              : "bg-white/5 border border-gold-border text-text-secondary group-hover:text-text-primary group-hover:border-gold-border-hover"
           }
         `}
       >

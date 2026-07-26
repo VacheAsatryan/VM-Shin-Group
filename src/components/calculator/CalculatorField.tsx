@@ -42,7 +42,7 @@ export default function CalculatorField({
             id={id}
             value={value}
             onChange={onChange}
-            className="w-full bg-background/90 text-text-primary text-sm font-semibold rounded-lg px-4 py-3 border border-white/10 focus:border-primary-yellow/60 focus:ring-1 focus:ring-primary-yellow/40 outline-none transition-all duration-200 cursor-pointer appearance-none"
+            className="w-full bg-background/90 text-text-primary text-sm font-semibold rounded-lg px-4 py-3 border border-gold-border focus:border-primary-yellow/60 focus:ring-1 focus:ring-primary-yellow/40 outline-none transition-all duration-200 cursor-pointer appearance-none"
           >
             {options.map((opt) => (
               <option key={opt.value} value={opt.value} className="bg-surface text-text-primary">
@@ -65,7 +65,7 @@ export default function CalculatorField({
             min={min}
             max={max}
             step={step}
-            className="w-full bg-background/90 text-text-primary text-sm font-semibold rounded-lg px-4 py-3 border border-white/10 focus:border-primary-yellow/60 focus:ring-1 focus:ring-primary-yellow/40 outline-none transition-all duration-200 font-mono"
+            className="w-full bg-background/90 text-text-primary text-sm font-semibold rounded-lg px-4 py-3 border border-gold-border focus:border-primary-yellow/60 focus:ring-1 focus:ring-primary-yellow/40 outline-none transition-all duration-200 font-mono"
           />
         )}
 

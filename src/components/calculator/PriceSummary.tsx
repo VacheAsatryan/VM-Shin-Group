@@ -14,7 +14,7 @@ export default function PriceSummary({ pricing, deliveryEnabled }: PriceSummaryP
   const isTBC = pricing.priceStatus === "to_be_confirmed";
 
   return (
-    <div className="flex flex-col gap-3 p-5 rounded-xl bg-background/80 border border-white/10 relative overflow-hidden">
+    <div className="flex flex-col gap-3 p-5 rounded-xl bg-background/80 border border-gold-border relative overflow-hidden">
       {/* Subtotal */}
       <div className="flex items-center justify-between text-xs sm:text-sm font-semibold">
         <span className="text-text-secondary">{t("results.subtotal")}:</span>
@@ -34,7 +34,7 @@ export default function PriceSummary({ pricing, deliveryEnabled }: PriceSummaryP
       )}
 
       {/* Total Divider */}
-      <div className="h-px bg-white/10 my-1" />
+      <div className="h-px bg-gold-border my-1" />
 
       {/* Total */}
       <div className="flex items-center justify-between text-sm sm:text-base font-bold">

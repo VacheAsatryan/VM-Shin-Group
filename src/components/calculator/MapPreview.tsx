@@ -15,14 +15,14 @@ export default function MapPreview({
   const t = useTranslations("calculator.delivery");
 
   return (
-    <div className="relative w-full aspect-[21/9] rounded-lg border border-white/10 bg-surface overflow-hidden flex flex-col justify-between p-4 shadow-inner">
+    <div className="relative w-full aspect-[21/9] rounded-lg border border-gold-border bg-surface overflow-hidden flex flex-col justify-between p-4 shadow-inner">
       {/* Grid Pattern Simulating Map Coordinates */}
       <div
         className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,184,0,0.08)_0%,transparent_70%)] pointer-events-none"
         aria-hidden="true"
       />
       <div
-        className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none"
+        className="absolute inset-0 bg-[linear-gradient(to_right,rgba(245,194,27,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(245,194,27,0.06)_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none"
         aria-hidden="true"
       />
 
@@ -39,7 +39,7 @@ export default function MapPreview({
       </div>
 
       {/* Map Status Badge */}
-      <div className="relative z-10 self-end bg-black/80 backdrop-blur-md px-3 py-1 rounded border border-white/10 text-[10px] font-mono text-text-secondary flex items-center gap-2">
+      <div className="relative z-10 self-end bg-black/80 backdrop-blur-md px-3 py-1 rounded border border-gold-border text-[10px] font-mono text-text-secondary flex items-center gap-2">
         <span className="w-1.5 h-1.5 rounded-full bg-primary-yellow animate-pulse" />
         <span>{t("mapPlaceholderTitle")}</span>
         {destinationAddress && <span className="text-primary-yellow font-bold">({distanceKm} km)</span>}

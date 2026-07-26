@@ -23,7 +23,7 @@ const VARIANT_STYLES: Record<ButtonVariant, string> = {
   primary:
     "bg-gradient-to-r from-primary-yellow to-primary-yellow-light text-black border-transparent hover:shadow-glow hover:brightness-105 active:scale-98",
   secondary:
-    "bg-surface-elevated text-text-primary border-accent hover:border-accent-border-hover hover:bg-surface-elevated/85 active:scale-98",
+    "bg-surface-elevated text-text-primary border-gold-border hover:border-gold-border-hover hover:text-gold-text hover:bg-surface-elevated/85 hover:shadow-gold-glow/20 active:scale-98",
   subtle:
     "bg-transparent text-text-secondary border-transparent hover:text-text-primary hover:bg-surface/40 active:scale-98",
 };

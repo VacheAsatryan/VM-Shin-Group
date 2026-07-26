@@ -215,7 +215,7 @@ export default function AddressAutocomplete({
           onFocus={() => suggestions.length > 0 && setIsOpen(true)}
           onKeyDown={handleKeyDown}
           placeholder={t("autocompletePlaceholder")}
-          className="w-full bg-background/90 text-text-primary text-sm font-semibold rounded-lg pl-10 pr-10 py-3 border border-white/10 focus:border-primary-yellow/60 focus:ring-1 focus:ring-primary-yellow/40 outline-none transition-all duration-200"
+          className="w-full bg-background/90 text-text-primary text-sm font-semibold rounded-lg pl-10 pr-10 py-3 border border-gold-border focus:border-primary-yellow/60 focus:ring-1 focus:ring-primary-yellow/40 outline-none transition-all duration-200"
         />
 
         {/* Loading Spinner */}
@@ -231,7 +231,7 @@ export default function AddressAutocomplete({
         <ul
           id="autocomplete-suggestions-list"
           role="listbox"
-          className="absolute top-full left-0 right-0 z-50 mt-1 rounded-xl bg-surface-elevated/95 border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden max-h-60 overflow-y-auto"
+          className="absolute top-full left-0 right-0 z-50 mt-1 rounded-xl bg-surface-elevated/95 border border-gold-border shadow-2xl backdrop-blur-md overflow-hidden max-h-60 overflow-y-auto"
         >
           {suggestions.map((suggestion, index) => {
             const isHighlighted = index === highlightedIndex;
@@ -242,7 +242,7 @@ export default function AddressAutocomplete({
                 aria-selected={isHighlighted}
                 onClick={() => handleSelect(suggestion)}
                 onMouseEnter={() => setHighlightedIndex(index)}
-                className={`px-4 py-3 cursor-pointer text-xs transition-colors flex flex-col border-b border-white/5 last:border-b-0 ${
+                className={`px-4 py-3 cursor-pointer text-xs transition-colors flex flex-col border-b border-gold-border last:border-b-0 ${
                   isHighlighted ? "bg-primary-yellow/15 text-primary-yellow font-bold" : "text-text-primary hover:bg-white/5"
                 }`}
               >

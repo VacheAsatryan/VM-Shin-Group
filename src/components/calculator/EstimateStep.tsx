@@ -43,7 +43,7 @@ export default function EstimateStep({
 
   return (
     <div className="max-w-2xl mx-auto flex flex-col gap-6">
-      <div className="p-6 sm:p-8 rounded-xl bg-surface-elevated/90 backdrop-blur-md border border-white/10 relative overflow-hidden shadow-2xl flex flex-col gap-6">
+      <div className="p-6 sm:p-8 rounded-xl bg-surface-elevated/90 backdrop-blur-md border border-gold-border relative overflow-hidden shadow-2xl flex flex-col gap-6">
         {/* Top Accent Line */}
         <div
           className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary-yellow/60 to-transparent"
@@ -51,7 +51,7 @@ export default function EstimateStep({
         />
 
         {/* Category & Variant Badge */}
-        <div className="flex items-center justify-between pb-3 border-b border-white/10">
+        <div className="flex items-center justify-between pb-3 border-b border-gold-border">
           <span className="text-xs font-mono font-bold tracking-widest text-primary-yellow uppercase">
             {t(`categories.${result.category}`)}
           </span>
@@ -62,7 +62,7 @@ export default function EstimateStep({
 
         {/* Selected Accessories / Configuration */}
         {result.input.accessories && Object.keys(result.input.accessories).length > 0 && (
-          <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+          <div className="bg-white/5 border border-gold-border rounded-xl p-4">
             <h4 className="text-xs font-semibold text-text-muted mb-2 uppercase tracking-wider">
               {t("stepper.configuration")}
             </h4>
@@ -80,7 +80,7 @@ export default function EstimateStep({
         )}
 
         {/* 1. Large Main Primary Result */}
-        <div className="p-6 rounded-xl bg-background/80 border border-white/5 flex flex-col items-center text-center">
+        <div className="p-6 rounded-xl bg-background/80 border border-gold-border flex flex-col items-center text-center">
           <span className="text-xs font-mono text-text-secondary uppercase mb-2">
             {t("results.primaryQuantity")}
           </span>
@@ -97,7 +97,7 @@ export default function EstimateStep({
         {/* 2. Secondary Data Row (Pallets / Secondary Units) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {result.metrics.palletsCount ? (
-            <div className="p-3.5 rounded-lg bg-background/60 border border-white/5 flex items-center justify-between">
+            <div className="p-3.5 rounded-lg bg-background/60 border border-gold-border flex items-center justify-between">
               <span className="text-xs text-text-secondary">{t("results.palletsCount")}:</span>
               <span className="text-sm font-bold font-mono text-text-primary">
                 {result.metrics.palletsCount} {t("units.pallets")}
@@ -106,7 +106,7 @@ export default function EstimateStep({
           ) : null}
 
           {result.metrics.secondaryQuantity ? (
-            <div className="p-3.5 rounded-lg bg-background/60 border border-white/5 flex items-center justify-between">
+            <div className="p-3.5 rounded-lg bg-background/60 border border-gold-border flex items-center justify-between">
               <span className="text-xs text-text-secondary">{t("results.secondaryQuantity")}:</span>
               <span className="text-sm font-bold font-mono text-text-primary">
                 {result.metrics.secondaryQuantity.toLocaleString()} {t(`units.${result.metrics.secondaryUnitKey}`)}
@@ -116,7 +116,7 @@ export default function EstimateStep({
         </div>
 
         {/* 3. Product Cost Subtotal */}
-        <div className="p-4 rounded-lg bg-background/80 border border-white/10 flex items-center justify-between">
+        <div className="p-4 rounded-lg bg-background/80 border border-gold-border flex items-center justify-between">
           <span className="text-xs sm:text-sm text-text-secondary font-semibold">
             {t("results.subtotal")}:
           </span>
@@ -126,7 +126,7 @@ export default function EstimateStep({
         </div>
 
         {/* Disclaimer */}
-        <div className="p-3 rounded bg-white/[0.02] border border-white/5 text-[11px] text-text-secondary font-mono">
+        <div className="p-3 rounded bg-white/[0.02] border border-gold-border text-[11px] text-text-secondary font-mono">
           ℹ {t("results.disclaimer")}
         </div>
 

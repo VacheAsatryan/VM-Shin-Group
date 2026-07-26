@@ -56,8 +56,8 @@ export default function CalculatorStepper({
                   : isCompleted
                   ? "bg-surface-elevated text-primary-yellow border border-primary-yellow/40"
                   : isAccessible
-                  ? "bg-surface text-text-secondary hover:text-text-primary border border-white/10"
-                  : "bg-background/80 text-text-secondary/40 border border-white/5 cursor-not-allowed"
+                  ? "bg-surface text-text-secondary hover:text-text-primary border border-gold-border"
+                  : "bg-background/80 text-text-secondary/40 border border-gold-border cursor-not-allowed"
               }`}
             >
               <span

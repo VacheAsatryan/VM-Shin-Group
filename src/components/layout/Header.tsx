@@ -113,7 +113,7 @@ export default function Header() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
           isScrolled
-            ? "bg-background/80 backdrop-blur-md border-primary-yellow/10 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
+            ? "bg-background/80 backdrop-blur-md border-gold-border/40 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
             : "bg-transparent border-transparent py-5 sm:py-6"
         }`}
       >
@@ -153,14 +153,14 @@ export default function Header() {
           {/* Desktop Right Panel (Lang Switcher + CTA) */}
           <div className="hidden md:flex items-center gap-6">
             {/* Language Switcher */}
-            <div className="flex items-center gap-1 border-r border-white/10 pr-6" role="navigation" aria-label="Language selection">
+            <div className="flex items-center gap-1 border-r border-gold-border/30 pr-6" role="navigation" aria-label="Language selection">
               {languages.map((lang) => (
                 <button
                   key={lang.code}
                   onClick={() => handleLanguageChange(lang.code)}
                   className={`px-2 py-1 text-xs font-bold tracking-wider rounded transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow ${
                     locale === lang.code
-                      ? "text-primary-yellow bg-primary-yellow/10"
+                      ? "text-gold-primary bg-gold-primary/10 border border-gold-border/40"
                       : "text-text-secondary hover:text-text-primary hover:bg-white/5"
                   }`}
                   aria-label={`Switch language to ${lang.label}`}
@@ -247,7 +247,7 @@ export default function Header() {
             >
               <div>
                 {/* Header inside drawer */}
-                <div className="flex items-center justify-between pb-6 border-b border-white/5">
+                <div className="flex items-center justify-between pb-6 border-b border-gold-border">
                   <div className="flex items-center gap-3">
                     <Image
                       src="/images/logo.png"
@@ -286,7 +286,7 @@ export default function Header() {
                       key={item.href}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="text-base font-semibold tracking-wider uppercase text-text-secondary hover:text-primary-yellow py-2 block border-b border-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow rounded-sm"
+                      className="text-base font-semibold tracking-wider uppercase text-text-secondary hover:text-primary-yellow py-2 block border-b border-gold-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow rounded-sm"
                     >
                       {item.label}
                     </Link>

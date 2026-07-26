@@ -16,7 +16,7 @@ export default function AdvantagesSection() {
   return (
     <section
       id="about"
-      className="relative z-20 pt-16 pb-24 w-full border-t border-white/5"
+      className="relative z-20 pt-16 pb-24 w-full border-t border-gold-border"
       aria-labelledby="advantages-heading"
     >
       {/* Soft gradient transition connecting from Product Carousel above */}

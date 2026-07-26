@@ -234,7 +234,7 @@ export default function CalculatorSection({
   return (
     <section
       id="calculator"
-      className="relative z-20 pt-20 pb-28 w-full border-t border-white/5 overflow-hidden bg-background/95"
+      className="relative z-20 pt-20 pb-28 w-full border-t border-gold-border/30 overflow-hidden bg-background/95"
       aria-labelledby="calculator-heading"
     >
       {/* Top Soft Gradient */}

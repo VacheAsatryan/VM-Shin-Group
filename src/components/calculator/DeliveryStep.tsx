@@ -83,7 +83,7 @@ export default function DeliveryStep({
 
   return (
     <div className="max-w-2xl mx-auto flex flex-col gap-6">
-      <div className="p-6 sm:p-8 rounded-xl bg-surface-elevated/90 backdrop-blur-md border border-white/10 relative overflow-hidden shadow-2xl flex flex-col gap-6">
+      <div className="p-6 sm:p-8 rounded-xl bg-surface-elevated/90 backdrop-blur-md border border-gold-border relative overflow-hidden shadow-2xl flex flex-col gap-6">
         {/* Top Accent Line */}
         <div
           className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary-yellow/60 to-transparent"
@@ -91,7 +91,7 @@ export default function DeliveryStep({
         />
 
         {/* Section Title */}
-        <div className="flex items-center justify-between pb-3 border-b border-white/10">
+        <div className="flex items-center justify-between pb-3 border-b border-gold-border">
           <span className="text-xs font-mono font-bold tracking-widest text-primary-yellow uppercase">
             {t("delivery.title")}
           </span>
@@ -101,7 +101,7 @@ export default function DeliveryStep({
         </div>
 
         {/* Plant Origin Info */}
-        <div className="p-4 rounded-lg bg-background/60 border border-white/5 flex flex-col gap-1">
+        <div className="p-4 rounded-lg bg-background/60 border border-gold-border flex flex-col gap-1">
           <span className="text-[10px] font-mono text-text-secondary uppercase">
             {t("delivery.originLabel")}
           </span>
@@ -172,7 +172,7 @@ export default function DeliveryStep({
         </div>
 
         {/* Delivery Summary Breakdown */}
-        <div className="p-4 rounded-xl bg-background/80 border border-white/10 flex flex-col gap-3">
+        <div className="p-4 rounded-xl bg-background/80 border border-gold-border flex flex-col gap-3">
           <div className="flex items-center justify-between text-xs font-semibold">
             <span className="text-text-secondary">{t("results.subtotal")}:</span>
             <span className="font-mono text-text-primary">
@@ -187,7 +187,7 @@ export default function DeliveryStep({
             </span>
           </div>
 
-          <div className="h-px bg-white/10 my-1" />
+          <div className="h-px bg-gold-border my-1" />
 
           <div className="flex items-center justify-between text-sm sm:text-base font-bold">
             <span className="text-text-primary uppercase tracking-wider">{t("results.total")}:</span>

@@ -42,11 +42,11 @@ export default function IndustrialDustParticles() {
 
     window.addEventListener("resize", handleResize, { passive: true });
 
-    // Warm industrial yellow/gold palette
+    // Centralized metallic gold particle palette
     const colors = [
-      "rgba(245, 184, 0, ",  // Primary warm yellow (#F5B800)
-      "rgba(255, 212, 90, ",  // Soft gold (#FFD45A)
-      "rgba(220, 165, 0, ",   // Deep industrial amber
+      "rgba(245, 194, 27, ",  // Metallic Gold (#F5C21B)
+      "rgba(255, 226, 89, ",  // Luminous Gold (#FFE259)
+      "rgba(224, 176, 24, ",  // Deep Warm Gold (#E0B018)
     ];
 
     const particleCount = Math.min(Math.floor((width * height) / 14000), 85);

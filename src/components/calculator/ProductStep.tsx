@@ -38,11 +38,11 @@ export default function ProductStep({
               onClick={() => onSelectCategory(prod)}
               className={`p-3.5 rounded-xl border text-left transition-all duration-300 flex items-center gap-3 relative overflow-hidden group focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow ${
                 isSelected
-                  ? "bg-surface-elevated border-primary-yellow/70 shadow-glow/20 scale-[1.02]"
-                  : "bg-surface/60 border-white/10 hover:border-primary-yellow/40 hover:bg-surface-elevated/50"
+                  ? "bg-surface-elevated border-gold-primary/80 shadow-gold-glow/20 scale-[1.02]"
+                  : "bg-surface/60 border-gold-border/30 hover:border-gold-primary/60 hover:bg-surface-elevated/50"
               }`}
             >
-              <div className="w-10 h-10 rounded-lg bg-background/80 relative overflow-hidden shrink-0 border border-white/5">
+              <div className="w-10 h-10 rounded-lg bg-background/80 relative overflow-hidden shrink-0 border border-gold-border/40">
                 <Image
                   src={prod.image}
                   alt={t(`categories.${prod.nameKey}`)}

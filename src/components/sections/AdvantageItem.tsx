@@ -18,14 +18,14 @@ export default function AdvantageItem({ item }: AdvantageItemProps) {
   return (
     <motion.div
       variants={cardVariants}
-      className="group relative flex flex-col justify-between p-6 sm:p-8 rounded-custom bg-surface-elevated/40 backdrop-blur-md border border-white/5 hover:border-primary-yellow/30 transition-all duration-500 overflow-hidden shadow-lg hover:shadow-glow/20 hover:-translate-y-1"
+      className="group relative flex flex-col justify-between p-6 sm:p-8 rounded-custom bg-surface-elevated/40 backdrop-blur-md border border-gold-border hover:border-primary-yellow/30 transition-all duration-500 overflow-hidden shadow-lg hover:shadow-glow/20 hover:-translate-y-1"
     >
       {/* Top thin yellow accent line on hover */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary-yellow to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
 
       {/* Industrial structural corner lines */}
-      <div className="absolute top-3 right-3 w-3 h-3 border-t border-r border-white/10 group-hover:border-primary-yellow/40 transition-colors pointer-events-none" />
-      <div className="absolute bottom-3 left-3 w-3 h-3 border-b border-l border-white/10 group-hover:border-primary-yellow/40 transition-colors pointer-events-none" />
+      <div className="absolute top-3 right-3 w-3 h-3 border-t border-r border-gold-border group-hover:border-primary-yellow/40 transition-colors pointer-events-none" />
+      <div className="absolute bottom-3 left-3 w-3 h-3 border-b border-l border-gold-border group-hover:border-primary-yellow/40 transition-colors pointer-events-none" />
 
       {/* Large subtle architectural number in background */}
       <span
@@ -37,7 +37,7 @@ export default function AdvantageItem({ item }: AdvantageItemProps) {
 
       {/* Header element: small yellow indicator badge */}
       <div className="relative z-10 flex items-center justify-between mb-6">
-        <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 group-hover:border-primary-yellow/30 transition-colors">
+        <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/5 border border-gold-border group-hover:border-primary-yellow/30 transition-colors">
           <span className="w-1.5 h-1.5 rounded-full bg-primary-yellow animate-pulse" />
           <span className="text-[11px] font-mono font-bold text-primary-yellow tracking-widest">
             {item.number}

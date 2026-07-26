@@ -68,8 +68,8 @@ export default function DocumentsPageClient() {
             onClick={() => setActiveCategory(cat)}
             className={`px-5 py-2.5 rounded-lg border font-mono text-xs uppercase tracking-wider transition-all duration-300 ${
               activeCategory === cat
-                ? "bg-primary-yellow border-primary-yellow text-black font-bold shadow-[0_0_15px_rgba(245,184,0,0.2)]"
-                : "border-white/10 text-text-secondary hover:text-primary-yellow hover:border-primary-yellow/50 bg-[#0d0d0d]"
+                ? "bg-gold-primary border-gold-primary text-black font-bold shadow-gold-glow/20"
+                : "border-gold-border/30 text-text-secondary hover:text-gold-text hover:border-gold-primary/60 bg-[#0d0d0d]"
             }`}
           >
             {cat === "all" && t("categories.all")}
@@ -93,12 +93,12 @@ export default function DocumentsPageClient() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.3 }}
-              className="flex flex-col bg-[#0f0f0f] border border-white/5 hover:border-primary-yellow/20 rounded-xl overflow-hidden shadow-lg transition-colors group"
+              className="flex flex-col bg-[#0f0f0f] border border-gold-border/30 hover:border-gold-primary/50 hover:shadow-gold-glow/20 rounded-xl overflow-hidden shadow-lg transition-colors group"
             >
               {/* Document Image Container with Consistent Aspect Ratio */}
               <div 
                 onClick={() => setSelectedDoc(doc)}
-                className="relative aspect-[3/4] w-full bg-[#161616] p-5 flex items-center justify-center cursor-pointer overflow-hidden border-b border-white/5 group-hover:bg-[#1a1a1a] transition-colors"
+                className="relative aspect-[3/4] w-full bg-[#161616] p-5 flex items-center justify-center cursor-pointer overflow-hidden border-b border-gold-border/30 group-hover:bg-[#1a1a1a] transition-colors"
               >
                 <div className="relative w-full h-full">
                   <Image
@@ -111,7 +111,7 @@ export default function DocumentsPageClient() {
                 </div>
                 {/* Enlarge Hover Overlay */}
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <span className="px-4 py-2 bg-black/80 border border-primary-yellow/40 text-primary-yellow rounded-lg text-xs font-mono uppercase tracking-widest">
+                  <span className="px-4 py-2 bg-black/80 border border-gold-border/60 text-gold-primary rounded-lg text-xs font-mono uppercase tracking-widest">
                     {t("actions.enlarge")}
                   </span>
                 </div>
@@ -121,11 +121,11 @@ export default function DocumentsPageClient() {
               <div className="p-6 flex flex-col flex-1">
                 <div className="flex-1">
                   {/* Category Pill */}
-                  <span className="inline-block text-[10px] font-mono uppercase tracking-wider text-primary-yellow bg-primary-yellow/10 border border-primary-yellow/20 px-2 py-0.5 rounded mb-3">
+                  <span className="inline-block text-[10px] font-mono uppercase tracking-wider text-gold-primary bg-gold-primary/10 border border-gold-border/40 px-2 py-0.5 rounded mb-3">
                     {doc.category === "equipment-verification" ? t("categories.equipmentVerification") : t("categories.recognition")}
                   </span>
 
-                  <h3 className="text-base font-bold text-text-primary group-hover:text-primary-yellow transition-colors mb-3 line-clamp-2">
+                  <h3 className="text-base font-bold text-text-primary group-hover:text-gold-primary transition-colors mb-3 line-clamp-2">
                     {t(doc.titleKey)}
                   </h3>
 
@@ -135,7 +135,7 @@ export default function DocumentsPageClient() {
 
                   {/* Metadata Specification Details */}
                   {doc.category === "equipment-verification" && (
-                    <div className="space-y-2 border-t border-white/5 pt-4 text-[11px] font-mono">
+                    <div className="space-y-2 border-t border-gold-border/30 pt-4 text-[11px] font-mono">
                       {doc.documentNumber && (
                         <div className="flex justify-between">
                           <span className="text-text-secondary">{t("labels.documentNumber")}:</span>
@@ -208,10 +208,10 @@ export default function DocumentsPageClient() {
               animate={{ scale: 1 }}
               exit={{ scale: 0.95 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-4xl w-full h-[80vh] flex flex-col bg-[#121212] border border-white/10 rounded-xl overflow-hidden cursor-default shadow-2xl"
+              className="relative max-w-4xl w-full h-[80vh] flex flex-col bg-[#121212] border border-gold-border rounded-xl overflow-hidden cursor-default shadow-2xl"
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-[#161616]">
+              <div className="flex items-center justify-between px-6 py-4 border-b border-gold-border bg-[#161616]">
                 <h2 className="text-sm sm:text-base font-bold text-text-primary truncate pr-4">
                   {t(selectedDoc.titleKey)}
                 </h2>

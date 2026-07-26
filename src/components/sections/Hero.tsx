@@ -68,7 +68,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-[620px] h-[92vh] w-full flex items-center justify-start overflow-hidden bg-transparent border-b border-white/5"
+      className="relative min-h-[620px] h-[92vh] w-full flex items-center justify-start overflow-hidden bg-transparent border-b border-gold-border/30"
       aria-label="Welcome area"
     >
       {/* ── Background Media Layer ─────────────────────────────────── */}
@@ -109,8 +109,8 @@ export default function Hero() {
             className="w-full h-full relative animated-hero-gradient-pulse"
             style={{
               backgroundImage: `
-                linear-gradient(rgba(255,184,0,0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,184,0,0.08) 1px, transparent 1px)
+                linear-gradient(rgba(245,194,27,0.18) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(245,194,27,0.18) 1px, transparent 1px)
               `,
               backgroundSize: "50px 50px",
             }}

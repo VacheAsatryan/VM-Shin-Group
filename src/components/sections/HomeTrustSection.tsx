@@ -30,10 +30,10 @@ export default function HomeTrustSection() {
   ];
 
   return (
-    <section className="py-20 border-t border-white/5 bg-[#0a0a0a] relative overflow-hidden">
+    <section className="py-20 border-t border-gold-border/30 bg-[#0a0a0a] relative overflow-hidden">
       {/* Background glow */}
       <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary-yellow/5 rounded-full blur-[120px] pointer-events-none" 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold-primary/10 rounded-full blur-[120px] pointer-events-none" 
         aria-hidden="true" 
       />
 
@@ -75,7 +75,7 @@ export default function HomeTrustSection() {
               viewport={{ once: true, margin: "-100px" }}
               variants={itemVariants}
               transition={{ delay: idx * 0.1 }}
-              className="group flex flex-col bg-[#121212]/90 border border-white/5 hover:border-primary-yellow/20 rounded-xl overflow-hidden transition-all duration-300"
+              className="group flex flex-col bg-[#121212]/90 border border-gold-border/30 hover:border-gold-primary/50 hover:shadow-gold-glow/20 rounded-xl overflow-hidden transition-all duration-300"
             >
               {/* Document Image Container */}
               <div className="relative aspect-[3/4] w-full bg-[#1c1c1c] p-4 flex items-center justify-center group-hover:bg-[#222] transition-colors duration-300">
@@ -97,7 +97,7 @@ export default function HomeTrustSection() {
               </div>
 
               {/* Document Text */}
-              <div className="p-5 flex flex-col justify-between flex-1 border-t border-white/5">
+              <div className="p-5 flex flex-col justify-between flex-1 border-t border-gold-border/30">
                 <h3 className="text-sm font-bold text-text-primary group-hover:text-primary-yellow transition-colors line-clamp-2">
                   {t(`${doc.titleKey}`)}
                 </h3>

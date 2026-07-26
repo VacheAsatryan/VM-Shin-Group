@@ -18,11 +18,11 @@ export default function ApplicationMedia({ activeItem }: ApplicationMediaProps) 
       id={`application-panel-${activeItem.id}`}
       role="tabpanel"
       aria-labelledby={`application-tab-${activeItem.id}`}
-      className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] rounded-xl overflow-hidden border border-white/10 bg-surface shadow-2xl group"
+      className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] rounded-xl overflow-hidden border border-gold-border bg-surface shadow-2xl group"
     >
       {/* Background Subtle Industrial Overlay Grid */}
       <div
-        className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none z-10"
+        className="absolute inset-0 bg-[linear-gradient(to_right,rgba(245,194,27,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(245,194,27,0.05)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none z-10"
         aria-hidden="true"
       />
 

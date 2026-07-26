@@ -228,7 +228,7 @@ export default function YandexDeliveryMap({
       </div>
 
       {status === "error" ? (
-        <div className="w-full p-6 rounded-xl bg-background/60 border border-white/10 flex flex-col items-center justify-center text-center gap-3 min-h-[160px]">
+        <div className="w-full p-6 rounded-xl bg-background/60 border border-gold-border flex flex-col items-center justify-center text-center gap-3 min-h-[160px]">
           <div className="w-10 h-10 rounded-full bg-primary-yellow/10 border border-primary-yellow/30 flex items-center justify-center text-primary-yellow text-lg font-mono">
             🗺
           </div>
@@ -239,7 +239,7 @@ export default function YandexDeliveryMap({
       ) : (
         <div 
           ref={mapContainerRef} 
-          className="w-full h-[300px] min-h-[300px] rounded-xl overflow-hidden border border-white/10 bg-surface relative"
+          className="w-full h-[300px] min-h-[300px] rounded-xl overflow-hidden border border-gold-border bg-surface relative"
         >
           {status === "loading" && (
             <div className="absolute inset-0 flex items-center justify-center z-10 bg-surface">

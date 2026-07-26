@@ -21,7 +21,7 @@ export default function ApplicationsSection() {
   return (
     <section
       id="applications"
-      className="relative z-20 pt-20 pb-28 w-full border-t border-white/5 overflow-hidden"
+      className="relative z-20 pt-20 pb-28 w-full border-t border-gold-border/30 overflow-hidden"
       aria-labelledby="applications-heading"
     >
       {/* Soft gradient transition connecting from section above */}
@@ -85,7 +85,7 @@ export default function ApplicationsSection() {
           {/* Supporting Statement Banner */}
           <motion.div
             variants={itemVariants}
-            className="p-6 sm:p-8 rounded-xl bg-surface-elevated/60 backdrop-blur-md border border-primary-yellow/20 relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg"
+            className="p-6 sm:p-8 rounded-xl bg-surface-elevated/60 backdrop-blur-md border border-gold-border/50 hover:border-gold-primary/60 transition-colors relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg"
           >
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 rounded-full bg-primary-yellow shrink-0 animate-pulse" />

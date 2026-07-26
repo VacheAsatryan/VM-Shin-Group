@@ -33,8 +33,8 @@ export default function ApplicationItem({
         onMouseEnter={onSelect}
         className={`w-full text-left p-4 sm:p-5 rounded-lg border transition-all duration-300 relative overflow-hidden group focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow ${
           isSelected
-            ? "bg-surface-elevated/90 border-primary-yellow/50 shadow-glow/20"
-            : "bg-surface/50 border-white/5 hover:border-primary-yellow/30 hover:bg-surface-elevated/40"
+            ? "bg-surface-elevated/90 border-gold-primary/60 shadow-gold-glow/20"
+            : "bg-surface/50 border-gold-border/30 hover:border-gold-primary/50 hover:bg-surface-elevated/40"
         }`}
       >
         {/* Left vertical yellow accent bar for active item */}

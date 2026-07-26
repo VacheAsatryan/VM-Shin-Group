@@ -69,7 +69,7 @@ export default function FirefliesBackground() {
             height: `${f.size}px`,
             left: `${f.left}%`,
             top: `${f.top}%`,
-            boxShadow: `0 0 ${f.glowRadius}px #F5B800, 0 0 ${f.glowRadius * 1.8}px #FFD45A`,
+            boxShadow: `0 0 ${f.glowRadius}px var(--gold-primary), 0 0 ${f.glowRadius * 2}px var(--gold-bright)`,
             animationDuration: `${f.duration}s`,
             animationDelay: `${f.delay}s`,
             // Custom CSS variables for chaotic individual trajectories

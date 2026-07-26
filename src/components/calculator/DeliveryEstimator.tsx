@@ -21,7 +21,7 @@ export default function DeliveryEstimator({
   const t = useTranslations("calculator.delivery");
 
   return (
-    <div className="flex flex-col gap-4 p-5 rounded-xl bg-background/60 border border-white/10">
+    <div className="flex flex-col gap-4 p-5 rounded-xl bg-background/60 border border-gold-border">
       <div className="flex items-center justify-between">
         <label htmlFor="delivery-toggle" className="text-xs font-mono font-bold tracking-wider text-text-primary uppercase flex items-center gap-2 cursor-pointer">
           <span className="w-1.5 h-1.5 rounded-full bg-primary-yellow" />
@@ -46,7 +46,7 @@ export default function DeliveryEstimator({
       </div>
 
       {enabled && (
-        <div className="flex flex-col gap-3 pt-2 border-t border-white/5">
+        <div className="flex flex-col gap-3 pt-2 border-t border-gold-border">
           {/* Origin Factory Info */}
           <div className="flex flex-col gap-1">
             <span className="text-[10px] font-mono text-text-secondary uppercase">
@@ -68,7 +68,7 @@ export default function DeliveryEstimator({
               value={destinationAddress}
               onChange={(e) => onAddressChange(e.target.value)}
               placeholder={t("destinationPlaceholder")}
-              className="w-full bg-surface text-text-primary text-xs font-semibold rounded-lg px-3.5 py-2.5 border border-white/10 focus:border-primary-yellow/60 outline-none"
+              className="w-full bg-surface text-text-primary text-xs font-semibold rounded-lg px-3.5 py-2.5 border border-gold-border focus:border-primary-yellow/60 outline-none"
             />
           </div>
 

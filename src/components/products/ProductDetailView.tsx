@@ -52,8 +52,8 @@ export default function ProductDetailView({
   return (
     <div className="flex-1 pt-28 pb-20">
       {/* Breadcrumb Navigation & Top Hero */}
-      <section className="relative border-b border-white/5 bg-surface/30 py-8 md:py-12 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-yellow/5 rounded-full blur-3xl pointer-events-none" />
+      <section className="relative border-b border-gold-border/30 bg-surface/30 py-8 md:py-12 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold-primary/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <PageBackLink />
@@ -75,7 +75,7 @@ export default function ProductDetailView({
             {/* Left Column: Media & Variant Gallery (5 cols on LG) */}
             <div className="lg:col-span-5 flex flex-col gap-6">
               {/* Large Image Box */}
-              <div className="relative aspect-square rounded-2xl bg-[#0f0f0f] border border-white/10 overflow-hidden p-6 shadow-2xl group">
+              <div className="relative aspect-square rounded-2xl bg-[#0f0f0f] border border-gold-border/40 hover:border-gold-primary/50 transition-colors overflow-hidden p-6 shadow-2xl group">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={selectedVariant.id}
@@ -137,7 +137,7 @@ export default function ProductDetailView({
                   </div>
 
                   {/* Price Banner */}
-                  <div className="flex items-baseline gap-4 mb-6 p-4 rounded-xl bg-surface border border-white/10 w-fit">
+                  <div className="flex items-baseline gap-4 mb-6 p-4 rounded-xl bg-surface border border-gold-border/40 w-fit">
                     {selectedVariant.priceStatus === "to_be_confirmed" ? (
                       <span className="text-xl sm:text-2xl font-black text-primary-yellow">
                         {t("priceStatusToBeConfirmed")}
@@ -162,7 +162,7 @@ export default function ProductDetailView({
 
               {/* Key Variant Spec Pills */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
-                <div className="p-3 rounded-xl bg-surface/80 border border-white/5">
+                <div className="p-3 rounded-xl bg-surface/80 border border-gold-border/30">
                   <div className="text-[11px] font-medium text-text-muted mb-0.5">
                     {t("specs.dimensions")}
                   </div>
@@ -171,7 +171,7 @@ export default function ProductDetailView({
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl bg-surface/80 border border-white/5">
+                <div className="p-3 rounded-xl bg-surface/80 border border-gold-border/30">
                   <div className="text-[11px] font-medium text-text-muted mb-0.5">
                     {t("weightLabel")}
                   </div>
@@ -180,7 +180,7 @@ export default function ProductDetailView({
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl bg-surface/80 border border-white/5">
+                <div className="p-3 rounded-xl bg-surface/80 border border-gold-border/30">
                   <div className="text-[11px] font-medium text-text-muted mb-0.5">
                     {t("palletLabel")}
                   </div>
@@ -189,7 +189,7 @@ export default function ProductDetailView({
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl bg-surface/80 border border-white/5">
+                <div className="p-3 rounded-xl bg-surface/80 border border-gold-border/30">
                   <div className="text-[11px] font-medium text-text-muted mb-0.5">
                     {t("specs.compressiveStrength")}
                   </div>
@@ -213,7 +213,7 @@ export default function ProductDetailView({
 
                 <a
                   href="#contact"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-surface border border-white/10 hover:border-primary-yellow/50 text-white font-semibold text-sm transition-all hover:bg-surface-hover"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-surface border border-gold-border/50 hover:border-gold-primary hover:text-gold-text text-white font-semibold text-sm transition-all hover:bg-surface-hover"
                 >
                   {t("consultationCta")}
                 </a>
@@ -232,8 +232,8 @@ export default function ProductDetailView({
           </h2>
         </div>
 
-        <div className="bg-surface border border-white/5 rounded-2xl overflow-hidden shadow-xl">
-          <div className="divide-y divide-white/5">
+        <div className="bg-surface border border-gold-border/30 rounded-2xl overflow-hidden shadow-xl">
+          <div className="divide-y divide-gold-border/20">
             {selectedVariant.specs.map((spec, idx) => (
               <div
                 key={idx}
@@ -255,7 +255,7 @@ export default function ProductDetailView({
 
       {/* Key Features & Advantages Grid */}
       {productDetail.features && productDetail.features.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 border-t border-white/5">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 border-t border-gold-border/30">
           <div className="mb-10">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
               <span className="w-1.5 h-7 bg-primary-yellow rounded-full inline-block" />
@@ -267,7 +267,7 @@ export default function ProductDetailView({
             {productDetail.features.map((feature, i) => (
               <div
                 key={i}
-                className="p-6 rounded-2xl bg-surface border border-white/5 hover:border-primary-yellow/30 transition-all duration-300 group flex flex-col justify-between"
+                className="p-6 rounded-2xl bg-surface border border-gold-border/30 hover:border-gold-primary/50 hover:shadow-gold-glow/20 transition-all duration-300 group flex flex-col justify-between"
               >
                 <div>
                   <div className="w-12 h-12 rounded-xl bg-primary-yellow/10 border border-primary-yellow/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
@@ -288,7 +288,7 @@ export default function ProductDetailView({
 
       {/* Applications / Scope of Use */}
       {productDetail.applicationKeys && productDetail.applicationKeys.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 border-t border-white/5">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 border-t border-gold-border/30">
           <div className="mb-10">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
               <span className="w-1.5 h-7 bg-primary-yellow rounded-full inline-block" />
@@ -300,7 +300,7 @@ export default function ProductDetailView({
             {productDetail.applicationKeys.map((appKey, i) => (
               <div
                 key={i}
-                className="p-4 rounded-xl bg-surface/60 border border-white/5 flex items-center gap-3 hover:border-primary-yellow/20 transition-colors"
+                className="p-4 rounded-xl bg-surface/60 border border-gold-border/30 flex items-center gap-3 hover:border-gold-primary/40 transition-colors"
               >
                 <div className="w-2.5 h-2.5 rounded-full bg-primary-yellow shrink-0" />
                 <span className="text-sm font-semibold text-white">
@@ -323,7 +323,7 @@ export default function ProductDetailView({
       </section>
 
       {/* Related Products Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 border-t border-white/5">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 border-t border-gold-border/30">
         <div className="mb-10 flex items-center justify-between">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
             <span className="w-1.5 h-7 bg-primary-yellow rounded-full inline-block" />
@@ -343,7 +343,7 @@ export default function ProductDetailView({
             <Link
               key={relProduct.id}
               href={`/products/${relProduct.slug}?from=${fromParam}`}
-              className="group bg-surface border border-white/5 rounded-xl overflow-hidden hover:border-primary-yellow/30 transition-all p-4 flex flex-col"
+              className="group bg-surface border border-gold-border/30 rounded-xl overflow-hidden hover:border-gold-primary/50 hover:shadow-gold-glow/20 transition-all p-4 flex flex-col"
             >
               <div className="relative aspect-video bg-[#0f0f0f] rounded-lg overflow-hidden mb-3">
                 <Image

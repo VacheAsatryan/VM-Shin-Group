@@ -6,7 +6,12 @@
     "about": "About Us",
     "projects": "Projects",
     "contact": "Contact",
+    "documents": "Documents",
     "cta": "Order Now"
+  },
+  "navigation": {
+    "backToHome": "Back to Home",
+    "backToCatalog": "Back to Catalog"
   },
   "hero": {
     "eyebrow": "Manufacturing • Quality • Trust",
@@ -17,15 +22,194 @@
   },
   "products": {
     "title": "Product Catalog",
-    "viewProduct": "View",
+    "backToHome": "Back to Home",
+    "priceStatusToBeConfirmed": "Price and size to be confirmed",
+    "priceTBC": "TBC",
+    "viewProduct": "Learn More",
+    "catalogSubtitle": "High-quality concrete and pumice concrete products direct from the manufacturer",
+    "breadcrumbHome": "Home",
+    "breadcrumbProducts": "Products",
+    "inStockFactory": "In Stock • Factory Quality",
+    "calculateCta": "Calculate Estimate",
+    "consultationCta": "Request Consultation",
+    "specsTitle": "Technical Specifications",
+    "featuresTitle": "Features & Advantages",
+    "applicationsTitle": "Scope of Application",
+    "estimatorTitle": "Quick Volume & Cost Calculation",
+    "relatedTitle": "Other Product Lines",
+    "perPcs": "AMD / pc",
+    "perM3": "AMD / m³",
+    "perSqM": "AMD / m²",
+    "selectedVariant": "Selected Variant",
+    "selectVariant": "Select Block Size & Type",
+    "previousVariant": "Previous variant",
+    "nextVariant": "Next variant",
+    "weightLabel": "Block Weight",
+    "palletLabel": "Pallet Quantity",
+    "variants": {
+      "partitionThin": "Interior Partition (6 cm)",
+      "partitionStandard": "Standard Partition (10 cm)",
+      "semiBearing": "Semi Load-Bearing (15 cm)",
+      "loadBearingStandard": "Load-Bearing (20 cm)",
+      "loadBearingGroove": "Grooved Load-Bearing (20 cm)",
+      "desc6": "Lightweight thin pumice block 6×20×40 cm for non-load-bearing interior partitions and soundproof linings.",
+      "desc10": "Standard partition pumice block 10×20×40 cm with high acoustic insulation for interior walls.",
+      "desc15": "Semi-bearing pumice block 15×20×40 cm for extra thick interior walls and inter-apartment acoustic barriers.",
+      "desc20": "Heavy-duty structural load-bearing pumice block 20×20×40 cm for exterior and structural walls.",
+      "desc20Groove": "Innovative interlocking grooved pumice block 20×20×40 cm for tight thermal-bridge-free masonry.",
+      "largeManhole": "Large Manhole",
+      "smallManhole": "Small Manhole",
+      "smallManholeGrate": "Small Manhole with Grate",
+      "standardCover": "Standard Cover",
+      "castIronCover": "Cast-Iron Cover",
+      "largeManholeTitle": "Large Manhole",
+      "smallManholeTitle": "Small Manhole",
+      "smallManholeGrateTitle": "Small Manhole with Grate",
+      "standardCoverLargeTitle": "Standard Cover for Large Manhole",
+      "castIronCoverLargeTitle": "Cast-Iron Cover for Large Manhole",
+      "standardCoverSmallTitle": "Standard Cover for Small Manhole",
+      "castIronCoverSmallTitle": "Cast-Iron Cover for Small Manhole",
+      "pavingStonesSubtitle": "Paving stone",
+      "sizeToBeConfirmed": "Size to be confirmed",
+      "pavingRectangleSandV1Title": "Rectangular paving stone — sand, variant 1",
+      "pavingSquareSandV1Title": "Square paving stone — sand, variant 1",
+      "pavingRectangleBrownV1Title": "Rectangular paving stone — brown, variant 1",
+      "pavingRectangleGrayV1Title": "Rectangular paving stone — gray, variant 1",
+      "pavingSquareBrownV1Title": "Square paving stone — brown, variant 1",
+      "pavingRectangleRedV1Title": "Rectangular paving stone — red, variant 1",
+      "pavingRectangleGrayV2Title": "Rectangular paving stone — gray, variant 2",
+      "pavingRectangleDarkGrayV1Title": "Rectangular paving stone — dark gray, variant 1",
+      "pavingRectangleLightGrayV1Title": "Rectangular paving stone — light gray, variant 1",
+      "manholeSubtitle": "Manhole component",
+      "manholeSmallV1": "Manhole — Small (Temporary)",
+      "manholeLargeV1": "Manhole — Large (Temporary)",
+      "manholeSingleCoverV1Small": "Cover — Small (Temporary)",
+      "manholeDoubleCoverV1Small": "Cover — Large (Temporary)",
+      "manholeCoverSquareOpeningV1Small": "Cover with Square Opening (Temporary)",
+      "manholeCoverSlotV1Small": "Cover with Slot (Temporary)",
+      "manholeCoverRoundHoleV1Small": "Cover with Round Hole (Temporary)"
+    },
     "categories": {
       "pemzablok": "Pumice Blocks",
       "concrete-block": "Concrete Blocks",
       "concrete": "Ready-Mix Concrete",
       "paving-stones": "Paving Stones",
-      "tiles": "Concrete Tiles",
+      "tiles": "Tiles",
       "curbstones": "Curbstones",
-      "manholes": "Concrete Manholes"
+      "manholes": "Manholes / Inspection Wells",
+      "largeManholeCover": "Large Manhole Cover"
+    },
+    "descriptions": {
+      "pemzablok": "Lightweight and durable pumice concrete blocks with high thermal and sound insulation. The ideal choice for energy-efficient exterior walls and interior partitions.",
+      "concrete-block": "Heavy-duty structural concrete blocks designed for load-bearing walls, foundations, and industrial facilities.",
+      "concrete": "High-grade ready-mix concrete formulations conforming to strict quality standards with mixer truck delivery.",
+      "paving-stones": "Durable concrete paving stones engineered for pedestrian walkways, parking lots, and urban plazas.",
+      "curbstones": "Road and sidewalk curbstones designed for pavement reinforcement and urban landscaping.",
+      "manholes": "Reinforced concrete rings and well components for utility networks, drainage, and sewerage.",
+      "largeManholeCover": "High-quality large manhole covers available in standard concrete or heavy-duty cast iron for various applications."
+    },
+    "specs": {
+      "dimensions": "Dimensions (L×W×H)",
+      "density": "Density",
+      "compressiveStrength": "Compressive Strength",
+      "thermalConductivity": "Thermal Conductivity",
+      "soundInsulation": "Sound Insulation",
+      "frostResistance": "Frost Resistance",
+      "fireResistance": "Fire Resistance",
+      "weightPerUnit": "Unit Weight",
+      "palletCapacity": "Pallet Capacity",
+      "grades": "Concrete Grades",
+      "waterimpermeability": "Water Impermeability",
+      "deliveryMethod": "Delivery Method",
+      "thickness": "Thickness",
+      "abrasionResistance": "Abrasion Resistance",
+      "diameter": "Diameter",
+      "loadClass": "Load Class",
+      "concreteGrade": "Concrete Grade"
+    },
+    "features": {
+      "ecoPumice": {
+        "title": "Eco Pumice Aggregate",
+        "desc": "Natural volcanic pumice ensures complete environmental safety and lightweight block construction."
+      },
+      "thermalInsulation": {
+        "title": "High Thermal Insulation",
+        "desc": "Porous pumice micro-structure reduces heat loss and lowers heating costs significantly."
+      },
+      "fireproof": {
+        "title": "Fire Rating REI 180",
+        "desc": "Non-combustible material withstands direct fire contact up to 3 hours without strength degradation."
+      },
+      "preciseGeometry": {
+        "title": "Precise Geometry",
+        "desc": "Accurate dimensions minimize mortar joint thickness and lower installation mortar consumption."
+      },
+      "soundproofing": {
+        "title": "Effective Soundproofing",
+        "desc": "Reduces acoustic noise up to 52 dB for comfortable residential living environments."
+      },
+      "costEffective": {
+        "title": "Construction Cost Savings",
+        "desc": "Reduces foundation loads and accelerates masonry installation work."
+      },
+      "highStrength": {
+        "title": "Heavy-Duty Strength",
+        "desc": "High load-bearing capacity for demanding structural applications."
+      },
+      "expressDelivery": {
+        "title": "On-Time Mix Delivery",
+        "desc": "Fleet mixer truck delivery dispatched directly from manufacturing plant."
+      },
+      "certifiedQuality": {
+        "title": "Certified Quality Control",
+        "desc": "Every batch undergoes rigorous laboratory testing for strength and workability."
+      },
+      "highWearResistance": {
+        "title": "High Wear Resistance",
+        "desc": "Resistant to mechanical wear, heavy traffic, and harsh weather cycles."
+      },
+      "aestheticDesign": {
+        "title": "Aesthetic Design",
+        "desc": "Clean edges and crisp textures for modern urban architectural projects."
+      },
+      "roadGradeDurability": {
+        "title": "Road-Grade Durability",
+        "desc": "Engineered for continuous vehicular dynamic loads and de-icing salt resistance."
+      },
+      "heavyDutyConstruction": {
+        "title": "Reinforced Construction",
+        "desc": "Built to withstand heavy infrastructure load classes for utility networks."
+      }
+    },
+    "applications": {
+      "exteriorWalls": "Exterior load-bearing and curtain walls",
+      "interiorPartitions": "Interior room and apartment partition walls",
+      "monolithicFill": "Infill masonry for concrete frame structures",
+      "soundproofWalls": "Acoustic insulation partition walls",
+      "privateResidential": "Private residential house construction",
+      "commercialBuildings": "Commercial and multi-family complexes",
+      "bearingWalls": "Heavy load-bearing structural walls",
+      "foundationBlocks": "Basement and foundation walls",
+      "monolithicStructures": "Cast-in-place concrete structures",
+      "foundations": "Building foundation slabs and footings",
+      "slabsAndColumns": "Structural slabs, beams, and columns",
+      "pedestrianWalkways": "Pedestrian walkways and park alleys",
+      "parkingLots": "Vehicle parking lots and driveways",
+      "citySquarePaving": "Urban plazas and public spaces",
+      "roadBordering": "Highway and roadway edge curbs",
+      "sidewalkEdge": "Sidewalk and lawn boundary curbs",
+      "sewerageWells": "Inspection and sewerage manholes",
+      "stormwaterInfrastructure": "Stormwater drainage networks",
+      "utilityConduits": "Cable and underground utility conduits"
+    },
+    "materials": {
+      "castIron": "Cast Iron"
+    },
+    "accessories": {
+      "cover": "Cover",
+      "no-cover": "No cover",
+      "standard-cover": "Standard cover",
+      "cast-iron-cover": "Cast iron cover"
     }
   },
   "advantages": {
@@ -121,15 +305,31 @@
   },
   "calculator": {
     "eyebrow": "MATERIAL CALCULATOR",
+    "priceTBC": "To be confirmed",
+    "priceConfirmedByManager": "Price will be confirmed by manager",
     "title": "Estimate the Approximate Material Quantity",
     "description": "Enter key dimensions to get an instant preliminary material calculation for your project.",
     "explanationTitle": "Precise Planning for Your Project",
-    "explanationText": "Use our product-aware estimator to calculate quantities, packaging, and approximate pricing for your construction needs. Our team is available to verify final specifications.",
+    "explanationText": "Use our product-aware estimator to calculate quantities, packaging, and approximate pricing for your construction needs.",
+    "stepper": {
+      "question": "What do you want to calculate?",
+      "step1": "1. Product",
+      "step2": "2. Parameters",
+      "step3": "3. Estimate",
+      "step4": "4. Delivery",
+      "showEstimate": "Show estimate",
+      "changeParameters": "Change parameters",
+      "addDelivery": "Calculate delivery",
+      "notCalculated": "Not calculated",
+      "configuration": "Configuration"
+    },
     "categories": {
       "pemzablok": "Pumice Block",
       "concrete-block": "Concrete Block",
+      "concreteBlock": "Concrete Block",
       "concrete": "Ready-Mix Concrete",
       "paving-stones": "Paving Stones",
+      "pavingStones": "Paving Stones",
       "tiles": "Concrete Tiles",
       "curbstones": "Curbstones",
       "manholes": "Manholes"
@@ -148,10 +348,24 @@
       "variantLabel": "Product Variant / Size",
       "modeLabel": "Calculation Mode",
       "modeDirect": "Direct Volume (m³)",
-      "modeDimensions": "By Dimensions (L x W x Depth)"
+      "modeDirectDesc": "Enter the exact required volume.",
+      "modeDimensions": "By Dimensions (L x W x Depth)",
+      "modeDimensionsDesc": "Calculate using length, width and depth.",
+      "calcByWallDimensions": "Calculate by wall dimensions",
+      "calcByWallDimensionsDesc": "Calculate using wall length, height and thickness.",
+      "calcByQuantity": "Calculate by quantity",
+      "calcByQuantityDesc": "Enter only the required number of items.",
+      "calcByArea": "Calculate by area",
+      "calcByAreaDesc": "Calculate using surface length and width.",
+      "calcByRunningMeters": "Calculate by running meters",
+      "calcByRunningMetersDesc": "Calculate using total linear length."
     },
     "blocks": {
+      "block6": "Pumice Block 6 (6x20x40 cm)",
+      "block10": "Pumice Block 10 (10x20x40 cm)",
+      "block15": "Pumice Block 15 (15x20x40 cm)",
       "block20": "Pumice Block 20 (20x20x40 cm)",
+      "block20Groove": "Pumice Block 20 Groove (20x20x40 cm)",
       "block25": "Pumice Block 25 (25x20x40 cm)",
       "block30": "Pumice Block 30 (30x20x40 cm)",
       "concreteBlock15": "Concrete Block 15 (15x20x40 cm)",
@@ -159,14 +373,35 @@
       "concreteM250": "Concrete M250 (B20)",
       "concreteM300": "Concrete M300 (B22.5)",
       "concreteM350": "Concrete M350 (B25)",
-      "pavingClassic6": "Paving Stone Classic (6 cm)",
-      "pavingClassic8": "Paving Stone Classic (8 cm)",
+      "pavingRectangleSandV1": "Rectangular paving stone — sand, variant 1",
+      "pavingSquareSandV1": "Square paving stone — sand, variant 1",
+      "pavingRectangleBrownV1": "Rectangular paving stone — brown, variant 1",
+      "pavingRectangleGrayV1": "Rectangular paving stone — gray, variant 1",
+      "pavingSquareBrownV1": "Square paving stone — brown, variant 1",
+      "pavingRectangleRedV1": "Rectangular paving stone — red, variant 1",
+      "pavingRectangleGrayV2": "Rectangular paving stone — gray, variant 2",
+      "pavingRectangleDarkGrayV1": "Rectangular paving stone — dark gray, variant 1",
+      "pavingRectangleLightGrayV1": "Rectangular paving stone — light gray, variant 1",
+      "manholeSmallV1": "Manhole — Small (Temporary)",
+      "manholeLargeV1": "Manhole — Large (Temporary)",
+      "manholeSingleCoverV1Small": "Cover — Small (Temporary)",
+      "manholeDoubleCoverV1Small": "Cover — Large (Temporary)",
+      "manholeCoverSquareOpeningV1Small": "Cover with Square Opening (Temporary)",
+      "manholeCoverSlotV1Small": "Cover with Slot (Temporary)",
+      "manholeCoverRoundHoleV1Small": "Cover with Round Hole (Temporary)",
       "tile30x30": "Concrete Tile 30x30 cm (4 cm)",
       "tile40x40": "Concrete Tile 40x40 cm (5 cm)",
       "curbstoneRoad100": "Road Curbstone (100x30x15 cm)",
       "curbstoneSidewalk50": "Sidewalk Curbstone (50x20x8 cm)",
       "manholeRing100": "Manhole Ring (D100 cm)",
-      "manholeCover100": "Manhole Cover (D100 cm)"
+      "manholeCover100": "Manhole Cover (D100 cm)",
+      "manholeSmall": "Small Manhole (1000 mm)",
+      "manholeLarge": "Large Manhole (1500 mm)",
+      "manholeSmallGrate": "Small Manhole with Grate (1000 mm)",
+      "coverLargeStandard": "Standard Cover for Large Manhole (1500 mm)",
+      "coverLargeCastIron": "Cast-Iron Cover for Large Manhole (1500 mm)",
+      "coverSmallStandard": "Standard Cover for Small Manhole (1000 mm)",
+      "coverSmallCastIron": "Cast-Iron Cover for Small Manhole (1000 mm)"
     },
     "units": {
       "blocks": "pcs",
@@ -183,10 +418,10 @@
       "secondaryQuantity": "Estimated Item Count",
       "palletsCount": "Estimated Pallets",
       "subtotal": "Product Subtotal",
-      "delivery": "Estimated Delivery",
+      "delivery": "Delivery Fee",
       "total": "Estimated Total",
       "disclaimer": "The result is an initial estimate and may differ from actual site requirements.",
-      "pricingDisclaimer": "Displayed prices are temporary demonstration values and are not a commercial offer.",
+      "pricingDisclaimer": "Displayed prices are demonstration values and are not a commercial offer.",
       "cta": "Request an offer"
     },
     "delivery": {
@@ -195,16 +430,141 @@
       "originLabel": "Production Origin",
       "originAddress": "Armavir, Yerevan Highway 12/4",
       "destinationLabel": "Destination Address",
-      "destinationPlaceholder": "Enter delivery address (e.g. Yerevan)",
+      "destinationPlaceholder": "Start typing a delivery address",
       "distanceLabel": "Distance",
-      "mapPlaceholderTitle": "Map Integration Demo",
-      "mapPlaceholderText": "Integration-ready map module (Yandex / Google Maps)"
+      "mapUnavailable": "Road-route calculation will become available after map integration.",
+      "mapPlaceholderTitle": "Yandex Maps Route",
+      "autocompletePlaceholder": "Start typing a delivery address (e.g. Yerevan)",
+      "noSuggestionsFound": "No addresses found",
+      "loadingSuggestions": "Searching...",
+      "retryButton": "Retry search",
+      "routeGeocoding": "Locating address...",
+      "routeCalculating": "Calculating route...",
+      "routeDistance": "Route distance: {distance} km",
+      "routeReady": "Route ready",
+      "routeGeocodeFailed": "Could not determine destination coordinates",
+      "routeBuildFailed": "Could not build the route",
+      "addressResolveFailed": "Could not determine destination coordinates",
+      "addressInvalidated": "Address modified, please select from the list again",
+      "addressOutsideArmenia": "The selected point is outside the delivery area (Armenia)",
+      "selectOnMap": "Select the exact delivery point on the map",
+      "changeDeliveryPoint": "Change delivery point",
+      "routeSystemError": "System error"
+    },
+    "products": {},
+    "accessories": {
+      "cover": "Cover",
+      "no-cover": "No cover",
+      "standard-cover": "Standard cover",
+      "cast-iron-cover": "Cast iron cover"
+    }
+  },
+  "footer": {
+    "company": {
+      "tagline": "Quality Construction Solutions",
+      "description": "VM Shin Group is a leading manufacturer of high-quality concrete products and pumice blocks in Armenia."
+    },
+    "nav": {
+      "title": "Navigation",
+      "home": "Home",
+      "products": "Products",
+      "about": "About Us",
+      "production": "Production",
+      "applications": "Applications",
+      "calculator": "Calculator",
+      "contacts": "Contacts",
+      "documents": "Documents"
+    },
+    "products": {
+      "title": "Products",
+      "pemzablok": "Pumice Blocks",
+      "concreteBlock": "Concrete Blocks",
+      "concrete": "Ready-Mix Concrete",
+      "pavingStones": "Paving Stones",
+      "tiles": "Concrete Tiles",
+      "curbstones": "Curbstones",
+      "manholes": "Manhole Products"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "addressLabel": "Address",
+      "address": "Armavir, Yerevan Highway 12/4, Armenia",
+      "phoneLabel": "Phone",
+      "phone": "+374 77 770330",
+      "emailLabel": "Email",
+      "email": "vm.shingroup@gmail.com",
+      "workingHoursLabel": "Working Hours",
+      "workingHours": "Mon - Sat: 09:00 - 19:00"
+    },
+    "bottom": {
+      "copyright": "© {year} VM Shin Group. All rights reserved.",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy"
+    }
+  },
+  "documents": {
+    "pageTitle": "Documents, Quality Control and Recognition",
+    "pageDescription": "VM SHIN GROUP pays close attention to production-process control, verification of the equipment used, and a responsible approach to its work. This section presents equipment-verification documents and materials reflecting recognition of the company’s activities.",
+    "backToHome": "Back to Home",
+    "categories": {
+      "all": "All Documents",
+      "equipmentVerification": "Equipment Verification",
+      "recognition": "Recognition and Appreciation"
+    },
+    "labels": {
+      "documentNumber": "Document number",
+      "equipmentModel": "Equipment model",
+      "capacity": "Weighing capacity",
+      "issueDate": "Issue date",
+      "validUntil": "Valid until",
+      "status": "Status",
+      "openDocument": "Open document"
+    },
+    "status": {
+      "archived": "Archived document"
+    },
+    "actions": {
+      "open": "Open document",
+      "enlarge": "Enlarge",
+      "close": "Close"
+    },
+    "homeTrust": {
+      "title": "Documented Quality Control",
+      "text": "Explore equipment-verification documents and materials reflecting recognition of the company’s activities.",
+      "btn": "View all documents"
+    },
+    "items": {
+      "verificationSb2102kg145302": {
+        "title": "SB 210 Scale Verification Certificate — 2 kg",
+        "description": "A document confirming the metrological verification of the equipment. It relates to an SB 210 scale with a weighing capacity of up to 2 kg."
+      },
+      "verificationSb210500g145304": {
+        "title": "SB 210 Scale Verification Certificate — 500 g",
+        "description": "A document confirming the metrological verification of the equipment. It relates to an SB 210 scale with a weighing capacity of up to 500 g."
+      },
+      "verificationSb21020kg145306": {
+        "title": "SB 210 Scale Verification Certificate — 20 kg",
+        "description": "A document confirming the metrological verification of the equipment. It relates to an SB 210 scale with a weighing capacity of up to 20 kg."
+      },
+      "verificationSb210160kg145305": {
+        "title": "SB 210 Scale Verification Certificate — 160 kg",
+        "description": "A document confirming the metrological verification of the equipment. It relates to an SB 210 scale with a weighing capacity of up to 160 kg."
+      },
+      "appreciationArstorKarine85": {
+        "title": "Appreciation Letter from ARSTOR LLC",
+        "description": "An appreciation letter issued by ARSTOR LLC to the “Karine 85” production cooperative for its work and contribution to a construction project."
+      }
     }
   },
   "seo": {
     "title": "VM Shin Group | Concrete Products Manufacturing & Supply",
     "description": "VM Shin Group is a leading manufacturer of concrete and pumice blocks in Armavir, Armenia. High quality concrete, paving stones, tiles and curbstones.",
     "ogTitle": "VM Shin Group | Concrete Products Manufacturing & Supply",
-    "ogDescription": "VM Shin Group is a leading manufacturer of concrete and pumice blocks in Armavir, Armenia. High quality concrete, paving stones, tiles and curbstones."
+    "ogDescription": "VM Shin Group is a leading manufacturer of concrete and pumice blocks in Armavir, Armenia. High quality concrete, paving stones, tiles and curbstones.",
+    "documentsTitle": "Documents, Quality Control and Recognition | VM SHIN GROUP",
+    "documentsDesc": "Verification certificates for scales used in our concrete manufacturing processes, plus letters of appreciation.",
+    "documentsOgTitle": "Documents, Quality Control and Recognition | VM SHIN GROUP",
+    "documentsOgDesc": "Verification certificates for scales used in our concrete manufacturing processes, plus letters of appreciation."
   }
 }

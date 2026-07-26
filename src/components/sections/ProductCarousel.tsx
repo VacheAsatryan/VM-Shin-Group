@@ -93,10 +93,26 @@ export default function ProductCarousel() {
       onFocus={() => setIsPaused(true)}
       onBlur={() => setIsPaused(false)}
     >
+      {/* Scrollable strip — full viewport width, no side padding */}
+      <div
+        ref={scrollerRef}
+        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar relative z-10"
+        role="region"
+        aria-label="Products list"
+      >
+        {PRODUCTS.map((product, idx) => (
+          <ProductCard key={product.id} product={product} index={idx} />
+        ))}
+      </div>
+
       {/* Arrow controls — absolute, centred vertically on the strip */}
-      <div className="absolute inset-y-0 left-0 right-0 pointer-events-none z-20 flex items-center justify-between px-3 sm:px-5">
+      <div className="absolute inset-y-0 left-0 right-0 pointer-events-none z-50 flex items-center justify-between px-3 sm:px-5">
         <button
-          onClick={() => scrollBy("left")}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            scrollBy("left");
+          }}
           disabled={!canScrollLeft}
           className="pointer-events-auto w-10 h-10 rounded-full bg-black/60 border border-primary-yellow/20 flex items-center justify-center text-white disabled:opacity-20 hover:border-primary-yellow/50 hover:text-primary-yellow active:scale-90 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow backdrop-blur-sm"
           aria-label="Scroll left"
@@ -107,7 +123,11 @@ export default function ProductCarousel() {
         </button>
 
         <button
-          onClick={() => scrollBy("right")}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            scrollBy("right");
+          }}
           disabled={!canScrollRight}
           className="pointer-events-auto w-10 h-10 rounded-full bg-black/60 border border-primary-yellow/20 flex items-center justify-center text-white disabled:opacity-20 hover:border-primary-yellow/50 hover:text-primary-yellow active:scale-90 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow backdrop-blur-sm"
           aria-label="Scroll right"
@@ -117,30 +137,20 @@ export default function ProductCarousel() {
           </svg>
         </button>
       </div>
-
-      {/* Scrollable strip — full viewport width, no side padding */}
-      <div
-        ref={scrollerRef}
-        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar"
-        role="region"
-        aria-label="Products list"
-      >
-        {PRODUCTS.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
     </section>
   );
 }
 
 // ─── Product Card ─────────────────────────────────────────────────────────────
-function ProductCard({ product }: { product: ProductItem }) {
+function ProductCard({ product, index }: { product: ProductItem; index: number }) {
   const [imageError, setImageError] = useState(false);
   const t = useTranslations("products");
+  const isPlaceholder = product.image.includes("/placeholders/");
+  const isPriority = index < 2;
 
   return (
     <Link
-      href={`/products/${product.slug}`}
+      href={`/products/${product.slug}?from=home`}
       className={
         "group relative flex-none " +
         // card width: nearly half-screen on mobile, ~1/3 on tablet, ~1/4 on desktop
@@ -155,16 +165,42 @@ function ProductCard({ product }: { product: ProductItem }) {
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary-yellow to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
 
       {/* Image or placeholder */}
-      <div className="absolute inset-0 bg-[#111]">
+      <div className="absolute inset-0 bg-[#0f0f0f] overflow-hidden">
         {!imageError ? (
-          <Image
-            src={product.image}
-            alt={t(`categories.${product.translationKey}`)}
-            fill
-            sizes="(max-width: 640px) 80vw, (max-width: 768px) 45vw, (max-width: 1024px) 32vw, 24vw"
-            className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
-            onError={() => setImageError(true)}
-          />
+          isPlaceholder ? (
+            <Image
+              src={product.image}
+              alt={t(`categories.${product.translationKey}`)}
+              fill
+              priority={isPriority}
+              sizes="(max-width: 640px) 80vw, (max-width: 768px) 45vw, (max-width: 1024px) 32vw, 24vw"
+              className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <>
+              {/* Blurred background for real portrait/landscape images to prevent harsh cropping */}
+              <Image
+                src={product.image}
+                alt=""
+                fill
+                priority={isPriority}
+                sizes="(max-width: 640px) 80vw, (max-width: 768px) 45vw, (max-width: 1024px) 32vw, 24vw"
+                className="object-cover blur-xl opacity-30 scale-110 pointer-events-none"
+                aria-hidden="true"
+              />
+              {/* Main Image */}
+              <Image
+                src={product.image}
+                alt={t(`categories.${product.translationKey}`)}
+                fill
+                priority={isPriority}
+                sizes="(max-width: 640px) 80vw, (max-width: 768px) 45vw, (max-width: 1024px) 32vw, 24vw"
+                className="object-contain p-2 opacity-95 group-hover:opacity-100 group-hover:scale-[1.02] transition-all duration-500"
+                onError={() => setImageError(true)}
+              />
+            </>
+          )
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-[#121212] via-[#161616] to-[#0c0c0c] flex items-center justify-center relative">
             <div

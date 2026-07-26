@@ -17,10 +17,11 @@ export default function ProductionSection() {
 
   return (
     <section
-      id="about"
+      id="production"
       className="relative z-20 pt-20 pb-28 w-full border-t border-white/5 overflow-hidden"
       aria-labelledby="production-heading"
     >
+      <div id="about" className="absolute -top-24 left-0" aria-hidden="true" />
       {/* Background Subtle Radial Warm Glow */}
       <div
         className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-primary-yellow/[0.03] blur-[120px] rounded-full pointer-events-none"

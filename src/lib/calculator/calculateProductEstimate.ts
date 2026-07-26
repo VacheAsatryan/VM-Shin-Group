@@ -12,14 +12,15 @@ import { calculateConcreteVolume } from "./strategies/calculateConcreteVolume";
 import { calculateQuantityProduct } from "./strategies/calculateQuantityProduct";
 import { calculateProductPrice } from "./pricing/calculateProductPrice";
 import { calculateDeliveryPrice } from "./pricing/calculateDeliveryPrice";
-import { DELIVERY_CONFIG } from "@/config/delivery";
+import { PRODUCT_DETAILS } from "@/config/productDetails";
 
 export function calculateProductEstimate(
   categoryConfig: ProductCategoryConfig,
   input: CalculatorProductInput,
   variant: ProductVariantConfig,
-  deliveryEnabled: boolean = true,
-  distanceKm: number = DELIVERY_CONFIG.defaultDistanceKm
+  deliveryEnabled: boolean = false,
+  distanceKm: number = 0,
+  isMapAvailable: boolean = false
 ): CalculationResult {
   let metrics: CalculationMetrics;
 
@@ -41,20 +42,44 @@ export function calculateProductEstimate(
       break;
   }
 
-  const productSubtotal = calculateProductPrice(metrics, variant);
-  const deliveryEstimate = calculateDeliveryPrice(distanceKm, deliveryEnabled);
-  const estimatedTotal = productSubtotal + deliveryEstimate;
+  let accessoriesTotalPerUnit = 0;
+  if (input.accessories && Object.keys(input.accessories).length > 0) {
+    const productDetail = Object.values(PRODUCT_DETAILS).find(
+      (p) => p.calculatorProductId === categoryConfig.id
+    );
+    if (productDetail && productDetail.accessoryGroups) {
+      for (const [groupId, optionId] of Object.entries(input.accessories)) {
+        const group = productDetail.accessoryGroups.find((g) => g.id === groupId);
+        if (group) {
+          const option = group.options.find((o) => o.id === optionId);
+          if (option) {
+            accessoriesTotalPerUnit += option.priceAmount;
+          }
+        }
+      }
+    }
+  }
+
+  const baseProductSubtotal = calculateProductPrice(metrics, variant);
+  const accessoriesTotal = accessoriesTotalPerUnit * (metrics.primaryQuantity || 1);
+  const productSubtotal = baseProductSubtotal + accessoriesTotal;
+  
+  const deliveryEstimate = calculateDeliveryPrice(distanceKm, isMapAvailable, deliveryEnabled);
+  const estimatedTotal = productSubtotal + (deliveryEstimate || 0);
 
   return {
     category: categoryConfig.id,
     variant,
+    input,
     metrics,
     pricing: {
       productSubtotal,
+      accessoriesTotal,
       deliveryEstimate,
       estimatedTotal,
       currency: "AMD",
       isDemoPricing: true,
+      priceStatus: variant.priceStatus,
     },
   };
 }

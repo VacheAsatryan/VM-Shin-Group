@@ -17,6 +17,7 @@ export type PricingUnit =
 export interface ProductVariantConfig {
   id: string;
   nameKey: string;
+  image?: string;
   lengthMeters?: number;
   widthMeters?: number;
   heightMeters?: number;
@@ -26,6 +27,7 @@ export interface ProductVariantConfig {
   itemsPerPallet?: number;
   pricePerUnit: number;
   pricingUnit: PricingUnit;
+  priceStatus?: "to_be_confirmed" | "confirmed";
 }
 
 export interface ProductCategoryConfig {
@@ -40,26 +42,35 @@ export interface ProductCategoryConfig {
 // Discriminated Unions for Inputs
 export interface WallBlockInput {
   type: "wall_blocks";
+  mode?: "dimensions" | "quantity";
   lengthMeters: number;
   heightMeters: number;
   wallCount: number;
+  quantity?: number;
   variantId: string;
   reservePercent: number;
+  accessories?: Record<string, string>;
 }
 
 export interface PavingAreaInput {
   type: "paving_area";
+  mode?: "dimensions" | "quantity";
   lengthMeters: number;
   widthMeters: number;
+  quantity?: number;
   variantId: string;
   reservePercent: number;
+  accessories?: Record<string, string>;
 }
 
 export interface CurbstonesInput {
   type: "curbstones";
+  mode?: "dimensions" | "quantity";
   linearLengthMeters: number;
+  quantity?: number;
   variantId: string;
   reservePercent: number;
+  accessories?: Record<string, string>;
 }
 
 export interface ConcreteVolumeInput {
@@ -71,12 +82,14 @@ export interface ConcreteVolumeInput {
   depthMeters: number;
   variantId: string;
   reservePercent: number;
+  accessories?: Record<string, string>;
 }
 
 export interface QuantityProductInput {
   type: "quantity_product";
   quantity: number;
   variantId: string;
+  accessories?: Record<string, string>;
 }
 
 export type CalculatorProductInput =
@@ -100,15 +113,18 @@ export interface CalculationMetrics {
 
 export interface PricingBreakdown {
   productSubtotal: number;
-  deliveryEstimate: number;
+  accessoriesTotal?: number;
+  deliveryEstimate: number | null;
   estimatedTotal: number;
   currency: string;
   isDemoPricing: boolean;
+  priceStatus?: "to_be_confirmed" | "confirmed";
 }
 
 export interface CalculationResult {
   category: ProductCategoryType;
   variant: ProductVariantConfig;
+  input: CalculatorProductInput;
   metrics: CalculationMetrics;
   pricing: PricingBreakdown;
 }
@@ -119,8 +135,13 @@ export interface EstimateSummaryPayload {
   input: CalculatorProductInput;
   metrics: CalculationMetrics;
   pricing: PricingBreakdown;
+  accessories?: Record<string, string>;
   deliveryAddress?: string;
   estimatedDistanceKm?: number;
   isDemoData: true;
   timestamp: string;
+  productName?: string;
+  variantName?: string;
+  imageFilename?: string;
+  note?: string;
 }

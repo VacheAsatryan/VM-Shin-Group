@@ -13,8 +13,13 @@ export function calculateWallBlocks(
   const blockFaceArea = (variant.lengthMeters || 0.4) * (variant.heightMeters || 0.2);
   const blocksPerSqMeter = blockFaceArea > 0 ? 1 / blockFaceArea : 12.5;
 
-  const rawBlocks = totalArea * blocksPerSqMeter * (1 + reserve);
-  const primaryQuantity = Math.ceil(rawBlocks);
+  let primaryQuantity = 0;
+  if (input.mode === "quantity") {
+    primaryQuantity = Math.max(0, input.quantity || 0);
+  } else {
+    const rawBlocks = totalArea * blocksPerSqMeter * (1 + reserve);
+    primaryQuantity = Math.ceil(rawBlocks);
+  }
 
   const palletsCount =
     variant.itemsPerPallet && variant.itemsPerPallet > 0

@@ -1,50 +1,65 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
-import { motion, useReducedMotion } from "motion/react";
+import { useTranslations, useLocale } from "next-intl";
+import { motion, useReducedMotion } from "framer-motion";
 import { CALCULATOR_PRODUCTS } from "@/config/calculatorProducts";
 import type {
   ProductCategoryConfig,
   ProductVariantConfig,
   CalculatorProductInput,
-  ProductCategoryType,
   EstimateSummaryPayload,
 } from "@/lib/calculator/calculator.types";
-import type { AddressSuggestion } from "@/lib/maps/addressProvider.types";
-
 import { calculateProductEstimate } from "@/lib/calculator/calculateProductEstimate";
-import { yandexMapProvider } from "@/lib/maps/yandexMapProvider";
-import { useDeliveryRoute } from "@/hooks/useDeliveryRoute";
-import { staggerContainer, fadeInUp, reducedMotionVariants } from "@/config/animations";
-
 import CalculatorStepper from "@/components/calculator/CalculatorStepper";
 import ProductStep from "@/components/calculator/ProductStep";
 import ParametersStep from "@/components/calculator/ParametersStep";
 import EstimateStep from "@/components/calculator/EstimateStep";
 import DeliveryStep from "@/components/calculator/DeliveryStep";
+import OrderConfirmationModal from "@/components/order/OrderConfirmationModal";
+import type { OrderDetails, LocaleCode } from "@/lib/order/order.types";
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 15 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1.0] },
+  },
+};
+
+const reducedMotionVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.3 } },
+};
 
 interface CalculatorSectionProps {
-  initialProductCategory?: ProductCategoryType;
+  initialProductCategory?: string;
   initialVariantId?: string;
   initialAccessories?: Record<string, string>;
-  onRequestOffer?: (payload: EstimateSummaryPayload) => void;
+  onRequestOffer?: (summary: EstimateSummaryPayload) => void;
 }
 
 function getDefaultInputForCategory(
   category: ProductCategoryConfig,
-  variantIdOverride?: string
+  variantId: string
 ): CalculatorProductInput {
-  const variantId =
-    variantIdOverride ||
-    (category.variants.find((v) => v.id === variantIdOverride)?.id) ||
-    category.variants[0]?.id ||
-    "";
-
   switch (category.calculationType) {
     case "wall_blocks":
       return {
         type: "wall_blocks",
+        mode: "dimensions",
         lengthMeters: 10,
         heightMeters: 3,
         wallCount: 1,
@@ -54,6 +69,7 @@ function getDefaultInputForCategory(
     case "paving_area":
       return {
         type: "paving_area",
+        mode: "dimensions",
         lengthMeters: 10,
         widthMeters: 5,
         variantId,
@@ -62,7 +78,8 @@ function getDefaultInputForCategory(
     case "curbstones":
       return {
         type: "curbstones",
-        linearLengthMeters: 50,
+        mode: "dimensions",
+        linearLengthMeters: 20,
         variantId,
         reservePercent: 5,
       };
@@ -70,14 +87,15 @@ function getDefaultInputForCategory(
       return {
         type: "concrete_volume",
         mode: "direct",
-        directVolumeM3: 20,
-        lengthMeters: 10,
-        widthMeters: 10,
-        depthMeters: 0.2,
+        directVolumeM3: 5,
+        lengthMeters: 5,
+        widthMeters: 2,
+        depthMeters: 0.5,
         variantId,
         reservePercent: 5,
       };
     case "quantity_product":
+    default:
       return {
         type: "quantity_product",
         quantity: 10,
@@ -93,6 +111,7 @@ export default function CalculatorSection({
   onRequestOffer,
 }: CalculatorSectionProps) {
   const t = useTranslations("calculator");
+  const locale = useLocale() as LocaleCode;
   const prefersReducedMotion = useReducedMotion();
 
   const isProductPageMode = Boolean(initialProductCategory);
@@ -121,14 +140,17 @@ export default function CalculatorSection({
   const [prevVariantId, setPrevVariantId] = useState(initialVariantId);
   const [prevAccessories, setPrevAccessories] = useState(initialAccessories);
 
+  // Order Confirmation Modal State
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+  const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
+
   // Sync state during render when initialVariantId or initialAccessories prop changes
   let stateSynced = false;
   if (initialVariantId && initialVariantId !== prevVariantId) {
     setPrevVariantId(initialVariantId);
     stateSynced = true;
   }
-  
-  // Basic deep compare for accessories
+
   const accessoriesChanged = JSON.stringify(initialAccessories) !== JSON.stringify(prevAccessories);
   if (accessoriesChanged) {
     setPrevAccessories(initialAccessories);
@@ -143,30 +165,13 @@ export default function CalculatorSection({
     if (matchedVariant !== selectedVariant) {
       setSelectedVariant(matchedVariant);
     }
-    
-    setInput((prev) => ({ 
-      ...prev, 
+
+    setInput((prev) => ({
+      ...prev,
       variantId: matchedVariant.id,
-      accessories: initialAccessories || prev.accessories
+      accessories: initialAccessories || prev.accessories,
     }));
   }
-
-  // Delivery Autocomplete & Route State
-  const [destinationAddress, setDestinationAddress] = useState<string>("");
-  const [selectedSuggestion, setSelectedSuggestion] = useState<AddressSuggestion | null>(null);
-
-  const isMapAvailable = yandexMapProvider.isApiKeyAvailable;
-
-  const {
-    status: routeStatus,
-    routeEstimate,
-    routeGeometry,
-    destinationCoords,
-    startMapSelection,
-    confirmCoordinates,
-    clearRoute,
-    errorMessageKey,
-  } = useDeliveryRoute(isMapAvailable);
 
   // Handle Category Selection (Step 1 -> Step 2)
   const handleSelectCategory = (newCategory: ProductCategoryConfig) => {
@@ -174,8 +179,7 @@ export default function CalculatorSection({
     const newVariant = newCategory.variants[0];
     setSelectedVariant(newVariant);
 
-    const newInput = getDefaultInputForCategory(newCategory);
-    newInput.variantId = newVariant.id;
+    const newInput = getDefaultInputForCategory(newCategory, newVariant.id);
     setInput(newInput);
 
     setStep(2);
@@ -200,33 +204,54 @@ export default function CalculatorSection({
     setMaxAccessibleStep(4);
   };
 
-  // Handle Address Invalidation when user types manually
-  const handleInvalidateAddress = () => {
-    setSelectedSuggestion(null);
-    clearRoute();
-  };
-
-  // Handle Autocomplete Selection -> Triggers Map Selection
-  const handleSelectSuggestion = (suggestion: AddressSuggestion) => {
-    setSelectedSuggestion(suggestion);
-    setDestinationAddress(suggestion.label);
-
-    if (isMapAvailable) {
-      startMapSelection(suggestion.label);
-    }
-  };
-
-  const isAddressValidated = Boolean(selectedSuggestion && routeEstimate?.isAvailable);
-
   // Compute Calculation Result
   const estimateResult = calculateProductEstimate(
     selectedCategory,
     input,
-    selectedVariant,
-    step === 4 && isAddressValidated,
-    routeEstimate?.distanceKm || 0,
-    routeEstimate?.isAvailable || false
+    selectedVariant
   );
+
+  // Handle Order Request CTA Click -> Open Confirmation Modal
+  const handleOpenOrderModal = (payload: EstimateSummaryPayload) => {
+    const isManualMode = payload.input.type === "quantity_product";
+
+    const rawInputs: Record<string, string | number | boolean> = {};
+    if (payload.input) {
+      for (const [k, v] of Object.entries(payload.input)) {
+        if (k !== "type" && k !== "variantId" && v !== undefined && v !== null && v !== "") {
+          rawInputs[k] = typeof v === "object" ? JSON.stringify(v) : (v as string | number | boolean);
+        }
+      }
+    }
+
+    const order: OrderDetails = {
+      calculationMode: isManualMode ? "manual" : "parameters",
+      productId: payload.category,
+      productName: payload.productName || t(`categories.${payload.category}`),
+      productVariantId: payload.variantId,
+      productVariantName: payload.variantName || t(`blocks.${selectedVariant.nameKey}`),
+      quantity: payload.metrics.primaryQuantity,
+      unit: t(`units.${payload.metrics.primaryUnitKey}`),
+      inputs: rawInputs,
+      productPrice: payload.pricing.productSubtotal,
+      currency: "AMD",
+      deliveryAddress: payload.deliveryAddress,
+      destinationLatitude: payload.destinationLatitude,
+      destinationLongitude: payload.destinationLongitude,
+      deliveryDistanceKm: payload.estimatedDistanceKm,
+      estimatedDurationMinutes: payload.estimatedDurationMinutes,
+      estimatedDeliveryPrice: payload.estimatedDeliveryPrice,
+      deliveryLocationAdjustedManually: payload.deliveryLocationAdjustedManually,
+      totalPrice: payload.pricing.estimatedTotal,
+    };
+
+    setOrderDetails(order);
+    setIsOrderModalOpen(true);
+
+    if (onRequestOffer) {
+      onRequestOffer(payload);
+    }
+  };
 
   const containerVariants = prefersReducedMotion ? reducedMotionVariants : staggerContainer;
   const itemVariants = prefersReducedMotion ? reducedMotionVariants : fadeInUp;
@@ -303,32 +328,28 @@ export default function CalculatorSection({
                 result={estimateResult}
                 onChangeParameters={() => setStep(2)}
                 onAddDelivery={handleAddDelivery}
-                onRequestOffer={onRequestOffer}
+                onRequestOffer={handleOpenOrderModal}
               />
             )}
 
             {step === 4 && (
               <DeliveryStep
                 result={estimateResult}
-                destinationAddress={destinationAddress}
-                onAddressChange={setDestinationAddress}
-                selectedSuggestion={selectedSuggestion}
-                onSelectSuggestion={handleSelectSuggestion}
-                onInvalidateAddress={handleInvalidateAddress}
-                isMapAvailable={isMapAvailable}
-                routeEstimate={routeEstimate}
-                routeGeometry={routeGeometry}
-                destinationCoords={destinationCoords}
-                routeStatus={routeStatus}
-                errorMessageKey={errorMessageKey}
-                onConfirmCoordinates={confirmCoordinates}
                 onBackToEstimate={() => setStep(3)}
-                onRequestOffer={onRequestOffer}
+                onRequestOffer={handleOpenOrderModal}
               />
             )}
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Order Request Confirmation Modal */}
+      <OrderConfirmationModal
+        isOpen={isOrderModalOpen}
+        onClose={() => setIsOrderModalOpen(false)}
+        orderDetails={orderDetails}
+        locale={locale}
+      />
     </section>
   );
 }

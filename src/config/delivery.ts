@@ -24,10 +24,9 @@ export const FACTORY_ORIGIN: FactoryOriginConfig = {
   },
 };
 
+// Temporary test tariff for delivery price testing
 export const DELIVERY_CONFIG = {
-  baseCost: 5000, // Demo base loading fee in AMD
-  costPerKm: 350,  // Demo rate per kilometer in AMD
-  defaultDistanceKm: 25, // Demo distance in km
+  costPerKm: 300,
+  isTemporaryTestTariff: true,
   currency: "AMD",
-  isDemoDelivery: true,
 };

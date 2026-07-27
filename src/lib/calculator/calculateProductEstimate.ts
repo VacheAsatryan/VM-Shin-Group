@@ -2,8 +2,8 @@ import type {
   ProductCategoryConfig,
   ProductVariantConfig,
   CalculatorProductInput,
-  CalculationResult,
   CalculationMetrics,
+  CalculationResult,
 } from "./calculator.types";
 import { calculateWallBlocks } from "./strategies/calculateWallBlocks";
 import { calculatePavingArea } from "./strategies/calculatePavingArea";
@@ -17,10 +17,7 @@ import { PRODUCT_DETAILS } from "@/config/productDetails";
 export function calculateProductEstimate(
   categoryConfig: ProductCategoryConfig,
   input: CalculatorProductInput,
-  variant: ProductVariantConfig,
-  deliveryEnabled: boolean = false,
-  distanceKm: number = 0,
-  isMapAvailable: boolean = false
+  variant: ProductVariantConfig
 ): CalculationResult {
   let metrics: CalculationMetrics;
 
@@ -64,7 +61,7 @@ export function calculateProductEstimate(
   const accessoriesTotal = accessoriesTotalPerUnit * (metrics.primaryQuantity || 1);
   const productSubtotal = baseProductSubtotal + accessoriesTotal;
   
-  const deliveryEstimate = calculateDeliveryPrice(distanceKm, isMapAvailable, deliveryEnabled);
+  const deliveryEstimate = calculateDeliveryPrice();
   const estimatedTotal = productSubtotal + (deliveryEstimate || 0);
 
   return {

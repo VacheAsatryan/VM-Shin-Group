@@ -422,7 +422,7 @@
       "total": "Итоговая стоимость",
       "disclaimer": "Результат является предварительным расчетом и может отличаться от фактических требований.",
       "pricingDisclaimer": "Отображаемые цены являются демонстрационными и не являются коммерческой офертой.",
-      "cta": "Получить предложение"
+      "cta": "Отправить заявку"
     },
     "delivery": {
       "title": "Расчёт доставки",
@@ -450,7 +450,12 @@
       "deliveryNotCalculated": "Доставка пока не рассчитана",
       "selectOnMap": "Укажите точную точку доставки на карте",
       "changeDeliveryPoint": "Изменить точку доставки",
-      "routeSystemError": "Системная ошибка"
+      "routeSystemError": "Системная ошибка",
+      "serviceNotConfigured": "Сервис карты пока не настроен",
+      "serviceNotConfiguredTitle": "Сервис карты",
+      "estimatedTravelTime": "Ориентировочное время в пути",
+      "estimatedDeliveryPrice": "Ориентировочная стоимость доставки",
+      "manuallyAdjustedLocation": "Точка доставки скорректирована вручную на карте"
     },
     "products": {},
     "accessories": {
@@ -567,5 +572,59 @@
     "documentsDesc": "Свидетельства о поверке весов, используемых в процессах производства бетона, и благодарственные письма.",
     "documentsOgTitle": "Документы, контроль и признание | VM SHIN GROUP",
     "documentsOgDesc": "Свидетельства о поверке весов, используемых в процессах производства бетона, и благодарственные письма."
+  },
+  "orderModal": {
+    "modalTitle": "Подтвердить заявку",
+    "modalDescription": "Проверьте данные и укажите свои контактные данные.",
+    "cancelButton": "Отменить",
+    "submitButton": "Подтвердить и отправить",
+    "submittingButton": "Отправка...",
+    "closeAriaLabel": "Закрыть окно",
+    "optional": "необязательно",
+    "form": {
+      "nameLabel": "Имя и Фамилия",
+      "namePlaceholder": "Введите ваше имя",
+      "phoneLabel": "Номер телефона",
+      "phonePlaceholder": "+374 XX XX XX XX",
+      "emailLabel": "Эл. почта",
+      "emailPlaceholder": "example@domain.com",
+      "commentLabel": "Комментарий / Примечание",
+      "commentPlaceholder": "Дополнительные пожелания"
+    },
+    "errors": {
+      "requiredField": "Заполните это поле",
+      "nameTooShort": "Введите минимум 2 символа",
+      "nameTooLong": "Имя слишком длинное",
+      "invalidPhone": "Введите корректный номер телефона",
+      "invalidEmail": "Введите корректный адрес эл. почты",
+      "commentTooLong": "Комментарий слишком длинный"
+    },
+    "summary": {
+      "header": "Сводка заказа",
+      "parameterMode": "Расчет по параметрам",
+      "manualMode": "Ручной ввод количества",
+      "product": "Товар",
+      "variant": "Тип / Вариант",
+      "quantity": "Количество",
+      "enteredParameters": "Введенные параметры",
+      "deliveryAddress": "Адрес доставки",
+      "distance": "Расстояние",
+      "duration": "Время",
+      "deliveryPrice": "Доставка",
+      "productSubtotal": "Стоимость товара",
+      "deliveryCost": "Стоимость доставки",
+      "total": "Итого"
+    },
+    "success": {
+      "title": "Заявка успешно отправлена",
+      "message": "Спасибо. Наш специалист скоро свяжется с вами.",
+      "closeButton": "Закрыть"
+    },
+    "error": {
+      "title": "Не удалось отправить заявку",
+      "message": "Попробуйте ещё раз или свяжитесь с нами по телефону.",
+      "retryButton": "Попробовать снова",
+      "defaultMessage": "Произошла ошибка при отправке заявки."
+    }
   }
 }

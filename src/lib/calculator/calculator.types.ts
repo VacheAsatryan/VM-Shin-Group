@@ -137,7 +137,12 @@ export interface EstimateSummaryPayload {
   pricing: PricingBreakdown;
   accessories?: Record<string, string>;
   deliveryAddress?: string;
+  destinationLatitude?: number;
+  destinationLongitude?: number;
   estimatedDistanceKm?: number;
+  estimatedDurationMinutes?: number;
+  estimatedDeliveryPrice?: number | null;
+  deliveryLocationAdjustedManually?: boolean;
   isDemoData: true;
   timestamp: string;
   productName?: string;

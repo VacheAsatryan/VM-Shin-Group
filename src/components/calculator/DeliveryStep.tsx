@@ -1,79 +1,112 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import dynamic from "next/dynamic";
+import { useTranslations, useLocale } from "next-intl";
 import { FACTORY_ORIGIN } from "@/config/delivery";
 import type { CalculationResult, EstimateSummaryPayload } from "@/lib/calculator/calculator.types";
-import type { AddressSuggestion } from "@/lib/maps/addressProvider.types";
-import type { MapRouteEstimate } from "@/lib/maps/mapProvider.types";
-import AddressAutocomplete from "./AddressAutocomplete";
-import YandexDeliveryMap from "./YandexDeliveryMap";
-import { Button, LinkButton } from "@/components/ui/Button";
-import type { RouteStatus } from "@/hooks/useDeliveryRoute";
-import type { Coordinates } from "@/lib/routing/types";
+import { useDeliveryRoute } from "@/hooks/useDeliveryRoute";
+import type { AddressSuggestion } from "@/lib/maps/geoapify/types";
+import DeliveryAddressSearch from "@/components/delivery/DeliveryAddressSearch";
+import DeliveryRouteSummary from "@/components/delivery/DeliveryRouteSummary";
+import DeliveryMapLoading from "@/components/delivery/DeliveryMapLoading";
+import DeliveryMapError from "@/components/delivery/DeliveryMapError";
+import { Button } from "@/components/ui/Button";
+
+const DeliveryCalculatorMap = dynamic(
+  () => import("@/components/delivery/DeliveryCalculatorMap"),
+  {
+    ssr: false,
+    loading: () => <DeliveryMapLoading />,
+  }
+);
 
 interface DeliveryStepProps {
   result: CalculationResult;
-  destinationAddress: string;
-  onAddressChange: (address: string) => void;
-  selectedSuggestion: AddressSuggestion | null;
-  onSelectSuggestion: (suggestion: AddressSuggestion) => void;
-  onInvalidateAddress: () => void;
-  isMapAvailable: boolean;
-  routeEstimate: MapRouteEstimate | null;
-  routeGeometry: Coordinates[] | null;
-  destinationCoords: Coordinates | null;
-  routeStatus: RouteStatus;
-  errorMessageKey?: string;
-  onConfirmCoordinates: (coords: Coordinates) => void;
   onBackToEstimate: () => void;
   onRequestOffer?: (payload: EstimateSummaryPayload) => void;
 }
 
 export default function DeliveryStep({
   result,
-  destinationAddress,
-  onAddressChange,
-  selectedSuggestion,
-  onSelectSuggestion,
-  onInvalidateAddress,
-  isMapAvailable,
-  routeEstimate,
-  routeGeometry,
-  destinationCoords,
-  routeStatus,
-  errorMessageKey,
-  onConfirmCoordinates,
   onBackToEstimate,
   onRequestOffer,
 }: DeliveryStepProps) {
   const t = useTranslations("calculator");
+  const locale = useLocale();
   const currency = t("units.currency");
 
-  const isAddressValidated = Boolean(selectedSuggestion && routeEstimate?.isAvailable);
+  const {
+    status,
+    selectedAddress,
+    destinationCoords,
+    route,
+    pricing,
+    deliveryLocationAdjustedManually,
+    errorMessageKey,
+    isConfigured,
+    setSelectedAddress,
+    selectSuggestion,
+    adjustDestinationCoordinates,
+    invalidateRoute,
+  } = useDeliveryRoute();
 
-  const deliveryCostText = isAddressValidated && result.pricing.deliveryEstimate !== null
-    ? `${result.pricing.deliveryEstimate.toLocaleString()} ${currency}`
+  const isRouteReady = status === "routeReady" && route !== null && pricing !== null;
+
+  // Calculate final total with delivery if route is ready
+  const deliveryEstimate = isRouteReady && pricing?.price !== null ? pricing.price : null;
+  const finalTotal = result.pricing.productSubtotal + (deliveryEstimate || 0);
+
+  const deliveryCostText = isRouteReady
+    ? deliveryEstimate !== null
+      ? `${deliveryEstimate.toLocaleString()} ${currency}`
+      : t("priceConfirmedByManager")
     : t("delivery.deliveryNotCalculated");
 
+  const handleSelectSuggestion = async (suggestion: AddressSuggestion) => {
+    await selectSuggestion(suggestion);
+  };
+
+  const handleConfirmCoordinates = async (coords: { lat: number; lon: number }) => {
+    await adjustDestinationCoordinates(coords);
+  };
+
   const handleRequestOfferClick = () => {
+    const payloadNote = [
+      result.pricing.priceStatus === "to_be_confirmed"
+        ? "Exact size and price pending confirmation"
+        : undefined,
+      !isRouteReady
+        ? "Delivery requires manual confirmation by manager"
+        : deliveryLocationAdjustedManually
+        ? "Delivery location adjusted manually on map"
+        : undefined,
+    ]
+      .filter(Boolean)
+      .join("; ");
+
     const payload: EstimateSummaryPayload = {
       category: result.category,
       variantId: result.variant.id,
-      input: {
-        type: "quantity_product",
-        quantity: result.metrics.primaryQuantity,
-        variantId: result.variant.id,
-      },
+      input: result.input,
       metrics: result.metrics,
-      pricing: result.pricing,
-      deliveryAddress: destinationAddress,
-      estimatedDistanceKm: isAddressValidated ? routeEstimate?.distanceKm || 0 : 0,
+      pricing: {
+        ...result.pricing,
+        deliveryEstimate,
+        estimatedTotal: finalTotal,
+      },
+      deliveryAddress: selectedAddress || undefined,
+      destinationLatitude: destinationCoords?.lat,
+      destinationLongitude: destinationCoords?.lon,
+      estimatedDistanceKm: route?.distanceKm || undefined,
+      estimatedDurationMinutes: route?.durationMinutes || undefined,
+      estimatedDeliveryPrice: deliveryEstimate,
+      deliveryLocationAdjustedManually,
       isDemoData: true,
       timestamp: new Date().toISOString(),
       productName: t(`categories.${result.category}`),
       variantName: t(`blocks.${result.variant.nameKey}`),
       imageFilename: result.variant.image ? result.variant.image.split("/").pop() : undefined,
-      note: result.pricing.priceStatus === "to_be_confirmed" ? "exact size and price pending confirmation" : undefined,
+      note: payloadNote || undefined,
     };
 
     if (onRequestOffer) {
@@ -110,66 +143,55 @@ export default function DeliveryStep({
           </span>
         </div>
 
-        {/* Address Autocomplete Input */}
-        <AddressAutocomplete
-          value={destinationAddress}
-          onChangeText={onAddressChange}
-          onSelectSuggestion={onSelectSuggestion}
-          onInvalidateAddress={onInvalidateAddress}
-          isMapAvailable={isMapAvailable}
+        {/* Geoapify Address Autocomplete */}
+        <DeliveryAddressSearch
+          value={selectedAddress}
+          onChangeText={setSelectedAddress}
+          onSelectSuggestion={handleSelectSuggestion}
+          onInvalidateAddress={invalidateRoute}
+          isConfigured={isConfigured}
+          locale={locale}
         />
 
-        {/* Address Invalidation Warning if user typed text but didn't pick from dropdown */}
-        {destinationAddress.trim().length > 0 && !selectedSuggestion && isMapAvailable && routeStatus !== "selectingOnMap" && (
-          <div className="p-3 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-mono">
-            ⚠ {t("delivery.addressInvalidated")}
-          </div>
+        {/* Missing API Key Notice */}
+        {!isConfigured && (
+          <DeliveryMapError isMissingConfig={true} />
         )}
 
-        {/* Map Instruction */}
-        {routeStatus === "selectingOnMap" && (
-          <div className="p-3 rounded bg-blue-500/10 border border-blue-500/30 text-blue-300 text-xs font-mono text-center animate-pulse">
-            📍 {t("delivery.selectOnMap")}
-          </div>
-        )}
-
-        {/* Yandex Map View with Route Loading Overlay */}
-        <div className="relative flex flex-col gap-2">
-          <YandexDeliveryMap
-            routeStatus={routeStatus}
-            routeGeometry={isAddressValidated ? routeGeometry : null}
-            destinationCoords={isAddressValidated || routeStatus === "buildingRoute" || routeStatus === "selectingOnMap" ? destinationCoords : null}
-            routeEstimate={isAddressValidated ? routeEstimate : null}
-            onConfirmCoordinates={onConfirmCoordinates}
-            onMapError={(key) => alert(t(`delivery.${key}`))}
+        {/* Route Error Notification */}
+        {isConfigured && status === "error" && (
+          <DeliveryMapError
+            errorMessageKey={errorMessageKey}
+            onRetry={() => {
+              if (destinationCoords) handleConfirmCoordinates(destinationCoords);
+            }}
           />
-          
-          {/* Distance Text Below Map */}
-          {isAddressValidated && routeEstimate?.distanceKm ? (
-            <div className="flex flex-col items-center gap-3 mt-2">
-              <div className="text-sm font-mono text-primary-yellow text-center">
-                {t("delivery.routeDistance", { distance: routeEstimate.distanceKm.toFixed(1) })}
-              </div>
-              <Button variant="secondary" onClick={onInvalidateAddress} className="text-xs max-w-xs">
-                {t("delivery.changeDeliveryPoint")}
-              </Button>
-            </div>
-          ) : null}
+        )}
 
-          {(routeStatus === "buildingRoute") && (
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm rounded-xl flex flex-col items-center justify-center text-primary-yellow font-mono text-xs gap-2">
-              <span className="animate-spin text-base">⚙</span>
-              <span>{t("delivery.routeCalculating")}</span>
-            </div>
-          )}
-          
-          {errorMessageKey && (
-            <div className="absolute inset-0 bg-black/80 backdrop-blur-md rounded-xl flex flex-col items-center justify-center text-red-400 font-mono text-xs gap-3 p-6 text-center" style={{ zIndex: 10 }}>
-              <span className="text-3xl">⚠</span>
-              <span>{t(`delivery.${errorMessageKey}`)}</span>
-            </div>
-          )}
-        </div>
+        {/* Map View & Route Calculation */}
+        {isConfigured && (
+          <div className="relative flex flex-col gap-3">
+            {status === "buildingRoute" ? (
+              <DeliveryMapLoading />
+            ) : (
+              <DeliveryCalculatorMap
+                destinationCoords={destinationCoords}
+                destinationAddress={selectedAddress}
+                route={route}
+                onConfirmCoordinates={handleConfirmCoordinates}
+              />
+            )}
+
+            {/* Route Summary */}
+            {isRouteReady && (
+              <DeliveryRouteSummary
+                route={route}
+                pricing={pricing}
+                deliveryLocationAdjustedManually={deliveryLocationAdjustedManually}
+              />
+            )}
+          </div>
+        )}
 
         {/* Delivery Summary Breakdown */}
         <div className="p-4 rounded-xl bg-background/80 border border-gold-border flex flex-col gap-3">
@@ -192,12 +214,12 @@ export default function DeliveryStep({
           <div className="flex items-center justify-between text-sm sm:text-base font-bold">
             <span className="text-text-primary uppercase tracking-wider">{t("results.total")}:</span>
             <span className="font-mono text-xl sm:text-2xl font-black text-primary-yellow">
-              {result.pricing.estimatedTotal.toLocaleString()} {currency}
+              {finalTotal.toLocaleString()} {currency}
             </span>
           </div>
         </div>
 
-        {/* Actions */}
+        {/* Navigation Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-3 pt-2">
           <Button
             type="button"
@@ -208,14 +230,14 @@ export default function DeliveryStep({
             {t("stepper.step3")}
           </Button>
 
-          <LinkButton
-            href="#contact"
+          <Button
+            type="button"
             variant="primary"
             className="flex-1 text-center"
             onClick={handleRequestOfferClick}
           >
             {t("results.cta")}
-          </LinkButton>
+          </Button>
         </div>
       </div>
     </div>

@@ -422,7 +422,7 @@
       "total": "Estimated Total",
       "disclaimer": "The result is an initial estimate and may differ from actual site requirements.",
       "pricingDisclaimer": "Displayed prices are demonstration values and are not a commercial offer.",
-      "cta": "Request an offer"
+      "cta": "Send request"
     },
     "delivery": {
       "title": "Delivery Estimator",
@@ -449,7 +449,12 @@
       "addressOutsideArmenia": "The selected point is outside the delivery area (Armenia)",
       "selectOnMap": "Select the exact delivery point on the map",
       "changeDeliveryPoint": "Change delivery point",
-      "routeSystemError": "System error"
+      "routeSystemError": "System error",
+      "serviceNotConfigured": "The map service has not been configured yet",
+      "serviceNotConfiguredTitle": "Map service",
+      "estimatedTravelTime": "Estimated travel time",
+      "estimatedDeliveryPrice": "Estimated delivery price",
+      "manuallyAdjustedLocation": "Delivery location adjusted manually on the map"
     },
     "products": {},
     "accessories": {
@@ -566,5 +571,59 @@
     "documentsDesc": "Verification certificates for scales used in our concrete manufacturing processes, plus letters of appreciation.",
     "documentsOgTitle": "Documents, Quality Control and Recognition | VM SHIN GROUP",
     "documentsOgDesc": "Verification certificates for scales used in our concrete manufacturing processes, plus letters of appreciation."
+  },
+  "orderModal": {
+    "modalTitle": "Confirm request",
+    "modalDescription": "Review the details and provide your contact information.",
+    "cancelButton": "Cancel",
+    "submitButton": "Confirm and send",
+    "submittingButton": "Sending...",
+    "closeAriaLabel": "Close dialog",
+    "optional": "optional",
+    "form": {
+      "nameLabel": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "phoneLabel": "Phone Number",
+      "phonePlaceholder": "+374 XX XX XX XX",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "example@domain.com",
+      "commentLabel": "Comment / Notes",
+      "commentPlaceholder": "Additional requirements or notes"
+    },
+    "errors": {
+      "requiredField": "Please fill out this field",
+      "nameTooShort": "Enter at least 2 characters",
+      "nameTooLong": "Name is too long",
+      "invalidPhone": "Enter a valid phone number",
+      "invalidEmail": "Enter a valid email address",
+      "commentTooLong": "Comment is too long"
+    },
+    "summary": {
+      "header": "Order Summary",
+      "parameterMode": "Parameter Calculation",
+      "manualMode": "Manual Quantity Entry",
+      "product": "Product",
+      "variant": "Variant",
+      "quantity": "Quantity",
+      "enteredParameters": "Entered Parameters",
+      "deliveryAddress": "Delivery Address",
+      "distance": "Distance",
+      "duration": "Duration",
+      "deliveryPrice": "Delivery Price",
+      "productSubtotal": "Product Price",
+      "deliveryCost": "Delivery Price",
+      "total": "Total Estimated"
+    },
+    "success": {
+      "title": "Request sent successfully",
+      "message": "Thank you. Our specialist will contact you shortly.",
+      "closeButton": "Close"
+    },
+    "error": {
+      "title": "Request could not be sent",
+      "message": "Please try again or contact us by phone.",
+      "retryButton": "Try again",
+      "defaultMessage": "An error occurred while sending your request."
+    }
   }
 }

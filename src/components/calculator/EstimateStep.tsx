@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import type { CalculationResult, EstimateSummaryPayload } from "@/lib/calculator/calculator.types";
-import { Button, LinkButton } from "@/components/ui/Button";
+import { Button } from "@/components/ui/Button";
 
 interface EstimateStepProps {
   result: CalculationResult;
@@ -153,14 +153,14 @@ export default function EstimateStep({
 
         {/* Main CTA */}
         <div>
-          <LinkButton
-            href="#contact"
+          <Button
+            type="button"
             variant="primary"
             className="w-full text-center"
             onClick={handleRequestOfferClick}
           >
             {t("results.cta")}
-          </LinkButton>
+          </Button>
         </div>
       </div>
     </div>

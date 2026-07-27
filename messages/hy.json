@@ -422,7 +422,7 @@
       "total": "Ընդհանուր արժեք",
       "disclaimer": "Արդյունքը նախնական հաշվարկ է և կարող է տարբերվել իրական պահանջներից։",
       "pricingDisclaimer": "Ցուցադրված գները ցուցադրական տվյալներ են և առևտրային առաջարկ չեն հանդիսանում։",
-      "cta": "Ստանալ առաջարկ"
+      "cta": "Պատվիրել"
     },
     "delivery": {
       "title": "Առաքման հաշվարկ",
@@ -450,7 +450,12 @@
       "deliveryNotCalculated": "Առաքումը դեռ հաշվարկված չէ",
       "selectOnMap": "Նշեք առաքման ճշգրիտ կետը քարտեզի վրա",
       "changeDeliveryPoint": "Փոխել առաքման կետը",
-      "routeSystemError": "Համակարգային սխալ"
+      "routeSystemError": "Համակարգային սխալ",
+      "serviceNotConfigured": "Քարտեզի ծառայությունը դեռ կազմաձևված չէ",
+      "serviceNotConfiguredTitle": "Քարտեզի ծառայություն",
+      "estimatedTravelTime": "Մոտավոր ժամանակ ճանապարհին",
+      "estimatedDeliveryPrice": "Առաքման մոտավոր արժեք",
+      "manuallyAdjustedLocation": "Առաքման տեղադիրքը ճշգրտվել է քարտեզի վրա"
     },
     "products": {},
     "accessories": {
@@ -567,5 +572,59 @@
     "documentsDesc": "Մեր բետոնի արտադրության գործընթացում կիրառվող կշեռքների ստուգաչափման վկայականներ և շնորհակալագրեր։",
     "documentsOgTitle": "Փաստաթղթեր, վերահսկողություն և ճանաչում | VM SHIN GROUP",
     "documentsOgDesc": "Մեր բետոնի արտադրության գործընթացում կիրառվող կշեռքների ստուգաչափման վկայականներ և շնորհակալագրեր։"
+  },
+  "orderModal": {
+    "modalTitle": "Հաստատել պատվերը",
+    "modalDescription": "Խնդրում ենք ստուգել տվյալները և նշել Ձեր կոնտակտային տվյալները։",
+    "cancelButton": "Չեղարկել",
+    "submitButton": "Հաստատել և ուղարկել",
+    "submittingButton": "Ուղարկվում է...",
+    "closeAriaLabel": "Փակել պատուհանը",
+    "optional": "կամընտիր",
+    "form": {
+      "nameLabel": "Անուն Ազգանուն",
+      "namePlaceholder": "Մուտքագրեք Ձեր անունը",
+      "phoneLabel": "Հեռախոսահամար",
+      "phonePlaceholder": "+374 XX XX XX XX",
+      "emailLabel": "Էլ. փոստ",
+      "emailPlaceholder": "example@domain.com",
+      "commentLabel": "Մեկնաբանություն / Նշումներ",
+      "commentPlaceholder": "Լրացուցիչ ցանկություններ կամ նշումներ"
+    },
+    "errors": {
+      "requiredField": "Լրացրեք այս դաշտը",
+      "nameTooShort": "Մուտքագրեք առնվազն 2 նիշ",
+      "nameTooLong": "Անունը չափազանց երկար է",
+      "invalidPhone": "Մուտքագրեք վավեր հեռախոսահամար",
+      "invalidEmail": "Մուտքագրեք վավեր էլ. փոստի հասցե",
+      "commentTooLong": "Մեկնաբանությունը չափազանց երկար է"
+    },
+    "summary": {
+      "header": "Պատվերի ամփոփում",
+      "parameterMode": "Պարամետրերով հաշվարկ",
+      "manualMode": "Ձեռքով քանակ",
+      "product": "Ապրանք",
+      "variant": "Տեսակ",
+      "quantity": "Քանակ",
+      "enteredParameters": "Մուտքագրված պարամետրեր",
+      "deliveryAddress": "Առաքման հասցե",
+      "distance": "Հեռավորություն",
+      "duration": "Ժամանակ",
+      "deliveryPrice": "Առաքում",
+      "productSubtotal": "Ապրանքի արժեք",
+      "deliveryCost": "Առաքման արժեք",
+      "total": "Ընդհանուր"
+    },
+    "success": {
+      "title": "Հայտը հաջողությամբ ուղարկվել է",
+      "message": "Շնորհակալություն։ Մեր մասնագետը շուտով կապ կհաստատի Ձեզ հետ։",
+      "closeButton": "Փակել"
+    },
+    "error": {
+      "title": "Չհաջողվեց ուղարկել հայտը",
+      "message": "Խնդրում ենք կրկին փորձել կամ կապ հաստատել մեզ հետ հեռախոսով։",
+      "retryButton": "Կրկին փորձել",
+      "defaultMessage": "Տեղի է ունեցել սխալ հայտը ուղարկելիս:"
+    }
   }
 }

@@ -13,8 +13,8 @@ export interface ProductionConfig {
 }
 
 export const PRODUCTION_CONFIG: ProductionConfig = {
-  mainImage: "/images/production/placeholders/factory-main.svg",
-  secondaryImage: "/images/production/placeholders/factory-detail.svg",
+  mainImage: "/images/production/placeholders/production-control-dashboard.webp",
+  secondaryImage: "/images/production/placeholders/production-process-panel.webp",
   imageAltKey: "mainImageAlt",
   badgeKey: "badge",
   facts: [

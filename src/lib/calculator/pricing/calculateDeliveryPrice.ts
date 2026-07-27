@@ -1,14 +1,11 @@
 import { DELIVERY_CONFIG } from "@/config/delivery";
 
 export function calculateDeliveryPrice(
-  distanceKm: number,
-  isAvailable: boolean,
-  enabled: boolean = false
+  distanceKm?: number,
+  enabled: boolean = true
 ): number | null {
-  if (!enabled || !isAvailable || distanceKm <= 0) {
+  if (!enabled || !distanceKm || distanceKm <= 0) {
     return null;
   }
-
-  const cost = DELIVERY_CONFIG.baseCost + distanceKm * DELIVERY_CONFIG.costPerKm;
-  return Math.round(cost);
+  return Math.round(distanceKm * DELIVERY_CONFIG.costPerKm);
 }

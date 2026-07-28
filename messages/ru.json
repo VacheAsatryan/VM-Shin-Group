@@ -626,5 +626,117 @@
       "retryButton": "Попробовать снова",
       "defaultMessage": "Произошла ошибка при отправке заявки."
     }
+  },
+  "adminAuth": {
+    "loginTitle": "Вход в систему",
+    "loginSubtitle": "Панель администратора VM SHIN GROUP",
+    "emailLabel": "Эл. почта",
+    "emailPlaceholder": "admin@domain.com",
+    "passwordLabel": "Пароль",
+    "passwordPlaceholder": "••••••••",
+    "submitButton": "Войти",
+    "submittingButton": "Проверка...",
+    "showPassword": "Показать пароль",
+    "hidePassword": "Скрыть пароль",
+    "genericError": "Неверный логин или пароль.",
+    "invalidEmail": "Введите корректный адрес эл. почты.",
+    "invalidPassword": "Введите пароль.",
+    "dashboardTitle": "Панель управления",
+    "dashboardSubtitle": "Система администратора VM SHIN GROUP",
+    "logoutButton": "Выйти"
+  },
+  "adminNav": {
+    "brandName": "VM SHIN GROUP",
+    "portalTitle": "Панель управления",
+    "dashboard": "Главная",
+    "requests": "Заявки",
+    "documents": "Документы",
+    "news": "Новости",
+    "vacancies": "Вакансии",
+    "seo": "SEO Настройки",
+    "comingSoonTag": "Скоро",
+    "adminRoleLabel": "Администратор",
+    "logout": "Выйти",
+    "menuOpen": "Открыть меню",
+    "menuClose": "Закрыть меню",
+    "mobileMenuTitle": "Навигация",
+    "switchLanguage": "Сменить язык"
+  },
+  "adminDashboard": {
+    "title": "Панель управления",
+    "subtitle": "Главная страница административной системы VM SHIN GROUP",
+    "welcomeBanner": "Добро пожаловать в систему управления VM SHIN GROUP",
+    "overviewText": "Отсюда вы сможете управлять заявками с сайта, документами, новостями и SEO-данными.",
+    "sections": {
+      "requestsTitle": "Заявки на заказ",
+      "requestsDesc": "Просмотр и обработка заявок, поступивших из калькулятора.",
+      "documentsTitle": "Документы",
+      "documentsDesc": "Управление свидетельствами о поверке и благодарственными письмами.",
+      "newsTitle": "Новости",
+      "newsDesc": "Публикация новостей компании и объявлений.",
+      "vacanciesTitle": "Вакансии",
+      "vacanciesDesc": "Управление объявлениями о вакансиях.",
+      "seoTitle": "SEO Настройки",
+      "seoDesc": "Управление метаданными и поисковой оптимизацией сайта."
+    },
+    "placeholderPage": {
+      "badge": "В разработке",
+      "title": "{section} — В разработке",
+      "description": "Этот раздел находится в стадии разработки и станет доступен в ближайшем обновлении.",
+      "backToDashboard": "Вернуться на главную"
+    }
+  },
+  "adminRequests": {
+    "title": "Заявки на заказы",
+    "subtitle": "Просмотр и управление заявками клиентов с сайта",
+    "searchPlaceholder": "Поиск по имени, телефону или email...",
+    "filterAll": "Все",
+    "statusNew": "Новая",
+    "statusInProgress": "В обработке",
+    "statusContacted": "Связались",
+    "statusClosed": "Закрыта",
+    "statusCancelled": "Отменена",
+    "columns": {
+      "orderId": "ID заказа",
+      "date": "Дата",
+      "customer": "Клиент",
+      "phone": "Телефон",
+      "product": "Товар",
+      "quantity": "Кол-во",
+      "totalPrice": "Итого",
+      "status": "Статус"
+    },
+    "drawer": {
+      "title": "Детали заказа",
+      "customerSection": "Данные клиента",
+      "orderSection": "Данные заказа",
+      "deliverySection": "Данные доставки",
+      "name": "Имя",
+      "phone": "Телефон",
+      "email": "Email",
+      "comment": "Комментарий",
+      "product": "Товар",
+      "variant": "Вариант",
+      "quantity": "Количество",
+      "productPrice": "Цена за ед.",
+      "productsTotal": "Сумма товаров",
+      "deliveryPrice": "Стоимость доставки",
+      "totalPrice": "Общая сумма",
+      "deliveryAddress": "Адрес",
+      "distance": "Расстояние",
+      "duration": "Время в пути",
+      "notSpecified": "Не указано",
+      "notCalculated": "Не рассчитано",
+      "close": "Закрыть"
+    },
+    "pagination": {
+      "showing": "Показано {from}-{to} из {total}",
+      "previous": "Назад",
+      "next": "Вперед"
+    },
+    "noRequestsFound": "Заявки не найдены",
+    "updatingStatus": "Обновление...",
+    "statusUpdatedSuccess": "Статус обновлен",
+    "statusUpdateError": "Не удалось обновить статус"
   }
 }

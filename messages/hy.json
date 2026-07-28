@@ -626,5 +626,117 @@
       "retryButton": "Կրկին փորձել",
       "defaultMessage": "Տեղի է ունեցել սխալ հայտը ուղարկելիս:"
     }
+  },
+  "adminAuth": {
+    "loginTitle": "Մուտք համակարգ",
+    "loginSubtitle": "Վարչական մասի մուտք VM SHIN GROUP",
+    "emailLabel": "Էլ. փոստ",
+    "emailPlaceholder": "admin@domain.com",
+    "passwordLabel": "Գաղտնաբառ",
+    "passwordPlaceholder": "••••••••",
+    "submitButton": "Մուտք գործել",
+    "submittingButton": "Ստուգվում է...",
+    "showPassword": "Ցույց տալ գաղտնաբառը",
+    "hidePassword": "Թաքցնել գաղտնաբառը",
+    "genericError": "Մուտքանունը կամ գաղտնաբառը սխալ է:",
+    "invalidEmail": "Մուտքագրեք վավեր էլ. փոստի հասցե:",
+    "invalidPassword": "Մուտքագրեք գաղտնաբառը:",
+    "dashboardTitle": "Կառավարման վահանակ",
+    "dashboardSubtitle": "VM SHIN GROUP ադմինիստրատորի համակարգ",
+    "logoutButton": "Դուրս գալ"
+  },
+  "adminNav": {
+    "brandName": "VM SHIN GROUP",
+    "portalTitle": "Կառավարման վահանակ",
+    "dashboard": "Գլխավոր",
+    "requests": "Հայտեր",
+    "documents": "Փաստաթղթեր",
+    "news": "Նորություններ",
+    "vacancies": "Թափուր տեղեր",
+    "seo": "SEO Կարգավորումներ",
+    "comingSoonTag": "Շուտով",
+    "adminRoleLabel": "Ադմինիստրատոր",
+    "logout": "Դուրս գալ",
+    "menuOpen": "Բացել մենյուն",
+    "menuClose": "Փակել մենյուն",
+    "mobileMenuTitle": "Նավիգացիա",
+    "switchLanguage": "Փոխել լեզուն"
+  },
+  "adminDashboard": {
+    "title": "Կառավարման վահանակ",
+    "subtitle": "VM SHIN GROUP վարչական համակարգի գլխավոր էջ",
+    "welcomeBanner": "Բարի գալուստ VM SHIN GROUP-ի կառավարման համակարգ",
+    "overviewText": "Այստեղից կարող եք կառավարել կայքի հայտերը, փաստաթղթերը, նորությունները և SEO տվյալները։",
+    "sections": {
+      "requestsTitle": "Պատվերի հայտեր",
+      "requestsDesc": "Հաշվիչից ստացված պատվերի հայտերի դիտում և կառավարում։",
+      "documentsTitle": "Փաստաթղթեր",
+      "documentsDesc": "Ստուգաչափման վկայականների և շնորհակալագրերի կառավարում։",
+      "newsTitle": "Նորություններ",
+      "newsDesc": "Ընկերության նորությունների և հայտարարությունների հրապարակում։",
+      "vacanciesTitle": "Թափուր տեղեր",
+      "vacanciesDesc": "Աշխատատեղերի հայտարարությունների կառավարում։",
+      "seoTitle": "SEO Կարգավորումներ",
+      "seoDesc": "Կայքի մետա տվյալների և որոնողական օպտիմալացման կառավարում։"
+    },
+    "placeholderPage": {
+      "badge": "Մշակման փուլում",
+      "title": "{section} — Մշակման փուլում",
+      "description": "Այս բաժինը գտնվում է ակտիվ մշակման փուլում և հասանելի կդառնա հաջորդ թարմացման ընթացքում։",
+      "backToDashboard": "Վերադառնալ գլխավոր էջ"
+    }
+  },
+  "adminRequests": {
+    "title": "Պատվերի հայտեր",
+    "subtitle": "Կայքից ստացված հաճախորդների պատվերի հայտերի դիտում և կառավարում",
+    "searchPlaceholder": "Որոնում ըստ անվան, հեռախոսի կամ էլ․ փոստի...",
+    "filterAll": "Բոլորը",
+    "statusNew": "Նոր",
+    "statusInProgress": "Ընթացքի մեջ",
+    "statusContacted": "Կապ է հաստատվել",
+    "statusClosed": "Փակված",
+    "statusCancelled": "Չեղարկված",
+    "columns": {
+      "orderId": "Համար",
+      "date": "Ամսաթիվ",
+      "customer": "Հաճախորդ",
+      "phone": "Հեռախոս",
+      "product": "Ապրանք",
+      "quantity": "Քանակ",
+      "totalPrice": "Ընդհանուր",
+      "status": "Կարգավիճակ"
+    },
+    "drawer": {
+      "title": "Պատվերի մանրամասներ",
+      "customerSection": "Հաճախորդի տվյալներ",
+      "orderSection": "Պատվերի տվյալներ",
+      "deliverySection": "Առաքման տվյալներ",
+      "name": "Անուն",
+      "phone": "Հեռախոս",
+      "email": "Էլ․ փոստ",
+      "comment": "Մեկնաբանություն",
+      "product": "Ապրանք",
+      "variant": "Տարբերակ",
+      "quantity": "Քանակ",
+      "productPrice": "Միավորի արժեք",
+      "productsTotal": "Ապրանքների գումար",
+      "deliveryPrice": "Առաքման արժեք",
+      "totalPrice": "Ընդհանուր գումար",
+      "deliveryAddress": "Հասցե",
+      "distance": "Հեռավորություն",
+      "duration": "Տևողություն",
+      "notSpecified": "Նշված չէ",
+      "notCalculated": "Չի հաշվարկվել",
+      "close": "Փակել"
+    },
+    "pagination": {
+      "showing": "Ցուցադրված է {from}-{to} ընդհանուր {total}-ից",
+      "previous": "Նախորդ",
+      "next": "Հաջորդ"
+    },
+    "noRequestsFound": "Հայտեր չեն գտնվել",
+    "updatingStatus": "Թարմացվում է...",
+    "statusUpdatedSuccess": "Կարգավիճակը թարմացվեց",
+    "statusUpdateError": "Չհաջողվեց թարմացնել կարգավիճակը"
   }
 }

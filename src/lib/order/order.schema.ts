@@ -32,13 +32,13 @@ export function validateCustomer(
   const trimmedEmail = (customer.email || "").trim();
   if (trimmedEmail) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(trimmedEmail) || trimmedEmail.length > 100) {
+    if (!emailRegex.test(trimmedEmail) || trimmedEmail.length > 255) {
       errors.email = "invalidEmail";
     }
   }
 
   const trimmedComment = (customer.comment || "").trim();
-  if (trimmedComment.length > 1000) {
+  if (trimmedComment.length > 2000) {
     errors.comment = "commentTooLong";
   }
 
@@ -55,63 +55,90 @@ export function validateOrderPayloadServer(
 
   const body = payload as Record<string, unknown>;
 
+  // Honeypot trap check
   if (body.honeypot && typeof body.honeypot === "string" && body.honeypot.trim() !== "") {
     return { isValid: false, reason: "Honeypot filled" };
   }
 
+  // 1. Strict Locale Validation (Do NOT silently convert unsupported locales)
+  const locale = body.locale;
+  if (typeof locale !== "string" || !["hy", "ru", "en"].includes(locale.trim())) {
+    return {
+      isValid: false,
+      reason: "Unsupported locale. Acceptable values: 'hy', 'ru', 'en'",
+    };
+  }
+
+  // 2. Customer Validation
   if (!body.customer || typeof body.customer !== "object" || Array.isArray(body.customer)) {
     return { isValid: false, reason: "Missing customer object" };
   }
+  const customer = body.customer as Record<string, unknown>;
 
+  const customerName = typeof customer.name === "string" ? customer.name.trim() : "";
+  if (customerName.length < 1 || customerName.length > 100) {
+    return { isValid: false, reason: "Invalid customer name. Length must be 1-100 characters." };
+  }
+
+  const customerPhone = typeof customer.phone === "string" ? customer.phone.trim() : "";
+  const digitCount = customerPhone.replace(/\D/g, "").length;
+  if (digitCount < 6 || customerPhone.length < 3 || customerPhone.length > 50) {
+    return { isValid: false, reason: "Invalid customer phone number. Must contain 6+ digits, max 50 chars." };
+  }
+
+  if (customer.email && typeof customer.email === "string" && customer.email.trim() !== "") {
+    const trimmedEmail = customer.email.trim();
+    if (trimmedEmail.length > 255 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+      return { isValid: false, reason: "Invalid customer email address." };
+    }
+  }
+
+  if (customer.comment && typeof customer.comment === "string" && customer.comment.trim() !== "") {
+    if (customer.comment.trim().length > 2000) {
+      return { isValid: false, reason: "Customer comment exceeds maximum length of 2000 characters." };
+    }
+  }
+
+  // 3. Order Object Validation
   if (!body.order || typeof body.order !== "object" || Array.isArray(body.order)) {
     return { isValid: false, reason: "Missing order object" };
   }
-
-  const customer = body.customer as Record<string, unknown>;
   const order = body.order as Record<string, unknown>;
 
-  const customerName = typeof customer.name === "string" ? customer.name.trim() : "";
-  const customerPhone = typeof customer.phone === "string" ? customer.phone.trim() : "";
-
-  if (customerName.length < 2 || customerName.length > 100) {
-    return { isValid: false, reason: "Invalid customer name" };
+  // Product ID / Slug (Required)
+  const productId = typeof order.productId === "string" ? order.productId.trim() : "";
+  if (!productId || productId.length > 100) {
+    return { isValid: false, reason: "Product ID / Slug is required and must not exceed 100 characters." };
   }
 
-  const digitCount = customerPhone.replace(/\D/g, "").length;
-  if (digitCount < 6 || customerPhone.length > 30) {
-    return { isValid: false, reason: "Invalid customer phone" };
-  }
-
-  if (customer.email && typeof customer.email === "string") {
-    const trimmedEmail = customer.email.trim();
-    if (trimmedEmail.length > 100 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
-      return { isValid: false, reason: "Invalid customer email" };
-    }
-  }
-
-  if (customer.comment && typeof customer.comment === "string") {
-    if (customer.comment.trim().length > 1000) {
-      return { isValid: false, reason: "Customer comment too long" };
-    }
-  }
-
-  const productName = typeof order.productName === "string" ? order.productName.trim() : "";
-  if (!productName || productName.length > 200) {
-    return { isValid: false, reason: "Invalid product name" };
-  }
-
-  const productPrice = typeof order.productPrice === "number" ? order.productPrice : -1;
-  const totalPrice = typeof order.totalPrice === "number" ? order.totalPrice : -1;
-
+  // Strict Quantity Validation (Must be a finite positive number, no default fallback)
+  const quantity = order.quantity;
   if (
-    isNaN(productPrice) ||
-    !isFinite(productPrice) ||
-    productPrice < 0 ||
-    isNaN(totalPrice) ||
-    !isFinite(totalPrice) ||
-    totalPrice < 0
+    typeof quantity !== "number" ||
+    isNaN(quantity) ||
+    !isFinite(quantity) ||
+    quantity <= 0 ||
+    quantity > 100000
   ) {
-    return { isValid: false, reason: "Invalid price numbers" };
+    return {
+      isValid: false,
+      reason: "Invalid quantity. Quantity must be a finite positive number <= 100,000.",
+    };
+  }
+
+  // Optional Delivery Address Bounds
+  if (order.deliveryAddress && typeof order.deliveryAddress === "string") {
+    if (order.deliveryAddress.trim().length > 500) {
+      return { isValid: false, reason: "Delivery address exceeds maximum length of 500 characters." };
+    }
+  }
+
+  // Optional Delivery Distance Km Bounds
+  if (order.deliveryDistanceKm !== undefined && order.deliveryDistanceKm !== null) {
+    const dist = order.deliveryDistanceKm;
+    if (typeof dist !== "number" || isNaN(dist) || !isFinite(dist) || dist < 0 || dist > 1000) {
+      return { isValid: false, reason: "Invalid delivery distance. Distance must be between 0 and 1000 km." };
+    }
   }
 
   return { isValid: true };

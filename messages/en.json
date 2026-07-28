@@ -6,6 +6,7 @@
     "about": "About Us",
     "projects": "Projects",
     "contact": "Contact",
+    "news": "News",
     "documents": "Documents",
     "cta": "Order Now"
   },
@@ -737,5 +738,63 @@
     "updatingStatus": "Updating...",
     "statusUpdatedSuccess": "Status updated",
     "statusUpdateError": "Failed to update status"
+  },
+  "adminNews": {
+    "title": "News & Announcements",
+    "subtitle": "Manage company news, announcements and media publications",
+    "createBtn": "+ Add News Article",
+    "searchPlaceholder": "Search by title...",
+    "filterAll": "All",
+    "statusDraft": "Draft",
+    "statusPublished": "Published",
+    "columns": {
+      "article": "Article",
+      "status": "Status",
+      "publishedDate": "Publication Date",
+      "createdDate": "Created Date",
+      "actions": "Actions"
+    },
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirmDelete": "Are you sure you want to delete this article? This action cannot be undone.",
+    "deleteSuccess": "Article deleted",
+    "deleteError": "Failed to delete article",
+    "createSuccess": "News article created successfully",
+    "updateSuccess": "Changes saved successfully",
+    "queryError": "Failed to load news articles from database",
+    "noNewsFound": "No news articles found",
+    "newTitle": "Create News Article",
+    "editTitle": "Edit News Article",
+    "form": {
+      "slug": "Slug (URL identifier)",
+      "status": "Status",
+      "publishedAt": "Publication Date",
+      "coverImageUrl": "Cover Image URL",
+      "titleHy": "Title (Armenian)",
+      "titleRu": "Title (Russian)",
+      "titleEn": "Title (English)",
+      "excerptHy": "Excerpt (Armenian)",
+      "excerptRu": "Excerpt (Russian)",
+      "excerptEn": "Excerpt (English)",
+      "contentHy": "Content (Armenian)",
+      "contentRu": "Content (Russian)",
+      "contentEn": "Content (English)",
+      "save": "Save Changes",
+      "create": "Create Article",
+      "cancel": "Cancel",
+      "saving": "Saving...",
+      "advancedSettings": "Advanced Settings",
+      "urlPreview": "Public URL preview",
+      "editSlug": "Edit slug",
+      "lockSlug": "Auto-generate slug"
+    }
+  },
+  "publicNews": {
+    "title": "News & Announcements",
+    "subtitle": "Latest news, updates and announcements from VM SHIN GROUP",
+    "readMore": "Read Article",
+    "backToNews": "← Back to News",
+    "noArticles": "There are currently no published news articles.",
+    "publishedOn": "Published on:"
   }
 }

@@ -18,7 +18,6 @@ export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
     translationKey: "requests",
     href: "/admin/requests",
     iconName: "requests",
-    isPlaceholder: true,
   },
   {
     id: "documents",
@@ -32,7 +31,6 @@ export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
     translationKey: "news",
     href: "/admin/news",
     iconName: "news",
-    isPlaceholder: true,
   },
   {
     id: "vacancies",

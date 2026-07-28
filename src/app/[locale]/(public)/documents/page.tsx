@@ -22,15 +22,6 @@ export async function generateMetadata({ params }: PageProps) {
   };
 }
 
-export default async function DocumentsPage() {
-  return (
-    <main className="flex-1 min-h-screen bg-[#080808] pt-32 pb-24 relative overflow-hidden">
-      {/* Background Glow */}
-      <div 
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary-yellow/5 rounded-full blur-[160px] pointer-events-none" 
-        aria-hidden="true" 
-      />
-      <DocumentsPageClient />
-    </main>
-  );
+export default function DocumentsPage() {
+  return <DocumentsPageClient />;
 }

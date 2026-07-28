@@ -43,7 +43,7 @@ export default async function ProductDetailPage({
   const relatedProducts = PRODUCTS.filter((p) => p.slug !== slug);
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-primary-yellow selection:text-black">
+    <div className="flex-1 bg-background text-foreground flex flex-col selection:bg-primary-yellow selection:text-black">
       <ProductDetailView
         productDetail={productDetail}
         relatedProducts={relatedProducts}

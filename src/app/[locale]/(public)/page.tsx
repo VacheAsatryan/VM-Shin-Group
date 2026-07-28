@@ -1,8 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import Hero from "@/components/sections/Hero";
 import ProductCarousel from "@/components/sections/ProductCarousel";
-// Temporarily disabled for possible reuse on another page.
-// import AdvantagesSection from "@/components/sections/AdvantagesSection";
 import ProductionSection from "@/components/sections/ProductionSection";
 import ApplicationsSection from "@/components/sections/ApplicationsSection";
 import CalculatorSection from "@/components/sections/CalculatorSection";
@@ -58,11 +56,9 @@ export default function HomePage() {
       />
 
       {/* ── Content (Hero + Carousel + Why Choose Us + Applications + Calculator) ── */}
-      <div className="relative z-10 flex flex-col flex-1">
+      <div className="relative z-10">
         <Hero />
         <ProductCarousel />
-        {/* Temporarily disabled for possible reuse on another page. */}
-        {/* <AdvantagesSection /> */}
         <ProductionSection />
         <ApplicationsSection />
         <CalculatorSection />

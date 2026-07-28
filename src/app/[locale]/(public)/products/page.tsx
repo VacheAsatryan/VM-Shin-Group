@@ -27,9 +27,8 @@ export default async function ProductsCatalogPage({
   const t = await getTranslations({ locale, namespace: "products" });
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-primary-yellow selection:text-black">
-
-      <main className="flex-1 pt-28 pb-20">
+    <div className="flex-1 bg-background text-foreground flex flex-col selection:bg-primary-yellow selection:text-black">
+      <div className="flex-1 pb-20">
         {/* Breadcrumbs & Hero Header */}
         <section className="relative overflow-hidden border-b border-gold-border/30 bg-surface/50 py-12 md:py-16">
           <div className="absolute top-0 right-1/4 w-96 h-96 bg-gold-primary/10 rounded-full blur-3xl pointer-events-none" />
@@ -77,7 +76,6 @@ export default async function ProductsCatalogPage({
 
                 {/* Product Image Container */}
                 <div className="relative aspect-[4/3] bg-[#0f0f0f] overflow-hidden p-4">
-                  {/* Blurred background image for non-placeholder */}
                   {!product.image.includes("/placeholders/") && (
                     <Image
                       src={product.image}
@@ -130,7 +128,7 @@ export default async function ProductsCatalogPage({
             ))}
           </div>
         </section>
-      </main>
+      </div>
     </div>
   );
 }

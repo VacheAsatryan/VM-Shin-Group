@@ -625,5 +625,117 @@
       "retryButton": "Try again",
       "defaultMessage": "An error occurred while sending your request."
     }
+  },
+  "adminAuth": {
+    "loginTitle": "Administrator Sign In",
+    "loginSubtitle": "VM SHIN GROUP Admin Portal",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "admin@domain.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "submitButton": "Sign In",
+    "submittingButton": "Authenticating...",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "genericError": "Invalid email or password.",
+    "invalidEmail": "Please enter a valid email address.",
+    "invalidPassword": "Please enter your password.",
+    "dashboardTitle": "Admin Dashboard",
+    "dashboardSubtitle": "VM SHIN GROUP Management System",
+    "logoutButton": "Sign Out"
+  },
+  "adminNav": {
+    "brandName": "VM SHIN GROUP",
+    "portalTitle": "Admin Portal",
+    "dashboard": "Dashboard",
+    "requests": "Requests",
+    "documents": "Documents",
+    "news": "News",
+    "vacancies": "Vacancies",
+    "seo": "SEO Settings",
+    "comingSoonTag": "Soon",
+    "adminRoleLabel": "Administrator",
+    "logout": "Sign Out",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu",
+    "mobileMenuTitle": "Navigation",
+    "switchLanguage": "Switch Language"
+  },
+  "adminDashboard": {
+    "title": "Admin Dashboard",
+    "subtitle": "VM SHIN GROUP Management System Home",
+    "welcomeBanner": "Welcome to VM SHIN GROUP Management System",
+    "overviewText": "Manage quote requests, certificates, company news, and search engine optimization.",
+    "sections": {
+      "requestsTitle": "Order Requests",
+      "requestsDesc": "View and process incoming calculator requests.",
+      "documentsTitle": "Documents",
+      "documentsDesc": "Manage scale calibration certificates and appreciation letters.",
+      "newsTitle": "Company News",
+      "newsDesc": "Publish news posts and corporate updates.",
+      "vacanciesTitle": "Vacancies",
+      "vacanciesDesc": "Manage open job position listings.",
+      "seoTitle": "SEO Settings",
+      "seoDesc": "Manage search engine metadata and indexing rules."
+    },
+    "placeholderPage": {
+      "badge": "Under Development",
+      "title": "{section} — Under Development",
+      "description": "This section is currently under active development and will be available in the next release.",
+      "backToDashboard": "Back to Dashboard"
+    }
+  },
+  "adminRequests": {
+    "title": "Order Requests",
+    "subtitle": "View and manage customer order requests received from the site",
+    "searchPlaceholder": "Search by name, phone or email...",
+    "filterAll": "All",
+    "statusNew": "New",
+    "statusInProgress": "In Progress",
+    "statusContacted": "Contacted",
+    "statusClosed": "Closed",
+    "statusCancelled": "Cancelled",
+    "columns": {
+      "orderId": "Order ID",
+      "date": "Date",
+      "customer": "Customer",
+      "phone": "Phone",
+      "product": "Product",
+      "quantity": "Qty",
+      "totalPrice": "Total",
+      "status": "Status"
+    },
+    "drawer": {
+      "title": "Order Details",
+      "customerSection": "Customer Information",
+      "orderSection": "Order Information",
+      "deliverySection": "Delivery Information",
+      "name": "Name",
+      "phone": "Phone",
+      "email": "Email",
+      "comment": "Comment",
+      "product": "Product",
+      "variant": "Variant",
+      "quantity": "Quantity",
+      "productPrice": "Unit Price",
+      "productsTotal": "Products Subtotal",
+      "deliveryPrice": "Delivery Price",
+      "totalPrice": "Total Amount",
+      "deliveryAddress": "Address",
+      "distance": "Distance",
+      "duration": "Duration",
+      "notSpecified": "Not specified",
+      "notCalculated": "Not calculated",
+      "close": "Close"
+    },
+    "pagination": {
+      "showing": "Showing {from}-{to} of {total}",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "noRequestsFound": "No order requests found",
+    "updatingStatus": "Updating...",
+    "statusUpdatedSuccess": "Status updated",
+    "statusUpdateError": "Failed to update status"
   }
 }

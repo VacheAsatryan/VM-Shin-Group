@@ -17,7 +17,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
 
-  // Monitor scroll to toggle background blurring
+  // Monitor scroll to toggle background blurring & height
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 20) {
@@ -57,7 +57,7 @@ export default function Header() {
   // Focus trap inside mobile menu when active for accessibility
   useEffect(() => {
     if (!mobileMenuOpen || !drawerRef.current) return;
-    
+
     const focusableElements = drawerRef.current.querySelectorAll(
       'a[href], button:not([disabled]), [tabindex="0"]'
     );
@@ -91,6 +91,7 @@ export default function Header() {
     { label: t("products"), href: "/products" },
     { label: t("about"), href: "/#production" },
     { label: t("projects"), href: "/#applications" },
+    { label: t("news"), href: "/news" },
     { label: t("contact"), href: "/#contact" },
     { label: t("documents"), href: "/documents" },
   ];
@@ -113,15 +114,15 @@ export default function Header() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
           isScrolled
-            ? "bg-background/80 backdrop-blur-md border-gold-border/40 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
-            : "bg-transparent border-transparent py-5 sm:py-6"
+            ? "bg-background/95 backdrop-blur-md border-gold-border/40 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.8)]"
+            : "bg-background/92 backdrop-blur-md border-gold-border/20 py-3.5 sm:py-4"
         }`}
       >
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between flex-nowrap">
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-3 group focus-visible:outline-2 focus-visible:outline-primary-yellow rounded"
+            className="flex items-center gap-2.5 sm:gap-3 flex-shrink-0 group focus-visible:outline-2 focus-visible:outline-primary-yellow rounded"
             aria-label="VM Shin Group Home"
           >
             <Image
@@ -129,36 +130,36 @@ export default function Header() {
               alt="VM Shin Group Logo"
               width={44}
               height={44}
-              className="w-10 h-10 sm:w-11 sm:h-11 object-contain transform transition-transform group-hover:scale-105"
+              className="w-9 h-9 sm:w-10 sm:h-10 object-contain transform transition-transform group-hover:scale-105"
               priority
             />
-            <span className="font-bold tracking-widest text-base sm:text-lg text-text-primary uppercase group-hover:text-primary-yellow transition-colors">
+            <span className="font-bold tracking-widest text-sm sm:text-base lg:text-lg text-text-primary uppercase whitespace-nowrap group-hover:text-primary-yellow transition-colors">
               Shin Group
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+          {/* Desktop & Laptop Navigation (Strictly Single Row, No Word Wrapping) */}
+          <nav className="hidden lg:flex items-center gap-3 lg:gap-4 xl:gap-7 flex-nowrap flex-shrink-0">
             {navigationItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm font-semibold tracking-wide uppercase text-text-secondary hover:text-primary-yellow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-yellow transition-colors duration-200 py-2 rounded-sm"
+                className="text-[12px] xl:text-[13.5px] 2xl:text-sm font-semibold tracking-wide uppercase text-text-secondary hover:text-primary-yellow whitespace-nowrap flex-shrink-0 transition-colors duration-200 py-1.5 rounded-sm"
               >
                 {item.label}
               </Link>
             ))}
           </nav>
 
-          {/* Desktop Right Panel (Lang Switcher + CTA) */}
-          <div className="hidden md:flex items-center gap-6">
+          {/* Desktop & Laptop Right Panel (Language Switcher + CTA) */}
+          <div className="hidden lg:flex items-center gap-3 lg:gap-5 flex-shrink-0">
             {/* Language Switcher */}
-            <div className="flex items-center gap-1 border-r border-gold-border/30 pr-6" role="navigation" aria-label="Language selection">
+            <div className="flex items-center gap-0.5 lg:gap-1 border-r border-gold-border/30 pr-3 lg:pr-5 flex-shrink-0" role="navigation" aria-label="Language selection">
               {languages.map((lang) => (
                 <button
                   key={lang.code}
                   onClick={() => handleLanguageChange(lang.code)}
-                  className={`px-2 py-1 text-xs font-bold tracking-wider rounded transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow ${
+                  className={`px-1.5 lg:px-2 py-1 text-xs font-bold tracking-wider rounded whitespace-nowrap transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow ${
                     locale === lang.code
                       ? "text-gold-primary bg-gold-primary/10 border border-gold-border/40"
                       : "text-text-secondary hover:text-text-primary hover:bg-white/5"
@@ -171,20 +172,20 @@ export default function Header() {
             </div>
 
             {/* CTA Button */}
-            <LinkButton href="#contact" variant="primary">
+            <LinkButton href="#contact" variant="primary" className="flex-shrink-0 whitespace-nowrap text-xs xl:text-sm px-3.5 lg:px-5 py-2">
               {t("cta")}
             </LinkButton>
           </div>
 
-          {/* Mobile Right Controls */}
-          <div className="flex md:hidden items-center gap-3">
+          {/* Mobile & Tablet Right Controls */}
+          <div className="flex lg:hidden items-center gap-3 flex-shrink-0">
             {/* Mobile Language Switcher (Compact) */}
             <div className="flex items-center gap-0.5" role="navigation" aria-label="Language selection">
               {languages.map((lang) => (
                 <button
                   key={lang.code}
                   onClick={() => handleLanguageChange(lang.code)}
-                  className={`px-1.5 py-0.5 text-xs font-bold rounded transition-all ${
+                  className={`px-1.5 py-0.5 text-xs font-bold rounded transition-all whitespace-nowrap ${
                     locale === lang.code
                       ? "text-primary-yellow bg-primary-yellow/15"
                       : "text-text-secondary hover:text-text-primary"
@@ -256,7 +257,7 @@ export default function Header() {
                       height={36}
                       className="w-9 h-9 object-contain"
                     />
-                    <span className="font-bold text-sm tracking-widest text-text-primary uppercase">
+                    <span className="font-bold text-sm tracking-widest text-text-primary uppercase whitespace-nowrap">
                       Shin Group
                     </span>
                   </div>
@@ -286,7 +287,7 @@ export default function Header() {
                       key={item.href}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="text-base font-semibold tracking-wider uppercase text-text-secondary hover:text-primary-yellow py-2 block border-b border-gold-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow rounded-sm"
+                      className="text-base font-semibold tracking-wider uppercase text-text-secondary hover:text-primary-yellow py-2 block border-b border-gold-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow rounded-sm whitespace-nowrap"
                     >
                       {item.label}
                     </Link>

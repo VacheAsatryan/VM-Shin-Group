@@ -4,7 +4,6 @@ import { useTranslations } from "next-intl";
 import { motion, useReducedMotion } from "motion/react";
 import { PRODUCTION_CONFIG } from "@/config/production";
 import { staggerContainer, fadeInUp, reducedMotionVariants } from "@/config/animations";
-import { LinkButton } from "@/components/ui/Button";
 import ProductionMedia from "./ProductionMedia";
 import ProductionFact from "./ProductionFact";
 
@@ -68,17 +67,10 @@ export default function ProductionSection() {
             </p>
 
             {/* Supporting Facts List */}
-            <div className="flex flex-col gap-4 mb-8">
+            <div className="flex flex-col gap-4">
               {PRODUCTION_CONFIG.facts.map((fact) => (
                 <ProductionFact key={fact.id} fact={fact} />
               ))}
-            </div>
-
-            {/* Primary CTA Button */}
-            <div>
-              <LinkButton href="#contact" variant="primary">
-                {t("primaryCta")}
-              </LinkButton>
             </div>
           </motion.div>
         </motion.div>

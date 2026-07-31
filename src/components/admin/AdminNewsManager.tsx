@@ -249,7 +249,18 @@ export default function AdminNewsManager({
                           )}
                         </div>
                         <div>
-                          <div className="font-semibold text-zinc-100">{item.title_hy}</div>
+                          <div className="font-semibold text-zinc-100 flex items-center gap-2">
+                            <span>
+                              {item.source_locale === "ru"
+                                ? item.title_ru || item.title_hy || item.title_en
+                                : item.source_locale === "en"
+                                ? item.title_en || item.title_hy || item.title_ru
+                                : item.title_hy || item.title_ru || item.title_en}
+                            </span>
+                            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-400 uppercase">
+                              {item.source_locale || "hy"}
+                            </span>
+                          </div>
                           <div className="text-xs text-zinc-500 font-mono">/{item.slug}</div>
                         </div>
                       </div>

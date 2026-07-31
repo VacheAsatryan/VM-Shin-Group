@@ -1,8 +1,8 @@
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
-import SafeImage from "@/components/ui/SafeImage";
 import { createClient } from "@/lib/supabase/server";
-import type { NewsRow, SupportedLocale } from "@/lib/supabase/types";
+import type { CareerRow, SupportedLocale } from "@/lib/supabase/types";
+import SafeImage from "@/components/ui/SafeImage";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -10,7 +10,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "publicNews" });
+  const t = await getTranslations({ locale, namespace: "publicCareers" });
 
   return {
     title: `${t("title")} | VM SHIN GROUP`,
@@ -18,62 +18,56 @@ export async function generateMetadata({ params }: PageProps) {
   };
 }
 
-export default async function PublicNewsPage({ params }: PageProps) {
+export default async function PublicCareersPage({ params }: PageProps) {
   const { locale } = await params;
   const currentLocale = (locale as SupportedLocale) || "hy";
-  const t = await getTranslations({ locale, namespace: "publicNews" });
+  const t = await getTranslations({ locale, namespace: "publicCareers" });
+  const tAdmin = await getTranslations({ locale, namespace: "adminCareers" });
 
-  const nowIso = new Date().toISOString();
-
-  // Query only published news where published_at is NULL or <= NOW (UTC)
   const supabase = await createClient();
-  const { data: articles } = await supabase
-    .from("news")
+  const { data: careers } = await supabase
+    .from("careers")
     .select("*")
     .eq("status", "published")
-    .or(`published_at.is.null,published_at.lte.${nowIso}`)
-    .order("published_at", { ascending: false, nullsFirst: false });
+    .order("created_at", { ascending: false });
 
-  const newsList: NewsRow[] = articles || [];
+  const vacanciesList: CareerRow[] = careers || [];
 
   const getLocalizedField = (
-    item: NewsRow,
-    field: "title" | "excerpt"
+    item: CareerRow,
+    field: "title" | "summary"
   ): string => {
     const sourceLoc = item.source_locale || "hy";
 
-    // 1. Try target locale value
     const targetVal =
       field === "title"
         ? currentLocale === "ru" ? item.title_ru : currentLocale === "en" ? item.title_en : item.title_hy
-        : currentLocale === "ru" ? item.excerpt_ru : currentLocale === "en" ? item.excerpt_en : item.excerpt_hy;
+        : currentLocale === "ru" ? item.summary_ru : currentLocale === "en" ? item.summary_en : item.summary_hy;
 
     if (targetVal && targetVal.trim().length > 0) {
       return targetVal.trim();
     }
 
-    // 2. Fallback to source locale value
     const sourceVal =
       field === "title"
         ? sourceLoc === "ru" ? item.title_ru : sourceLoc === "en" ? item.title_en : item.title_hy
-        : sourceLoc === "ru" ? item.excerpt_ru : sourceLoc === "en" ? item.excerpt_en : item.excerpt_hy;
+        : sourceLoc === "ru" ? item.summary_ru : sourceLoc === "en" ? item.summary_en : item.summary_hy;
 
     if (sourceVal && sourceVal.trim().length > 0) {
       return sourceVal.trim();
     }
 
-    // 3. Fallback to any non-empty title/excerpt
     return field === "title"
       ? item.title_hy || item.title_ru || item.title_en || ""
-      : item.excerpt_hy || item.excerpt_ru || item.excerpt_en || "";
+      : item.summary_hy || item.summary_ru || item.summary_en || "";
   };
 
-  const formatDate = (isoString: string | null) => {
-    if (!isoString) return "";
-    return new Date(isoString).toLocaleDateString(
-      currentLocale === "ru" ? "ru-RU" : currentLocale === "en" ? "en-US" : "hy-AM",
-      { year: "numeric", month: "long", day: "numeric" }
-    );
+  const getEmpLabel = (emp: string | null) => {
+    if (!emp) return "";
+    if (emp === "full_time") return tAdmin("empFullTime");
+    if (emp === "part_time") return tAdmin("empPartTime");
+    if (emp === "contract") return tAdmin("empContract");
+    return tAdmin("empInternship");
   };
 
   return (
@@ -92,17 +86,18 @@ export default async function PublicNewsPage({ params }: PageProps) {
           </p>
         </div>
 
-        {/* News Grid */}
-        {newsList.length === 0 ? (
+        {/* Vacancies Grid */}
+        {vacanciesList.length === 0 ? (
           <div className="text-center py-20 bg-zinc-900/40 rounded-3xl border border-zinc-800 max-w-md mx-auto">
-            <div className="text-5xl mb-4">📰</div>
-            <p className="text-zinc-400 text-sm">{t("noArticles")}</p>
+            <div className="text-5xl mb-4">💼</div>
+            <p className="text-zinc-400 text-sm">{t("noVacancies")}</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {newsList.map((item) => {
+            {vacanciesList.map((item) => {
               const title = getLocalizedField(item, "title");
-              const excerpt = getLocalizedField(item, "excerpt");
+              const summary = getLocalizedField(item, "summary");
+              const empLabel = getEmpLabel(item.employment_type);
 
               return (
                 <article
@@ -121,44 +116,54 @@ export default async function PublicNewsPage({ params }: PageProps) {
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-zinc-900 to-zinc-950 text-zinc-700">
-                        <svg
-                          className="w-12 h-12 stroke-current opacity-40"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="1.5"
-                            d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-                          />
-                        </svg>
+                        <span className="text-4xl opacity-30">💼</span>
                       </div>
                     )}
                   </div>
 
-                  {/* Content Body */}
+                  {/* Card Content */}
                   <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                     <div className="space-y-3">
-                      {item.published_at && (
-                        <span className="text-xs text-zinc-400 font-medium block">
-                          {formatDate(item.published_at)}
-                        </span>
-                      )}
-                      <h2 className="text-xl font-bold text-zinc-100 group-hover:text-[#F5C21B] transition-colors leading-snug line-clamp-2">
-                        {title}
+                      {/* Meta Tags */}
+                      <div className="flex flex-wrap items-center gap-2 text-xs">
+                        {item.department && (
+                          <span className="px-2.5 py-1 rounded-md bg-zinc-800 text-zinc-300 font-medium">
+                            {item.department}
+                          </span>
+                        )}
+                        {item.location && (
+                          <span className="px-2.5 py-1 rounded-md bg-zinc-800/60 text-zinc-400">
+                            📍 {item.location}
+                          </span>
+                        )}
+                        {empLabel && (
+                          <span className="px-2.5 py-1 rounded-md bg-[#F5C21B]/10 border border-[#F5C21B]/30 text-[#F5C21B] font-semibold">
+                            {empLabel}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Title */}
+                      <h2 className="text-xl font-bold text-zinc-100 group-hover:text-[#F5C21B] transition-colors line-clamp-2">
+                        <Link href={`/${locale}/careers/${item.slug}`}>
+                          {title}
+                        </Link>
                       </h2>
-                      <p className="text-sm text-zinc-400 line-clamp-3 leading-relaxed">
-                        {excerpt}
+
+                      {/* Summary */}
+                      <p className="text-zinc-400 text-xs line-clamp-3 leading-relaxed">
+                        {summary}
                       </p>
                     </div>
 
-                    <div className="pt-4 border-t border-zinc-800/60">
+                    {/* Card Footer Link */}
+                    <div className="pt-3 border-t border-zinc-800/60">
                       <Link
-                        href={`/${locale}/news/${item.slug}`}
+                        href={`/${locale}/careers/${item.slug}`}
                         className="inline-flex items-center gap-1.5 text-xs font-bold text-[#F5C21B] hover:text-[#e0b016] transition-colors"
                       >
-                        {t("readMore")} →
+                        <span>View Vacancy Details</span>
+                        <span>→</span>
                       </Link>
                     </div>
                   </div>

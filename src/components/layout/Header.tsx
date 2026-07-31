@@ -15,7 +15,10 @@ export default function Header() {
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+
   const drawerRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Monitor scroll to toggle background blurring & height
   useEffect(() => {
@@ -43,15 +46,27 @@ export default function Header() {
     };
   }, [mobileMenuOpen]);
 
-  // Close mobile drawer on Escape key press
+  // Close mobile drawer and dropdown on Escape key press
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setMobileMenuOpen(false);
+        setMoreOpen(false);
       }
     };
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
+  }, []);
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setMoreOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   // Focus trap inside mobile menu when active for accessibility
@@ -86,15 +101,31 @@ export default function Header() {
     return () => window.removeEventListener("keydown", handleTabTrap);
   }, [mobileMenuOpen]);
 
-  const navigationItems = [
+  // Primary navigation items (visible on Desktop / Laptop)
+  const primaryNavItems = [
     { label: t("home"), href: "/#hero" },
     { label: t("products"), href: "/products" },
     { label: t("about"), href: "/#production" },
     { label: t("projects"), href: "/#applications" },
     { label: t("news"), href: "/news" },
     { label: t("contact"), href: "/#contact" },
+  ];
+
+  // Secondary items (moved into "More" dropdown on Desktop / Laptop)
+  const secondaryNavItems = [
+    { label: t("careers"), href: "/careers" },
     { label: t("documents"), href: "/documents" },
   ];
+
+  // Full list for Mobile Menu Drawer
+  const mobileNavItems = [
+    ...primaryNavItems,
+    ...secondaryNavItems,
+  ];
+
+  const isMoreChildActive = secondaryNavItems.some((item) =>
+    pathname === item.href || pathname.startsWith(item.href + "/")
+  );
 
   const languages = [
     { code: "hy", label: "HY" },
@@ -139,16 +170,90 @@ export default function Header() {
           </Link>
 
           {/* Desktop & Laptop Navigation (Strictly Single Row, No Word Wrapping) */}
-          <nav className="hidden lg:flex items-center gap-3 lg:gap-4 xl:gap-7 flex-nowrap flex-shrink-0">
-            {navigationItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-[12px] xl:text-[13.5px] 2xl:text-sm font-semibold tracking-wide uppercase text-text-secondary hover:text-primary-yellow whitespace-nowrap flex-shrink-0 transition-colors duration-200 py-1.5 rounded-sm"
+          <nav className="hidden lg:flex items-center gap-3 lg:gap-4 xl:gap-6 flex-nowrap flex-shrink-0">
+            {/* Primary Items */}
+            {primaryNavItems.map((item) => {
+              const isActive =
+                item.href === "/" || item.href.startsWith("/#")
+                  ? false
+                  : pathname === item.href || pathname.startsWith(item.href + "/");
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`text-[12px] xl:text-[13px] 2xl:text-sm font-semibold tracking-wide uppercase whitespace-nowrap flex-shrink-0 transition-colors duration-200 py-1.5 rounded-sm ${
+                    isActive
+                      ? "text-primary-yellow font-bold"
+                      : "text-text-secondary hover:text-primary-yellow"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+
+            {/* "More" Dropdown Menu */}
+            <div className="relative flex-shrink-0" ref={dropdownRef}>
+              <button
+                type="button"
+                onClick={() => setMoreOpen((prev) => !prev)}
+                aria-expanded={moreOpen}
+                aria-haspopup="true"
+                aria-label={t("more")}
+                className={`text-[12px] xl:text-[13px] 2xl:text-sm font-semibold tracking-wide uppercase whitespace-nowrap transition-colors duration-200 py-1.5 rounded-sm flex items-center gap-1.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow ${
+                  isMoreChildActive || moreOpen
+                    ? "text-primary-yellow font-bold"
+                    : "text-text-secondary hover:text-primary-yellow"
+                }`}
               >
-                {item.label}
-              </Link>
-            ))}
+                <span>{t("more")}</span>
+                <svg
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    moreOpen ? "rotate-180 text-primary-yellow" : "text-text-secondary"
+                  }`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {/* Accessible Animated Dropdown Panel */}
+              <AnimatePresence>
+                {moreOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 6, scale: 0.96 }}
+                    transition={{ duration: 0.15, ease: "easeOut" }}
+                    className="absolute right-0 top-full mt-2 w-52 bg-[#121212]/95 border border-gold-border/40 rounded-xl shadow-2xl backdrop-blur-xl py-2 z-50 overflow-hidden"
+                  >
+                    {secondaryNavItems.map((secItem) => {
+                      const isChildActive =
+                        pathname === secItem.href || pathname.startsWith(secItem.href + "/");
+
+                      return (
+                        <Link
+                          key={secItem.href}
+                          href={secItem.href}
+                          onClick={() => setMoreOpen(false)}
+                          className={`px-4 py-2.5 text-xs font-semibold tracking-wider uppercase block transition-colors ${
+                            isChildActive
+                              ? "bg-primary-yellow/10 text-primary-yellow font-bold border-l-2 border-primary-yellow"
+                              : "text-text-secondary hover:text-primary-yellow hover:bg-white/5"
+                          }`}
+                        >
+                          {secItem.label}
+                        </Link>
+                      );
+                    })}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </nav>
 
           {/* Desktop & Laptop Right Panel (Language Switcher + CTA) */}
@@ -198,11 +303,10 @@ export default function Header() {
 
             {/* Accessible Hamburger Toggler */}
             <button
-              onClick={() => setMobileMenuOpen(true)}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 text-text-secondary hover:text-primary-yellow focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow rounded"
+              aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={mobileMenuOpen}
-              aria-label="Open navigation menu"
-              aria-controls="mobile-menu-drawer"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -212,30 +316,33 @@ export default function Header() {
                 stroke="currentColor"
                 className="w-6 h-6"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                )}
               </svg>
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Drawer (with AnimatePresence) */}
+      {/* Accessible Mobile Menu Drawer Overlay & Drawer */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <>
-            {/* Overlay */}
+            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.6 }}
+              animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black z-50 backdrop-blur-sm"
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50"
               aria-hidden="true"
             />
 
-            {/* Drawer */}
+            {/* Sliding Drawer */}
             <motion.div
-              id="mobile-menu-drawer"
               ref={drawerRef}
               role="dialog"
               aria-modal="true"
@@ -244,7 +351,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 w-[280px] sm:w-[320px] bg-surface-elevated border-l border-primary-yellow/10 z-50 p-6 flex flex-col justify-between shadow-[0_0_50px_rgba(0,0,0,0.8)]"
+              className="fixed top-0 right-0 bottom-0 w-[280px] sm:w-[320px] bg-surface-elevated border-l border-primary-yellow/10 z-50 p-6 flex flex-col justify-between shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-y-auto"
             >
               <div>
                 {/* Header inside drawer */}
@@ -282,21 +389,32 @@ export default function Header() {
 
                 {/* Navigation Items */}
                 <nav className="mt-8 flex flex-col gap-4">
-                  {navigationItems.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="text-base font-semibold tracking-wider uppercase text-text-secondary hover:text-primary-yellow py-2 block border-b border-gold-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow rounded-sm whitespace-nowrap"
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
+                  {mobileNavItems.map((item) => {
+                    const isActive =
+                      item.href === "/" || item.href.startsWith("/#")
+                        ? false
+                        : pathname === item.href || pathname.startsWith(item.href + "/");
+
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`text-base font-semibold tracking-wider uppercase py-2 block border-b border-gold-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow rounded-sm whitespace-nowrap transition-colors ${
+                          isActive
+                            ? "text-primary-yellow font-bold"
+                            : "text-text-secondary hover:text-primary-yellow"
+                        }`}
+                      >
+                        {item.label}
+                      </Link>
+                    );
+                  })}
                 </nav>
               </div>
 
               {/* Bottom CTA in drawer */}
-              <div className="mt-auto">
+              <div className="mt-8">
                 <LinkButton
                   href="#contact"
                   variant="primary"

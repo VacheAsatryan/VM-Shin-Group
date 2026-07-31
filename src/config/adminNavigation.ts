@@ -37,7 +37,6 @@ export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
     translationKey: "vacancies",
     href: "/admin/vacancies",
     iconName: "vacancies",
-    isPlaceholder: true,
   },
   {
     id: "seo",

@@ -27,16 +27,28 @@ export async function generateMetadata({ params }: PageProps) {
     };
   }
 
-  let title = article.title_hy;
-  let description = article.excerpt_hy;
+  const sourceLoc: SupportedLocale = article.source_locale || "hy";
 
-  if (currentLocale === "ru") {
-    title = article.title_ru || article.title_hy;
-    description = article.excerpt_ru || article.excerpt_hy;
-  } else if (currentLocale === "en") {
-    title = article.title_en || article.title_hy;
-    description = article.excerpt_en || article.excerpt_hy;
-  }
+  const getField = (field: "title" | "excerpt") => {
+    const tVal = currentLocale === "ru" ? article.title_ru : currentLocale === "en" ? article.title_en : article.title_hy;
+    const eVal = currentLocale === "ru" ? article.excerpt_ru : currentLocale === "en" ? article.excerpt_en : article.excerpt_hy;
+    const targetVal = field === "title" ? tVal : eVal;
+
+    if (targetVal && targetVal.trim().length > 0) return targetVal.trim();
+
+    const sTVal = sourceLoc === "ru" ? article.title_ru : sourceLoc === "en" ? article.title_en : article.title_hy;
+    const sEVal = sourceLoc === "ru" ? article.excerpt_ru : sourceLoc === "en" ? article.excerpt_en : article.excerpt_hy;
+    const sourceVal = field === "title" ? sTVal : sEVal;
+
+    if (sourceVal && sourceVal.trim().length > 0) return sourceVal.trim();
+
+    return field === "title"
+      ? article.title_hy || article.title_ru || article.title_en || ""
+      : article.excerpt_hy || article.excerpt_ru || article.excerpt_en || "";
+  };
+
+  const title = getField("title");
+  const description = getField("excerpt");
 
   return {
     title: `${title} | VM SHIN GROUP`,
@@ -67,19 +79,31 @@ export default async function PublicNewsDetailsPage({ params }: PageProps) {
     notFound();
   }
 
-  let title = article.title_hy;
-  let excerpt = article.excerpt_hy;
-  let content = article.content_hy;
+  const sourceLoc: SupportedLocale = article.source_locale || "hy";
 
-  if (currentLocale === "ru") {
-    title = article.title_ru || article.title_hy;
-    excerpt = article.excerpt_ru || article.excerpt_hy;
-    content = article.content_ru || article.content_hy;
-  } else if (currentLocale === "en") {
-    title = article.title_en || article.title_hy;
-    excerpt = article.excerpt_en || article.excerpt_hy;
-    content = article.content_en || article.content_hy;
-  }
+  const getArticleField = (field: "title" | "excerpt" | "content") => {
+    let tVal = "";
+    if (field === "title") tVal = currentLocale === "ru" ? article.title_ru : currentLocale === "en" ? article.title_en : article.title_hy;
+    else if (field === "excerpt") tVal = currentLocale === "ru" ? article.excerpt_ru : currentLocale === "en" ? article.excerpt_en : article.excerpt_hy;
+    else tVal = currentLocale === "ru" ? article.content_ru : currentLocale === "en" ? article.content_en : article.content_hy;
+
+    if (tVal && tVal.trim().length > 0) return tVal.trim();
+
+    let sVal = "";
+    if (field === "title") sVal = sourceLoc === "ru" ? article.title_ru : sourceLoc === "en" ? article.title_en : article.title_hy;
+    else if (field === "excerpt") sVal = sourceLoc === "ru" ? article.excerpt_ru : sourceLoc === "en" ? article.excerpt_en : article.excerpt_hy;
+    else sVal = sourceLoc === "ru" ? article.content_ru : sourceLoc === "en" ? article.content_en : article.content_hy;
+
+    if (sVal && sVal.trim().length > 0) return sVal.trim();
+
+    if (field === "title") return article.title_hy || article.title_ru || article.title_en || "";
+    if (field === "excerpt") return article.excerpt_hy || article.excerpt_ru || article.excerpt_en || "";
+    return article.content_hy || article.content_ru || article.content_en || "";
+  };
+
+  const title = getArticleField("title");
+  const excerpt = getArticleField("excerpt");
+  const content = getArticleField("content");
 
   const formatDate = (isoString: string | null) => {
     if (!isoString) return "";

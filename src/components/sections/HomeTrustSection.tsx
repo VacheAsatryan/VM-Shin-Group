@@ -18,14 +18,14 @@ export default function HomeTrustSection() {
       titleKey: "items.verificationSb2102kg145302.title",
     },
     {
-      id: "verification-sb210-20kg-145306",
-      image: "/images/documents/equipment-verification/verification-certificate-sb210-20kg-145306.webp",
-      titleKey: "items.verificationSb21020kg145306.title",
-    },
-    {
       id: "appreciation-arstor-karine-85",
       image: "/images/documents/awards/appreciation-arstor-karine-85.webp",
       titleKey: "items.appreciationArstorKarine85.title",
+    },
+    {
+      id: "verification-sb210-500g-145304",
+      image: "/images/documents/equipment-verification/verification-certificate-sb210-500g-145304.webp",
+      titleKey: "items.verificationSb210500g145304.title",
     },
   ];
 
@@ -67,49 +67,59 @@ export default function HomeTrustSection() {
 
         {/* 3 columns grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-          {previewDocs.map((doc, idx) => (
-            <motion.div
-              key={doc.id}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={itemVariants}
-              transition={{ delay: idx * 0.1 }}
-              className="group flex flex-col bg-[#121212]/90 border border-gold-border/30 hover:border-gold-primary/50 hover:shadow-gold-glow/20 rounded-xl overflow-hidden transition-all duration-300"
-            >
-              {/* Document Image Container */}
-              <div className="relative aspect-[3/4] w-full bg-[#1c1c1c] p-4 flex items-center justify-center group-hover:bg-[#222] transition-colors duration-300">
-                <div className="relative w-full h-full">
-                  <Image
-                    src={doc.image}
-                    alt={t(`${doc.titleKey}`)}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-contain transition-transform duration-500 group-hover:scale-[1.02]"
-                  />
-                </div>
-                {/* Overlay link icon */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <span className="px-4 py-2 bg-black/80 border border-primary-yellow/40 text-primary-yellow rounded-lg text-xs font-mono uppercase tracking-wider">
-                    {t("actions.enlarge")}
-                  </span>
-                </div>
-              </div>
+          {previewDocs.map((doc, idx) => {
+            const isCenter = idx === 1;
 
-              {/* Document Text */}
-              <div className="p-5 flex flex-col justify-between flex-1 border-t border-gold-border/30">
-                <h3 className="text-sm font-bold text-text-primary group-hover:text-primary-yellow transition-colors line-clamp-2">
-                  {t(`${doc.titleKey}`)}
-                </h3>
-                <Link
-                  href="/documents"
-                  className="text-[11px] font-mono uppercase text-primary-yellow/70 group-hover:text-primary-yellow transition-colors mt-4 inline-flex items-center gap-1.5"
-                >
-                  {t("actions.open")} &rarr;
-                </Link>
-              </div>
-            </motion.div>
-          ))}
+            return (
+              <motion.div
+                key={doc.id}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                variants={itemVariants}
+                transition={{ delay: idx * 0.1 }}
+                className="group flex flex-col bg-[#121212]/90 border border-gold-border/30 hover:border-gold-primary/50 hover:shadow-gold-glow/20 rounded-xl overflow-hidden transition-all duration-300"
+              >
+                {/* Document Image Container with Shared Side Sizing Rule */}
+                <div className="relative aspect-[3/4] w-full bg-[#1c1c1c] p-4 flex items-center justify-center group-hover:bg-[#222] transition-colors duration-300">
+                  <div
+                    className={`relative flex items-center justify-center transition-all duration-300 ${
+                      isCenter
+                        ? "w-full h-full"
+                        : "w-[90%] h-[90%]"
+                    }`}
+                  >
+                    <Image
+                      src={doc.image}
+                      alt={t(`${doc.titleKey}`)}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-contain object-center transition-transform duration-500 group-hover:scale-[1.02]"
+                    />
+                  </div>
+                  {/* Overlay link icon */}
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                    <span className="px-4 py-2 bg-black/80 border border-primary-yellow/40 text-primary-yellow rounded-lg text-xs font-mono uppercase tracking-wider">
+                      {t("actions.enlarge")}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Document Text */}
+                <div className="p-5 flex flex-col justify-between flex-1 border-t border-gold-border/30">
+                  <h3 className="text-sm font-bold text-text-primary group-hover:text-primary-yellow transition-colors line-clamp-2">
+                    {t(`${doc.titleKey}`)}
+                  </h3>
+                  <Link
+                    href="/documents"
+                    className="text-[11px] font-mono uppercase text-primary-yellow/70 group-hover:text-primary-yellow transition-colors mt-4 inline-flex items-center gap-1.5"
+                  >
+                    {t("actions.open")} &rarr;
+                  </Link>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

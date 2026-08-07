@@ -1,7 +1,9 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import type { CalculationResult, EstimateSummaryPayload } from "@/lib/calculator/calculator.types";
+import { getProductImage } from "@/lib/calculator/getProductImage";
 import { Button } from "@/components/ui/Button";
 
 interface EstimateStepProps {
@@ -19,6 +21,7 @@ export default function EstimateStep({
 }: EstimateStepProps) {
   const t = useTranslations("calculator");
   const currency = t("units.currency");
+  const productImage = getProductImage(result.category, result.variant.id);
 
   const handleRequestOfferClick = () => {
     const payload: EstimateSummaryPayload = {
@@ -43,22 +46,37 @@ export default function EstimateStep({
 
   return (
     <div className="max-w-2xl mx-auto flex flex-col gap-6">
+      {/* Dynamic Product Header Card */}
+      <div className="flex items-center gap-4 p-4 rounded-xl bg-surface/80 border border-gold-border/40 shadow-lg">
+        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg bg-background/80 relative overflow-hidden shrink-0 border border-gold-border/40 flex items-center justify-center p-1">
+          <Image
+            src={productImage}
+            alt={t(`categories.${result.category}`)}
+            fill
+            sizes="80px"
+            className="object-contain"
+            priority
+          />
+        </div>
+        <div className="flex flex-col">
+          <span className="text-[10px] font-mono font-bold tracking-widest text-primary-yellow uppercase">
+            {t("stepper.step3")}
+          </span>
+          <h3 className="text-base sm:text-lg font-bold uppercase tracking-wider text-text-primary">
+            {t(`categories.${result.category}`)}
+          </h3>
+          <span className="text-xs text-text-secondary font-mono">
+            {t(`blocks.${result.variant.nameKey}`)}
+          </span>
+        </div>
+      </div>
+
       <div className="p-6 sm:p-8 rounded-xl bg-surface-elevated/90 backdrop-blur-md border border-gold-border relative overflow-hidden shadow-2xl flex flex-col gap-6">
         {/* Top Accent Line */}
         <div
           className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary-yellow/60 to-transparent"
           aria-hidden="true"
         />
-
-        {/* Category & Variant Badge */}
-        <div className="flex items-center justify-between pb-3 border-b border-gold-border">
-          <span className="text-xs font-mono font-bold tracking-widest text-primary-yellow uppercase">
-            {t(`categories.${result.category}`)}
-          </span>
-          <span className="text-xs font-mono text-text-secondary">
-            {t(`blocks.${result.variant.nameKey}`)}
-          </span>
-        </div>
 
         {/* Selected Accessories / Configuration */}
         {result.input.accessories && Object.keys(result.input.accessories).length > 0 && (

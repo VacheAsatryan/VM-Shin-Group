@@ -1,9 +1,11 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import { FACTORY_ORIGIN } from "@/config/delivery";
 import type { CalculationResult, EstimateSummaryPayload } from "@/lib/calculator/calculator.types";
+import { getProductImage } from "@/lib/calculator/getProductImage";
 import { useDeliveryRoute } from "@/hooks/useDeliveryRoute";
 import type { AddressSuggestion } from "@/lib/maps/geoapify/types";
 import DeliveryAddressSearch from "@/components/delivery/DeliveryAddressSearch";
@@ -34,6 +36,7 @@ export default function DeliveryStep({
   const t = useTranslations("calculator");
   const locale = useLocale();
   const currency = t("units.currency");
+  const productImage = getProductImage(result.category, result.variant.id);
 
   const {
     status,
@@ -59,24 +62,28 @@ export default function DeliveryStep({
   const deliveryCostText = isRouteReady
     ? deliveryEstimate !== null
       ? `${deliveryEstimate.toLocaleString()} ${currency}`
-      : t("priceConfirmedByManager")
+      : t("delivery.deliveryNotCalculated")
     : t("delivery.deliveryNotCalculated");
 
-  const handleSelectSuggestion = async (suggestion: AddressSuggestion) => {
-    await selectSuggestion(suggestion);
+  const handleSelectSuggestion = (suggestion: AddressSuggestion) => {
+    setSelectedAddress(suggestion.formattedAddress);
+    adjustDestinationCoordinates({
+      lat: suggestion.lat,
+      lon: suggestion.lon,
+    });
   };
 
-  const handleConfirmCoordinates = async (coords: { lat: number; lon: number }) => {
-    await adjustDestinationCoordinates(coords);
+  const handleConfirmCoordinates = (coords: { lat: number; lon: number }) => {
+    adjustDestinationCoordinates(coords);
   };
 
   const handleRequestOfferClick = () => {
     const payloadNote = [
       result.pricing.priceStatus === "to_be_confirmed"
-        ? "Exact size and price pending confirmation"
+        ? "exact size and price pending confirmation"
         : undefined,
       !isRouteReady
-        ? "Delivery requires manual confirmation by manager"
+        ? "Delivery cost not calculated yet (requires destination confirmation)"
         : deliveryLocationAdjustedManually
         ? "Delivery location adjusted manually on map"
         : undefined,
@@ -116,6 +123,31 @@ export default function DeliveryStep({
 
   return (
     <div className="max-w-2xl mx-auto flex flex-col gap-6">
+      {/* Dynamic Product Header Card */}
+      <div className="flex items-center gap-4 p-4 rounded-xl bg-surface/80 border border-gold-border/40 shadow-lg">
+        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg bg-background/80 relative overflow-hidden shrink-0 border border-gold-border/40 flex items-center justify-center p-1">
+          <Image
+            src={productImage}
+            alt={t(`categories.${result.category}`)}
+            fill
+            sizes="80px"
+            className="object-contain"
+            priority
+          />
+        </div>
+        <div className="flex flex-col">
+          <span className="text-[10px] font-mono font-bold tracking-widest text-primary-yellow uppercase">
+            {t("stepper.step4")}
+          </span>
+          <h3 className="text-base sm:text-lg font-bold uppercase tracking-wider text-text-primary">
+            {t(`categories.${result.category}`)}
+          </h3>
+          <span className="text-xs text-text-secondary font-mono">
+            {t(`blocks.${result.variant.nameKey}`)}
+          </span>
+        </div>
+      </div>
+
       <div className="p-6 sm:p-8 rounded-xl bg-surface-elevated/90 backdrop-blur-md border border-gold-border relative overflow-hidden shadow-2xl flex flex-col gap-6">
         {/* Top Accent Line */}
         <div

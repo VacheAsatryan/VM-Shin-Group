@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import type { CalculatorProductInput } from "@/lib/calculator/calculator.types";
+import { CALCULATOR_PRODUCTS } from "@/config/calculatorProducts";
 import CalculatorField from "./CalculatorField";
 
 interface DynamicCalculatorFormProps {
@@ -423,6 +424,121 @@ export default function DynamicCalculatorForm({
           />
         </div>
       );
+
+    case "floor_slabs": {
+      const slabCategory = CALCULATOR_PRODUCTS.find((p) => p.calculationType === "floor_slabs");
+      const lengthVal =
+        typeof input.lengthMeters === "number" && !isNaN(input.lengthMeters)
+          ? input.lengthMeters
+          : 2.9;
+      const isValidLength = lengthVal >= 2.9 && lengthVal <= 6.3;
+      const activeVariant =
+        slabCategory?.variants.find((v) => v.id === input.variantId) ||
+        slabCategory?.variants[0];
+      const widthVal = activeVariant?.widthMeters || 1.2;
+      const areaOfOne = Number((widthVal * (isValidLength ? lengthVal : 2.9)).toFixed(2));
+      const totalAreaVal = Number(((input.quantity || 1) * areaOfOne).toFixed(2));
+      const slabVariants = slabCategory?.variants || [];
+
+      return (
+        <div className="flex flex-col gap-5">
+          {/* Panel Type Selection */}
+          <div className="flex flex-col gap-2">
+            <label className="text-xs font-mono font-semibold tracking-wider text-text-secondary uppercase">
+              {t("inputs.panelType")}
+            </label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {slabVariants.map((v) => (
+                <button
+                  key={v.id}
+                  type="button"
+                  onClick={() => onChangeInput({ ...input, variantId: v.id })}
+                  className={`p-3.5 rounded-xl border text-left transition-all flex flex-col justify-between ${
+                    input.variantId === v.id
+                      ? "bg-primary-yellow/10 border-primary-yellow text-primary-yellow shadow-lg shadow-primary-yellow/5"
+                      : "bg-background/60 border-gold-border/60 text-text-secondary hover:border-gold-border hover:text-text-primary"
+                  }`}
+                >
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider mb-1">
+                    {t(`blocks.${v.nameKey}`)}
+                  </span>
+                  <span className="text-sm font-semibold text-text-primary">
+                    {t("inputs.width")}: {v.widthMeters} {t("units.m")}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Panel Length & Quantity */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-1">
+              <CalculatorField
+                id="slab-length"
+                label={t("inputs.panelLength")}
+                type="number"
+                value={input.lengthMeters}
+                onChange={(e) => {
+                  const val = parseFloat(e.target.value);
+                  onChangeInput({
+                    ...input,
+                    lengthMeters: isNaN(val) ? 2.9 : val,
+                  });
+                }}
+                min={2.9}
+                max={6.3}
+                step={0.1}
+                suffix="m"
+              />
+              <span className="text-[11px] font-mono text-text-muted">
+                {t("inputs.lengthRangeHint")}
+              </span>
+              {!isValidLength && (
+                <span className="text-xs font-mono text-red-400 font-semibold">
+                  ⚠ {t("inputs.lengthValidationError")}
+                </span>
+              )}
+            </div>
+
+            <CalculatorField
+              id="slab-quantity"
+              label={t("inputs.quantity")}
+              type="number"
+              value={input.quantity}
+              onChange={(e) =>
+                onChangeInput({
+                  ...input,
+                  quantity: Math.max(1, parseInt(e.target.value, 10) || 1),
+                })
+              }
+              min={1}
+              step={1}
+              suffix="pcs"
+            />
+          </div>
+
+          {/* Real-time Calculated Metrics Card */}
+          <div className="p-4 rounded-xl bg-white/[0.03] border border-gold-border/50 grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs">
+            <div className="flex flex-col gap-0.5">
+              <span className="text-text-muted text-[11px] uppercase tracking-wider">
+                {t("results.areaOfOnePanel")}:
+              </span>
+              <span className="text-text-primary font-bold text-base">
+                {areaOfOne} {t("units.m2")}
+              </span>
+            </div>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-text-muted text-[11px] uppercase tracking-wider">
+                {t("results.totalArea")}:
+              </span>
+              <span className="text-primary-yellow font-bold text-base">
+                {totalAreaVal} {t("units.m2")}
+              </span>
+            </div>
+          </div>
+        </div>
+      );
+    }
 
     default:
       return null;

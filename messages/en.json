@@ -74,27 +74,42 @@
       "castIronCoverSmallTitle": "Cast-Iron Cover for Small Manhole",
       "pavingStonesSubtitle": "Paving stone",
       "sizeToBeConfirmed": "Size to be confirmed",
-      "pavingRectangleSandV1Title": "Rectangular paving stone — sand, variant 1",
-      "pavingSquareSandV1Title": "Square paving stone — sand, variant 1",
-      "pavingRectangleBrownV1Title": "Rectangular paving stone — brown, variant 1",
-      "pavingRectangleGrayV1Title": "Rectangular paving stone — gray, variant 1",
-      "pavingSquareBrownV1Title": "Square paving stone — brown, variant 1",
-      "pavingRectangleRedV1Title": "Rectangular paving stone — red, variant 1",
-      "pavingRectangleGrayV2Title": "Rectangular paving stone — gray, variant 2",
-      "pavingRectangleDarkGrayV1Title": "Rectangular paving stone — dark gray, variant 1",
-      "pavingRectangleLightGrayV1Title": "Rectangular paving stone — light gray, variant 1",
-      "manholeSubtitle": "Manhole component",
-      "manholeSmallV1": "Manhole — Small (Temporary)",
-      "manholeLargeV1": "Manhole — Large (Temporary)",
-      "manholeSingleCoverV1Small": "Cover — Small (Temporary)",
-      "manholeDoubleCoverV1Small": "Cover — Large (Temporary)",
-      "manholeCoverSquareOpeningV1Small": "Cover with Square Opening (Temporary)",
-      "manholeCoverSlotV1Small": "Cover with Slot (Temporary)",
-      "manholeCoverRoundHoleV1Small": "Cover with Round Hole (Temporary)"
+      "pavingType1Title": "Paving Stone — Type 1",
+      "pavingType2Title": "Paving Stone — Type 2",
+      "pavingType1": "Paving Stone — Type 1",
+      "pavingType2": "Paving Stone — Type 2",
+      "curbstoneRoad": "Road Curb (80×15×30 cm)",
+      "curbstoneGarden": "Garden Curb (80×8×20 cm)",
+      "manholeSubtitle": "Inspection Well Component",
+      "manholeSmallV1": "Manhole — Small (1000 mm)",
+      "manholeLargeV1": "Manhole — Large (1500 mm)",
+      "manholeSingleCoverV1Small": "Small Manhole with Cast-Iron Cover (1000 mm)",
+      "manholeDoubleCoverV1Small": "Large Manhole with Cast-Iron Cover (1500 mm)",
+      "manholeCoverSquareOpeningV1Small": "Small Manhole Cover — Square Opening (1000 mm)",
+      "manholeCoverSlotV1Small": "Small Manhole Cover — Slot Opening (1000 mm)",
+      "manholeCoverRoundHoleV1Small": "Small Manhole Cover — Round Opening (1000 mm)",
+      "manholeCoverSquareOpeningV1Large": "Large Manhole Cover — Square Opening (1500 mm)",
+      "manholeCoverSlotV1Large": "Large Manhole Cover — Slot Opening (1500 mm)",
+      "manholeCoverRoundHoleV1Large": "Large Manhole Cover — Round Opening (1500 mm)",
+      "slab120": "Type 1 — Width: 1.20 m",
+      "slab120Subtitle": "Reinforced concrete floor slab (1.20 m)",
+      "slab060": "Type 2 — Width: 0.60 m",
+      "slab060Subtitle": "Reinforced concrete floor slab (0.60 m)",
+      "concreteM250": "Ready-Mix Concrete M250 (B20)",
+      "concreteM300": "Ready-Mix Concrete M300 (B22.5)"
+    },
+    "colors": {
+      "gray": "Gray",
+      "lightGray": "Light Gray",
+      "darkGray": "Dark Gray",
+      "red": "Red",
+      "brown": "Brown",
+      "sand": "Sand",
+      "mix": "Mix"
     },
     "categories": {
       "pemzablok": "Pumice Blocks",
-      "concrete-block": "Concrete Blocks",
+      "concrete-block": "Floor Slab Panel",
       "concrete": "Ready-Mix Concrete",
       "paving-stones": "Paving Stones",
       "tiles": "Tiles",
@@ -104,10 +119,12 @@
     },
     "descriptions": {
       "pemzablok": "Lightweight and durable pumice concrete blocks with high thermal and sound insulation. The ideal choice for energy-efficient exterior walls and interior partitions.",
-      "concrete-block": "Heavy-duty structural concrete blocks designed for load-bearing walls, foundations, and industrial facilities.",
+      "concrete-block": "Reinforced concrete floor slab panels (widths 1.20 m and 0.60 m, lengths from 2.90 m to 6.30 m) for residential and industrial inter-floor structures.",
       "concrete": "High-grade ready-mix concrete formulations conforming to strict quality standards with mixer truck delivery.",
       "paving-stones": "Durable concrete paving stones engineered for pedestrian walkways, parking lots, and urban plazas.",
       "curbstones": "Road and sidewalk curbstones designed for pavement reinforcement and urban landscaping.",
+      "curbstoneRoad": "Road curb 80×15×30 cm designed for roadway edge reinforcement and traffic areas.",
+      "curbstoneGarden": "Garden curb 80×8×20 cm designed for sidewalks, gardens, and landscape separation.",
       "manholes": "Reinforced concrete rings and well components for utility networks, drainage, and sewerage.",
       "largeManholeCover": "High-quality large manhole covers available in standard concrete or heavy-duty cast iron for various applications."
     },
@@ -128,7 +145,9 @@
       "abrasionResistance": "Abrasion Resistance",
       "diameter": "Diameter",
       "loadClass": "Load Class",
-      "concreteGrade": "Concrete Grade"
+      "concreteGrade": "Concrete Grade",
+      "width": "Width",
+      "lengthRange": "Length Range"
     },
     "features": {
       "ecoPumice": {
@@ -213,7 +232,11 @@
       "no-cover": "No cover",
       "standard-cover": "Standard cover",
       "cast-iron-cover": "Cast iron cover"
-    }
+    },
+    "selectSize": "Select Size",
+    "selectColor": "Select Color",
+    "areaInputLabel": "Required Area (m²)",
+    "total": "Total"
   },
   "advantages": {
     "eyebrow": "OUR ADVANTAGES",
@@ -328,8 +351,8 @@
     },
     "categories": {
       "pemzablok": "Pumice Block",
-      "concrete-block": "Concrete Block",
-      "concreteBlock": "Concrete Block",
+      "concrete-block": "Floor Slab Panel",
+      "concreteBlock": "Floor Slab Panel",
       "concrete": "Ready-Mix Concrete",
       "paving-stones": "Paving Stones",
       "pavingStones": "Paving Stones",
@@ -361,7 +384,13 @@
       "calcByArea": "Calculate by area",
       "calcByAreaDesc": "Calculate using surface length and width.",
       "calcByRunningMeters": "Calculate by running meters",
-      "calcByRunningMetersDesc": "Calculate using total linear length."
+      "calcByRunningMetersDesc": "Calculate using total linear length.",
+      "panelType": "Panel Type (width)",
+      "panelLength": "Panel Length (m)",
+      "lengthRangeHint": "Allowed length: 2.90 m - 6.30 m (step 0.10 m)",
+      "lengthValidationError": "Length must be between 2.90 m and 6.30 m",
+      "width": "width",
+      "blockType": "Product Type"
     },
     "blocks": {
       "block6": "Pumice Block 6 (6x20x40 cm)",
@@ -371,12 +400,12 @@
       "block20Groove": "Pumice Block 20 Groove (20x20x40 cm)",
       "block25": "Pumice Block 25 (25x20x40 cm)",
       "block30": "Pumice Block 30 (30x20x40 cm)",
-      "concreteBlock15": "Concrete Block 15 (15x20x40 cm)",
-      "concreteBlock20": "Concrete Block 20 (20x20x40 cm)",
+      "concreteBlock": "Floor Slab Panel",
       "concreteM250": "Concrete M250 (B20)",
       "concreteM300": "Concrete M300 (B22.5)",
       "concreteM350": "Concrete M350 (B25)",
-      "pavingRectangleSandV1": "Rectangular paving stone — sand, variant 1",
+      "pavingType1": "Paving Stone — Type 1",
+      "pavingType2": "Paving Stone — Type 2",
       "pavingSquareSandV1": "Square paving stone — sand, variant 1",
       "pavingRectangleBrownV1": "Rectangular paving stone — brown, variant 1",
       "pavingRectangleGrayV1": "Rectangular paving stone — gray, variant 1",
@@ -385,17 +414,20 @@
       "pavingRectangleGrayV2": "Rectangular paving stone — gray, variant 2",
       "pavingRectangleDarkGrayV1": "Rectangular paving stone — dark gray, variant 1",
       "pavingRectangleLightGrayV1": "Rectangular paving stone — light gray, variant 1",
-      "manholeSmallV1": "Manhole — Small (Temporary)",
-      "manholeLargeV1": "Manhole — Large (Temporary)",
-      "manholeSingleCoverV1Small": "Cover — Small (Temporary)",
-      "manholeDoubleCoverV1Small": "Cover — Large (Temporary)",
-      "manholeCoverSquareOpeningV1Small": "Cover with Square Opening (Temporary)",
-      "manholeCoverSlotV1Small": "Cover with Slot (Temporary)",
-      "manholeCoverRoundHoleV1Small": "Cover with Round Hole (Temporary)",
+      "manholeSmallV1": "Manhole — Small (1000 mm)",
+      "manholeLargeV1": "Manhole — Large (1500 mm)",
+      "manholeSingleCoverV1Small": "Small Manhole with Cast-Iron Cover (1000 mm)",
+      "manholeDoubleCoverV1Small": "Large Manhole with Cast-Iron Cover (1500 mm)",
+      "manholeCoverSquareOpeningV1Small": "Small Manhole Cover — Square Opening (1000 mm)",
+      "manholeCoverSlotV1Small": "Small Manhole Cover — Slot Opening (1000 mm)",
+      "manholeCoverRoundHoleV1Small": "Small Manhole Cover — Round Opening (1000 mm)",
+      "manholeCoverSquareOpeningV1Large": "Large Manhole Cover — Square Opening (1500 mm)",
+      "manholeCoverSlotV1Large": "Large Manhole Cover — Slot Opening (1500 mm)",
+      "manholeCoverRoundHoleV1Large": "Large Manhole Cover — Round Opening (1500 mm)",
       "tile30x30": "Concrete Tile 30x30 cm (4 cm)",
       "tile40x40": "Concrete Tile 40x40 cm (5 cm)",
-      "curbstoneRoad100": "Road Curbstone (100x30x15 cm)",
-      "curbstoneSidewalk50": "Sidewalk Curbstone (50x20x8 cm)",
+      "curbstoneRoad": "Road Curb (80x15x30 cm)",
+      "curbstoneGarden": "Garden Curb (80x8x20 cm)",
       "manholeRing100": "Manhole Ring (D100 cm)",
       "manholeCover100": "Manhole Cover (D100 cm)",
       "manholeSmall": "Small Manhole (1000 mm)",
@@ -404,13 +436,16 @@
       "coverLargeStandard": "Standard Cover for Large Manhole (1500 mm)",
       "coverLargeCastIron": "Cast-Iron Cover for Large Manhole (1500 mm)",
       "coverSmallStandard": "Standard Cover for Small Manhole (1000 mm)",
-      "coverSmallCastIron": "Cast-Iron Cover for Small Manhole (1000 mm)"
+      "coverSmallCastIron": "Cast-Iron Cover for Small Manhole (1000 mm)",
+      "slab120": "Type 1 — Width: 1.20 m",
+      "slab060": "Type 2 — Width: 0.60 m"
     },
     "units": {
       "blocks": "pcs",
       "m2": "m²",
       "m3": "m³",
       "lm": "lm",
+      "m": "m",
       "pcs": "pcs",
       "pallets": "pallets",
       "currency": "AMD"
@@ -418,7 +453,9 @@
     "results": {
       "title": "Estimation Summary",
       "primaryQuantity": "Required Quantity",
-      "secondaryQuantity": "Estimated Item Count",
+      "secondaryQuantity": "Total Area",
+      "areaOfOnePanel": "Area of one panel",
+      "totalArea": "Total area",
       "palletsCount": "Estimated Pallets",
       "subtotal": "Product Subtotal",
       "delivery": "Delivery Fee",
@@ -457,7 +494,8 @@
       "serviceNotConfiguredTitle": "Map service",
       "estimatedTravelTime": "Estimated travel time",
       "estimatedDeliveryPrice": "Estimated delivery price",
-      "manuallyAdjustedLocation": "Delivery location adjusted manually on the map"
+      "manuallyAdjustedLocation": "Delivery location adjusted manually on the map",
+      "deliveryNotCalculated": "Delivery fee not calculated"
     },
     "products": {},
     "accessories": {
@@ -483,16 +521,6 @@
       "contacts": "Contacts",
       "documents": "Documents"
     },
-    "products": {
-      "title": "Products",
-      "pemzablok": "Pumice Blocks",
-      "concreteBlock": "Concrete Blocks",
-      "concrete": "Ready-Mix Concrete",
-      "pavingStones": "Paving Stones",
-      "tiles": "Concrete Tiles",
-      "curbstones": "Curbstones",
-      "manholes": "Manhole Products"
-    },
     "contact": {
       "title": "Contact Us",
       "addressLabel": "Address",
@@ -509,6 +537,15 @@
       "privacy": "Privacy Policy",
       "terms": "Terms of Service",
       "cookies": "Cookie Policy"
+    },
+    "products": {
+      "title": "Products",
+      "pemzablok": "Pumice Blocks",
+      "concreteBlock": "Floor Slab Panels",
+      "concrete": "Ready-Mix Concrete",
+      "pavingStones": "Paving Stones",
+      "curbstones": "Curbstones",
+      "manholes": "Manhole Products"
     }
   },
   "documents": {
@@ -620,7 +657,8 @@
     "success": {
       "title": "Request sent successfully",
       "message": "Thank you. Our specialist will contact you shortly.",
-      "closeButton": "Close"
+      "closeButton": "Close",
+      "retryButton": "Try Again"
     },
     "error": {
       "title": "Request could not be sent",

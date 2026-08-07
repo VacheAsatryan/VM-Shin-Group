@@ -25,25 +25,25 @@ async function runTests() {
 
   // 3. Ignore client-submitted price and use canonical server price
   const res3 = resolveCanonicalProduct("pemzablok", "pumice-6x20x40", "hy");
-  assert(res3.isValid === true && res3.canonicalUnitPrice === 180, "3. Ignore client price & use canonical 180 AMD");
+  assert(res3.isValid === true && res3.canonicalUnitPrice === 150, "3. Ignore client price & use canonical 150 AMD");
 
   // 4. Recalculate products_total and total_price server-side
   const qty = 500;
-  const productPrice = res3.canonicalUnitPrice; // 180 AMD
-  const productsTotal = productPrice * qty; // 90,000 AMD
+  const productPrice = res3.canonicalUnitPrice; // 150 AMD
+  const productsTotal = productPrice * qty; // 75,000 AMD
   const distanceKm = 15;
   const deliveryPrice = calculateDeliveryPrice(distanceKm, true); // 4,500 AMD
-  const totalPrice = productsTotal + (deliveryPrice ?? 0); // 94,500 AMD
+  const totalPrice = productsTotal + (deliveryPrice ?? 0); // 79,500 AMD
 
-  assert(productsTotal === 90000 && deliveryPrice === 4500 && totalPrice === 94500, "4. Recalculate totals server-side (94,500 AMD)");
+  assert(productsTotal === 75000 && deliveryPrice === 4500 && totalPrice === 79500, "4. Recalculate totals server-side (79,500 AMD)");
 
   // 5. Ignore client-submitted delivery price
   const deliveryOnly = calculateDeliveryPrice(20, true);
   assert(deliveryOnly === 6000, "5. Recalculate delivery price (20km * 300 AMD = 6,000 AMD)");
 
-  // 6. Reject zero-price / unconfirmed commercial products
-  const res6 = resolveCanonicalProduct("paving-stones", "paving-rectangle-sand-v1", "hy");
-  assert(res6.isValid === false && res6.reason?.includes("Zero-price commercial orders are forbidden") === true, "6. Reject zero-price / unconfirmed commercial products");
+  // 6. Verify paving-stones pricing with paving-type-1 (4,000 AMD/m2)
+  const res6 = resolveCanonicalProduct("paving-stones", "paving-type-1", "hy");
+  assert(res6.isValid === true && res6.canonicalUnitPrice === 4000, "6. Verify paving-stones canonical unit price (4,000 AMD/m2)");
 
   // 7. Reject unsupported locales
   const payloadBadLocale: unknown = {

@@ -75,6 +75,7 @@ export function resolveCanonicalProduct(
   // 3. Resolve Localized Category Title
   const categoryNameKey = category.nameKey || category.id;
   const canonicalProductName: string =
+    localeMessages?.calculator?.categories?.[category.id] ||
     localeMessages?.calculator?.categories?.[categoryNameKey] ||
     categoryNameKey;
 

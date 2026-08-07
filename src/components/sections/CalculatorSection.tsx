@@ -94,6 +94,13 @@ function getDefaultInputForCategory(
         variantId,
         reservePercent: 5,
       };
+    case "floor_slabs":
+      return {
+        type: "floor_slabs",
+        variantId,
+        lengthMeters: 3.0,
+        quantity: 10,
+      };
     case "quantity_product":
     default:
       return {

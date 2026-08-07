@@ -8,7 +8,7 @@ import { useReducedMotion } from "motion/react";
 import { PRODUCTS, ProductItem } from "@/config/products";
 
 // ─── Autoplay interval in ms ──────────────────────────────────────────────────
-const AUTOPLAY_INTERVAL = 2200;
+const AUTOPLAY_INTERVAL = 2500;
 
 export default function ProductCarousel() {
   const t = useTranslations("products");
@@ -93,10 +93,10 @@ export default function ProductCarousel() {
       onFocus={() => setIsPaused(true)}
       onBlur={() => setIsPaused(false)}
     >
-      {/* Scrollable strip — full viewport width, no side padding */}
+      {/* Scrollable strip — perfectly centered on mobile with px-[10vw] */}
       <div
         ref={scrollerRef}
-        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar relative z-10"
+        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar relative z-10 px-[10vw] sm:px-0"
         role="region"
         aria-label="Products list"
       >
@@ -105,8 +105,8 @@ export default function ProductCarousel() {
         ))}
       </div>
 
-      {/* Arrow controls — absolute, centred vertically on the strip */}
-      <div className="absolute inset-y-0 left-0 right-0 pointer-events-none z-50 flex items-center justify-between px-3 sm:px-5">
+      {/* Arrow controls — absolute, desktop/tablet overlay (hidden on mobile to prevent text overlap) */}
+      <div className="absolute inset-y-0 left-0 right-0 pointer-events-none z-50 hidden sm:flex items-center justify-between px-3 sm:px-5">
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -137,6 +137,32 @@ export default function ProductCarousel() {
           </svg>
         </button>
       </div>
+
+      {/* Mobile Arrow Controls (Positioned cleanly below track to prevent card overlap) */}
+      <div className="flex sm:hidden items-center justify-center gap-4 mt-4 relative z-20">
+        <button
+          type="button"
+          onClick={() => scrollBy("left")}
+          disabled={!canScrollLeft}
+          className="w-9 h-9 rounded-full bg-surface border border-gold-border/60 flex items-center justify-center text-white disabled:opacity-30 active:scale-95 transition-all shadow-md"
+          aria-label="Scroll left"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          onClick={() => scrollBy("right")}
+          disabled={!canScrollRight}
+          className="w-9 h-9 rounded-full bg-surface border border-gold-border/60 flex items-center justify-center text-white disabled:opacity-30 active:scale-95 transition-all shadow-md"
+          aria-label="Scroll right"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
+      </div>
     </section>
   );
 }
@@ -153,9 +179,9 @@ function ProductCard({ product, index }: { product: ProductItem; index: number }
       href={`/products/${product.slug}?from=home`}
       className={
         "group relative flex-none " +
-        // card width: nearly half-screen on mobile, ~1/3 on tablet, ~1/4 on desktop
+        // Card width & snap: centered 80vw on mobile, 45vw tablet, 32vw md, 24vw lg
         "w-[80vw] sm:w-[45vw] md:w-[32vw] lg:w-[24vw] " +
-        "aspect-[3/2] snap-start overflow-hidden " +
+        "aspect-[3/2] snap-center sm:snap-start overflow-hidden rounded-xl " +
         "border border-gold-border/40 hover:border-gold-primary hover:shadow-gold-glow/25 " +
         "bg-surface transition-all duration-300 " +
         "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-yellow"

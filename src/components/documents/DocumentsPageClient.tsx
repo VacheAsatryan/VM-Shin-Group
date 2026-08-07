@@ -98,19 +98,19 @@ export default function DocumentsPageClient() {
               {/* Document Image Container with Consistent Aspect Ratio */}
               <div 
                 onClick={() => setSelectedDoc(doc)}
-                className="relative aspect-[3/4] w-full bg-[#161616] p-5 flex items-center justify-center cursor-pointer overflow-hidden border-b border-gold-border/30 group-hover:bg-[#1a1a1a] transition-colors"
+                className="relative aspect-[3/4] w-full bg-[#161616] p-4 sm:p-5 flex items-center justify-center cursor-pointer overflow-hidden border-b border-gold-border/30 group-hover:bg-[#1a1a1a] transition-colors"
               >
-                <div className="relative w-full h-full">
+                <div className="relative w-full h-full flex items-center justify-center">
                   <Image
                     src={doc.image}
                     alt={t(doc.titleKey)}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+                    className="object-contain object-center transition-transform duration-500 group-hover:scale-[1.02]"
                   />
                 </div>
                 {/* Enlarge Hover Overlay */}
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
                   <span className="px-4 py-2 bg-black/80 border border-gold-border/60 text-gold-primary rounded-lg text-xs font-mono uppercase tracking-widest">
                     {t("actions.enlarge")}
                   </span>

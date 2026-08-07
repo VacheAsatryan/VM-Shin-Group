@@ -127,6 +127,9 @@ export default function Header() {
     pathname === item.href || pathname.startsWith(item.href + "/")
   );
 
+  const isProductDetailPage = pathname.startsWith("/products/") && pathname !== "/products";
+  const ctaHref = isProductDetailPage ? "#calculator-section" : "/#calculator";
+
   const languages = [
     { code: "hy", label: "HY" },
     { code: "ru", label: "RU" },
@@ -277,7 +280,7 @@ export default function Header() {
             </div>
 
             {/* CTA Button */}
-            <LinkButton href="#contact" variant="primary" className="flex-shrink-0 whitespace-nowrap text-xs xl:text-sm px-3.5 lg:px-5 py-2">
+            <LinkButton href={ctaHref} variant="primary" className="flex-shrink-0 whitespace-nowrap text-xs xl:text-sm px-3.5 lg:px-5 py-2">
               {t("cta")}
             </LinkButton>
           </div>
@@ -416,7 +419,7 @@ export default function Header() {
               {/* Bottom CTA in drawer */}
               <div className="mt-8">
                 <LinkButton
-                  href="#contact"
+                  href={ctaHref}
                   variant="primary"
                   className="w-full text-center"
                   onClick={() => setMobileMenuOpen(false)}

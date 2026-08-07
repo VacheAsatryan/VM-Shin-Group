@@ -10,6 +10,7 @@ import { calculatePavingArea } from "./strategies/calculatePavingArea";
 import { calculateCurbstones } from "./strategies/calculateCurbstones";
 import { calculateConcreteVolume } from "./strategies/calculateConcreteVolume";
 import { calculateQuantityProduct } from "./strategies/calculateQuantityProduct";
+import { calculateFloorSlabs } from "./strategies/calculateFloorSlabs";
 import { calculateProductPrice } from "./pricing/calculateProductPrice";
 import { calculateDeliveryPrice } from "./pricing/calculateDeliveryPrice";
 import { PRODUCT_DETAILS } from "@/config/productDetails";
@@ -36,6 +37,9 @@ export function calculateProductEstimate(
       break;
     case "quantity_product":
       metrics = calculateQuantityProduct(input, variant);
+      break;
+    case "floor_slabs":
+      metrics = calculateFloorSlabs(input, variant);
       break;
   }
 

@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { Link } from "@/i18n/routing";
-import type { ProductDetailData, ProductVariant } from "@/config/productDetails";
+import type { ProductDetailData, ProductVariant, PavingStoneSizeOption, PavingStoneColorOption } from "@/config/productDetails";
 import VariantGallery from "@/components/products/VariantGallery";
 import PageBackLink from "@/components/ui/PageBackLink";
 import CalculatorSection from "@/components/sections/CalculatorSection";
@@ -38,9 +38,23 @@ export default function ProductDetailView({
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(defaultVariant);
   const [mainImageSrc, setMainImageSrc] = useState<string>(selectedVariant.image);
 
+  // Paving stone size & color selection states
+  const [selectedSize, setSelectedSize] = useState<PavingStoneSizeOption | undefined>(
+    defaultVariant.availableSizes?.[0]
+  );
+  const [selectedColor, setSelectedColor] = useState<PavingStoneColorOption | undefined>(
+    defaultVariant.availableColors?.[0]
+  );
+
   const handleVariantSelect = (variant: ProductVariant) => {
     setSelectedVariant(variant);
     setMainImageSrc(variant.image);
+    if (variant.availableSizes && variant.availableSizes.length > 0) {
+      setSelectedSize(variant.availableSizes[0]);
+    }
+    if (variant.availableColors && variant.availableColors.length > 0) {
+      setSelectedColor(variant.availableColors[0]);
+    }
   };
 
   const finalPrice = selectedVariant.price.amount;
@@ -48,6 +62,8 @@ export default function ProductDetailView({
   const variantTitle = selectedVariant.titleKey
     ? t(selectedVariant.titleKey)
     : `${productName} ${selectedVariant.sizeLabel}`;
+
+  const currentSizeLabel = selectedSize ? selectedSize.display : selectedVariant.sizeLabel;
 
   return (
     <div className="flex-1 pt-28 pb-20">
@@ -148,56 +164,113 @@ export default function ProductDetailView({
                           {finalPrice} {t(selectedVariant.price.unitKey)}
                         </span>
                         <span className="text-xs text-text-muted">
-                          {selectedVariant.dimensions}
+                          {currentSizeLabel}
                         </span>
                       </>
                     )}
                   </div>
 
-                  <p className="text-base sm:text-lg text-text-muted leading-relaxed mb-8">
+                  <p className="text-base sm:text-lg text-text-muted leading-relaxed mb-6">
                     {t(selectedVariant.descriptionKey)}
                   </p>
+
+                  {/* Size Selector for Paving Stones */}
+                  {selectedVariant.availableSizes && selectedVariant.availableSizes.length > 0 && (
+                    <div className="mb-6">
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-text-muted mb-2.5">
+                        {t("selectSize")}
+                      </label>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+                        {selectedVariant.availableSizes.map((sizeOpt) => {
+                          const isSizeActive = selectedSize?.id === sizeOpt.id;
+                          return (
+                            <button
+                              key={sizeOpt.id}
+                              type="button"
+                              onClick={() => setSelectedSize(sizeOpt)}
+                              className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl border text-xs font-bold transition-all ${
+                                isSizeActive
+                                  ? "bg-surface border-gold-primary text-primary-yellow shadow-gold-glow/20 ring-1 ring-gold-primary/50"
+                                  : "bg-surface/50 border-gold-border/40 text-white hover:border-gold-primary/50 hover:bg-surface"
+                              }`}
+                            >
+                              <span>{sizeOpt.display}</span>
+                              {isSizeActive && (
+                                <span className="w-4 h-4 rounded-full bg-primary-yellow text-black flex items-center justify-center text-[10px] ml-1 flex-none">
+                                  ✓
+                                </span>
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Color Selector for Paving Stones */}
+                  {selectedVariant.availableColors && selectedVariant.availableColors.length > 0 && (
+                    <div className="mb-6">
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-text-muted mb-2.5">
+                        {t("selectColor")}
+                      </label>
+                      <div className="flex flex-wrap gap-2.5">
+                        {selectedVariant.availableColors.map((colorOpt) => {
+                          const isColorActive = selectedColor?.id === colorOpt.id;
+                          return (
+                            <button
+                              key={colorOpt.id}
+                              type="button"
+                              onClick={() => setSelectedColor(colorOpt)}
+                              className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-semibold transition-all ${
+                                isColorActive
+                                  ? "bg-surface border-gold-primary text-white shadow-gold-glow/20 ring-1 ring-gold-primary/50"
+                                  : "bg-surface/50 border-gold-border/40 text-text-muted hover:text-white hover:border-gold-primary/40 hover:bg-surface"
+                              }`}
+                            >
+                              <span
+                                className="w-4 h-4 rounded-full border border-white/20 shadow-inner flex-none"
+                                style={{ background: colorOpt.hex }}
+                              />
+                              <span>{t(colorOpt.nameKey) || colorOpt.id}</span>
+                              {isColorActive && (
+                                <span className="w-3.5 h-3.5 rounded-full bg-primary-yellow text-black flex items-center justify-center text-[9px] font-bold flex-none">
+                                  ✓
+                                </span>
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
                 </motion.div>
               </AnimatePresence>
 
-              {/* Key Variant Spec Pills */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
-                <div className="p-3 rounded-xl bg-surface/80 border border-gold-border/30">
-                  <div className="text-[11px] font-medium text-text-muted mb-0.5">
-                    {t("specs.dimensions")}
+              {/* Key Variant Spec Pills (Hidden for Paving Stones per UI requirements) */}
+              {productDetail.id !== "paving-stones" && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+                  <div className="p-3 rounded-xl bg-surface/80 border border-gold-border/30">
+                    <div className="text-[11px] font-medium text-text-muted mb-0.5">
+                      {t("specs.dimensions")}
+                    </div>
+                    <div className="text-xs sm:text-sm font-bold text-white">
+                      {currentSizeLabel}
+                    </div>
                   </div>
-                  <div className="text-xs sm:text-sm font-bold text-white">
-                    {selectedVariant.sizeLabelKey ? t(selectedVariant.sizeLabelKey) : selectedVariant.sizeLabel}
-                  </div>
-                </div>
 
-                <div className="p-3 rounded-xl bg-surface/80 border border-gold-border/30">
-                  <div className="text-[11px] font-medium text-text-muted mb-0.5">
-                    {t("weightLabel")}
-                  </div>
-                  <div className="text-xs sm:text-sm font-bold text-white">
-                    {selectedVariant.weightKg ? `${selectedVariant.weightKg} kg` : t("priceTBC")}
-                  </div>
+                  {Boolean(selectedVariant.weightKg && selectedVariant.weightKg > 0) && (
+                    <div className="p-3 rounded-xl bg-surface/80 border border-gold-border/30">
+                      <div className="text-[11px] font-medium text-text-muted mb-0.5">
+                        {t("weightLabel")}
+                      </div>
+                      <div className="text-xs sm:text-sm font-bold text-white">
+                        {`${selectedVariant.weightKg} kg`}
+                      </div>
+                    </div>
+                  )}
                 </div>
-
-                <div className="p-3 rounded-xl bg-surface/80 border border-gold-border/30">
-                  <div className="text-[11px] font-medium text-text-muted mb-0.5">
-                    {t("palletLabel")}
-                  </div>
-                  <div className="text-xs sm:text-sm font-bold text-white">
-                    {selectedVariant.itemsPerPallet ? `${selectedVariant.itemsPerPallet} pcs` : t("priceTBC")}
-                  </div>
-                </div>
-
-                <div className="p-3 rounded-xl bg-surface/80 border border-gold-border/30">
-                  <div className="text-[11px] font-medium text-text-muted mb-0.5">
-                    {t("specs.compressiveStrength")}
-                  </div>
-                  <div className="text-xs sm:text-sm font-bold text-white">
-                    {selectedVariant.specs?.find((s) => s.labelKey === "compressiveStrength")?.valueRaw || "M50"}
-                  </div>
-                </div>
-              </div>
+              )}
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-4">
@@ -208,7 +281,7 @@ export default function ProductDetailView({
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                   </svg>
-                  {t("calculateCta")} ({selectedVariant.sizeLabel})
+                  {t("calculateCta")} ({currentSizeLabel})
                 </a>
 
                 <a
@@ -223,39 +296,43 @@ export default function ProductDetailView({
         </div>
       </section>
 
-      {/* Dynamic Technical Specifications Table */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="mb-10">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-            <span className="w-1.5 h-7 bg-primary-yellow rounded-full inline-block" />
-            {t("specsTitle")} — {selectedVariant.sizeLabel}
-          </h2>
-        </div>
-
-        <div className="bg-surface border border-gold-border/30 rounded-2xl overflow-hidden shadow-xl">
-          <div className="divide-y divide-gold-border/20">
-            {selectedVariant.specs.map((spec, idx) => (
-              <div
-                key={idx}
-                className={`grid grid-cols-1 sm:grid-cols-12 px-6 py-4 transition-colors ${
-                  idx % 2 === 0 ? "bg-white/[0.01]" : "bg-transparent"
-                } hover:bg-white/[0.03]`}
-              >
-                <div className="sm:col-span-5 text-sm font-semibold text-text-muted flex items-center">
-                  {t(`specs.${spec.labelKey}`)}
-                </div>
-                <div className="sm:col-span-7 text-sm font-bold text-white mt-1 sm:mt-0 flex items-center">
-                  {spec.valueRaw}
-                </div>
-              </div>
-            ))}
+      {/* Dynamic Technical Specifications Table (Hidden for Paving Stones) */}
+      {productDetail.id !== "paving-stones" && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+          <div className="mb-10">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
+              <span className="w-1.5 h-7 bg-primary-yellow rounded-full inline-block" />
+              {t("specsTitle")} — {selectedVariant.sizeLabel}
+            </h2>
           </div>
-        </div>
-      </section>
+
+          <div className="bg-surface border border-gold-border/30 rounded-2xl overflow-hidden shadow-xl">
+            <div className="divide-y divide-gold-border/20">
+              {selectedVariant.specs.map((spec, idx) => (
+                <div
+                  key={idx}
+                  className={`grid grid-cols-1 sm:grid-cols-12 px-6 py-4 transition-colors ${
+                    idx % 2 === 0 ? "bg-white/[0.01]" : "bg-transparent"
+                  } hover:bg-white/[0.03]`}
+                >
+                  <div className="sm:col-span-5 text-sm font-semibold text-text-muted flex items-center">
+                    {t(`specs.${spec.labelKey}`)}
+                  </div>
+                  <div className="sm:col-span-7 text-sm font-bold text-white mt-1 sm:mt-0 flex items-center">
+                    {spec.valueRaw}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Key Features & Advantages Grid */}
       {productDetail.features && productDetail.features.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 border-t border-gold-border/30">
+        <section className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 ${
+          productDetail.id !== "paving-stones" ? "border-t border-gold-border/30" : ""
+        }`}>
           <div className="mb-10">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
               <span className="w-1.5 h-7 bg-primary-yellow rounded-full inline-block" />

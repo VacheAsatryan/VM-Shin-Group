@@ -35,7 +35,7 @@ export interface ProductCategoryConfig {
   nameKey: string;
   unitLabelKey: string;
   image: string;
-  calculationType: "wall_blocks" | "paving_area" | "curbstones" | "concrete_volume" | "quantity_product";
+  calculationType: "wall_blocks" | "paving_area" | "curbstones" | "concrete_volume" | "quantity_product" | "floor_slabs";
   variants: ProductVariantConfig[];
 }
 
@@ -73,6 +73,14 @@ export interface CurbstonesInput {
   accessories?: Record<string, string>;
 }
 
+export interface FloorSlabsInput {
+  type: "floor_slabs";
+  variantId: string;
+  lengthMeters: number;
+  quantity: number;
+  accessories?: Record<string, string>;
+}
+
 export interface ConcreteVolumeInput {
   type: "concrete_volume";
   mode: "direct" | "dimensions";
@@ -97,7 +105,8 @@ export type CalculatorProductInput =
   | PavingAreaInput
   | CurbstonesInput
   | ConcreteVolumeInput
-  | QuantityProductInput;
+  | QuantityProductInput
+  | FloorSlabsInput;
 
 // Calculation Output Data
 export interface CalculationMetrics {

@@ -644,6 +644,8 @@
       "manualMode": "Manual Quantity Entry",
       "product": "Product",
       "variant": "Variant",
+      "size": "Size",
+      "color": "Color",
       "quantity": "Quantity",
       "enteredParameters": "Entered Parameters",
       "deliveryAddress": "Delivery Address",

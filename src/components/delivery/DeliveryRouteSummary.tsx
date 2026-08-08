@@ -11,18 +11,6 @@ interface DeliveryRouteSummaryProps {
   onResetLocation?: () => void;
 }
 
-function formatDuration(minutes: number): string {
-  if (minutes < 60) {
-    return `${minutes} min`;
-  }
-  const hours = Math.floor(minutes / 60);
-  const remainingMinutes = minutes % 60;
-  if (remainingMinutes === 0) {
-    return `${hours} h`;
-  }
-  return `${hours} h ${remainingMinutes} min`;
-}
-
 export default function DeliveryRouteSummary({
   route,
   pricing,
@@ -36,37 +24,26 @@ export default function DeliveryRouteSummary({
   }
 
   const distanceKmFormatted = route.distanceKm.toFixed(1);
-  const durationText = formatDuration(route.durationMinutes);
 
   return (
     <div className="p-4 rounded-xl bg-background/80 border border-gold-border flex flex-col gap-3 shadow-lg">
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pb-2 border-b border-gold-border/30 text-xs font-mono">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-2 border-b border-gold-border/30 text-xs font-mono">
         {/* Distance */}
         <div className="flex flex-col">
           <span className="text-[10px] text-text-secondary uppercase">
             {t("delivery.distanceLabel")}
           </span>
-          <span className="text-sm font-bold text-primary-yellow">
+          <span className="text-sm sm:text-base font-bold text-primary-yellow">
             {distanceKmFormatted} km
           </span>
         </div>
 
-        {/* Travel Time */}
-        <div className="flex flex-col">
-          <span className="text-[10px] text-text-secondary uppercase">
-            {t("delivery.estimatedTravelTime")}
-          </span>
-          <span className="text-sm font-bold text-text-primary">
-            ⏱ {durationText}
-          </span>
-        </div>
-
         {/* Delivery Cost */}
-        <div className="flex flex-col">
+        <div className="flex flex-col sm:items-end">
           <span className="text-[10px] text-text-secondary uppercase">
             {t("delivery.estimatedDeliveryPrice")}
           </span>
-          <span className="text-sm font-bold text-primary-yellow">
+          <span className="text-sm sm:text-base font-bold text-primary-yellow">
             {pricing.price !== null
               ? `${pricing.price.toLocaleString()} ${currency}`
               : t("priceConfirmedByManager")}

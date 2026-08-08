@@ -15,7 +15,7 @@ interface DeliveryAddressSearchProps {
 }
 
 export default function DeliveryAddressSearch({
-  value,
+  value = "",
   onChangeText,
   onSelectSuggestion,
   onInvalidateAddress,
@@ -57,7 +57,6 @@ export default function DeliveryAddressSearch({
 
   const handleSelect = (suggestion: AddressSuggestion) => {
     const selected = selectSuggestion(suggestion);
-    onChangeText(selected.formatted);
     onSelectSuggestion(selected);
   };
 
@@ -103,8 +102,7 @@ export default function DeliveryAddressSearch({
           onChange={handleInputChange}
           onFocus={() => suggestions.length > 0 && setIsOpen(true)}
           onKeyDown={handleKeyDown}
-          disabled={!isConfigured}
-          placeholder={isConfigured ? t("autocompletePlaceholder") : t("serviceNotConfigured")}
+          placeholder={t("autocompletePlaceholder")}
           className="w-full bg-background/90 text-text-primary text-sm font-semibold rounded-lg pl-10 pr-10 py-3 border border-gold-border focus:border-primary-yellow/60 focus:ring-1 focus:ring-primary-yellow/40 outline-none transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
         />
 
@@ -126,9 +124,13 @@ export default function DeliveryAddressSearch({
             const isHighlighted = index === highlightedIndex;
             return (
               <li
-                key={suggestion.id}
+                key={suggestion.placeId || suggestion.id || index}
                 role="option"
                 aria-selected={isHighlighted}
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  handleSelect(suggestion);
+                }}
                 onClick={() => handleSelect(suggestion)}
                 onMouseEnter={() => setHighlightedIndex(index)}
                 className={`px-4 py-3 cursor-pointer text-xs transition-colors flex flex-col border-b border-gold-border/30 last:border-b-0 ${

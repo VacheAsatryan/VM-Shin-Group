@@ -237,6 +237,13 @@ export default function CalculatorSection({
       productName: payload.productName || t(`categories.${payload.category}`),
       productVariantId: payload.variantId,
       productVariantName: payload.variantName || t(`blocks.${selectedVariant.nameKey}`),
+      colorId:
+        payload.colorId ||
+        (payload.input && "colorId" in payload.input && typeof payload.input.colorId === "string"
+          ? payload.input.colorId
+          : payload.category === "paving-stones"
+          ? "gray"
+          : undefined),
       quantity: payload.metrics.primaryQuantity,
       unit: t(`units.${payload.metrics.primaryUnitKey}`),
       inputs: rawInputs,

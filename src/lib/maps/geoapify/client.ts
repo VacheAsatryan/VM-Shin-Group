@@ -56,6 +56,12 @@ export async function fetchGeoapifyJson<T>(
   const url = `${GEOAPIFY_BASE_URL}${endpoint}?${searchParams.toString()}`;
 
   try {
+    if (typeof window !== "undefined") {
+      console.log("[Autocomplete Trace - fetch() Fired]", {
+        endpoint,
+        hasSignal: !!signal,
+      });
+    }
     const response = await fetch(url, {
       method: "GET",
       headers: {

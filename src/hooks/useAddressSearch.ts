@@ -161,6 +161,7 @@ export function useAddressSearch({
   const [error, setError] = useState<string | null>(null);
 
   const abortControllerRef = useRef<AbortController | null>(null);
+  const latestQueryRef = useRef<string>("");
   const isConfigured = isGeoapifyConfigured();
   const safeQuery = typeof query === "string" ? query : "";
   const trimmed = safeQuery.trim();
@@ -176,6 +177,17 @@ export function useAddressSearch({
     }
 
     const timer = setTimeout(async () => {
+      const requestId = Math.random().toString(36).substring(2, 9);
+      latestQueryRef.current = trimmed;
+
+      if (typeof window !== "undefined") {
+        console.log("[AddressSearch] Request Details:", {
+          query: trimmed,
+          requestId,
+          provider: isConfigured ? "Geoapify" : "Fallback Offline List",
+        });
+      }
+
       setIsLoading(true);
       setError(null);
 
@@ -204,6 +216,16 @@ export function useAddressSearch({
         }
 
         if (abortController.signal.aborted) return;
+        if (trimmed !== latestQueryRef.current) return;
+
+        if (typeof window !== "undefined") {
+          console.log("[AddressSearch] Response Succeeded:", {
+            query: trimmed,
+            requestId,
+            responseCount: results.length,
+            provider: isConfigured ? "Geoapify" : "Fallback Offline List",
+          });
+        }
 
         setSuggestions(results);
         setIsOpen(results.length > 0);
@@ -211,13 +233,14 @@ export function useAddressSearch({
         setHasSearched(true);
       } catch (err) {
         if (abortController.signal.aborted) return;
+        if (trimmed !== latestQueryRef.current) return;
         setSuggestions([]);
         setIsOpen(false);
         if (err instanceof Error && err.name !== "AbortError") {
           setError(err.message);
         }
       } finally {
-        if (!abortController.signal.aborted) {
+        if (!abortController.signal.aborted && trimmed === latestQueryRef.current) {
           setIsLoading(false);
         }
       }
@@ -226,9 +249,16 @@ export function useAddressSearch({
     return () => {
       clearTimeout(timer);
     };
-  }, [trimmed, isSearchable, isConfigured, locale, debounceMs]);
+  }, [trimmed, isSearchable, isConfigured, locale, debounceMs, minChars]);
 
   const selectSuggestion = useCallback((suggestion: AddressSuggestion) => {
+    if (typeof window !== "undefined") {
+      console.log("[AddressSearch] Selected:", {
+        label: suggestion.formatted,
+        lat: suggestion.coordinates?.lat,
+        lon: suggestion.coordinates?.lon,
+      });
+    }
     setIsOpen(false);
     setSuggestions([]);
     return suggestion;

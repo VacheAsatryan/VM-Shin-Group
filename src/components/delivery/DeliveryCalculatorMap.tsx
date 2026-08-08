@@ -19,6 +19,17 @@ import { FACTORY_ORIGIN } from "@/config/delivery";
 
 const emptySubscribe = () => () => {};
 
+// Coordinate Validation Guard
+const isValidCoords = (c: Coordinates | null | undefined): c is Coordinates => {
+  return (
+    Boolean(c) &&
+    typeof c?.lat === "number" &&
+    typeof c?.lon === "number" &&
+    !isNaN(c.lat) &&
+    !isNaN(c.lon)
+  );
+};
+
 // Custom Gold Factory Icon (divIcon)
 const createFactoryIcon = () =>
   L.divIcon({
@@ -109,23 +120,39 @@ function MapController({
 
   useMapEvents({
     click(e) {
-      onMapClick({ lat: e.latlng.lat, lon: e.latlng.lng });
+      if (e?.latlng && typeof e.latlng.lat === "number" && typeof e.latlng.lng === "number") {
+        onMapClick({ lat: e.latlng.lat, lon: e.latlng.lng });
+      }
     },
   });
 
   useEffect(() => {
     if (!map) return;
 
-    if (route && route.geometry.length > 0) {
-      const bounds = L.latLngBounds(route.geometry);
-      map.fitBounds(bounds, { padding: [40, 40], maxZoom: 15 });
-    } else if (destinationCoords) {
+    if (route && Array.isArray(route.geometry) && route.geometry.length > 0) {
+      const validGeometry = route.geometry.filter(
+        (pt) =>
+          Array.isArray(pt) &&
+          pt.length === 2 &&
+          typeof pt[0] === "number" &&
+          typeof pt[1] === "number" &&
+          !isNaN(pt[0]) &&
+          !isNaN(pt[1])
+      );
+      if (validGeometry.length > 0) {
+        const bounds = L.latLngBounds(validGeometry);
+        map.fitBounds(bounds, { padding: [40, 40], maxZoom: 15 });
+        return;
+      }
+    }
+
+    if (isValidCoords(destinationCoords) && isValidCoords(factoryCoords)) {
       const bounds = L.latLngBounds([
         [factoryCoords.lat, factoryCoords.lon],
         [destinationCoords.lat, destinationCoords.lon],
       ]);
       map.fitBounds(bounds, { padding: [50, 50], maxZoom: 14 });
-    } else {
+    } else if (isValidCoords(factoryCoords)) {
       map.setView([factoryCoords.lat, factoryCoords.lon], 11);
     }
   }, [map, factoryCoords, destinationCoords, route]);
@@ -167,21 +194,47 @@ export default function DeliveryCalculatorMap({
     );
   }
 
-  const factoryPos: [number, number] = [FACTORY_COORDINATES.lat, FACTORY_COORDINATES.lon];
-  const destPos: [number, number] | null = destinationCoords
+  const factoryPos: [number, number] = isValidCoords(FACTORY_COORDINATES)
+    ? [FACTORY_COORDINATES.lat, FACTORY_COORDINATES.lon]
+    : [40.1792, 44.4991];
+
+  const destPos: [number, number] | null = isValidCoords(destinationCoords)
     ? [destinationCoords.lat, destinationCoords.lon]
     : null;
+
+  const validRouteGeometry: [number, number][] =
+    route && Array.isArray(route.geometry)
+      ? route.geometry.filter(
+          (pt): pt is [number, number] =>
+            Array.isArray(pt) &&
+            pt.length === 2 &&
+            typeof pt[0] === "number" &&
+            typeof pt[1] === "number" &&
+            !isNaN(pt[0]) &&
+            !isNaN(pt[1])
+        )
+      : [];
 
   const handleDragEnd = () => {
     const marker = markerRef.current;
     if (marker) {
       const latLng = marker.getLatLng();
-      onConfirmCoordinates({ lat: latLng.lat, lon: latLng.lng });
+      if (
+        latLng &&
+        typeof latLng.lat === "number" &&
+        typeof latLng.lng === "number" &&
+        !isNaN(latLng.lat) &&
+        !isNaN(latLng.lng)
+      ) {
+        onConfirmCoordinates({ lat: latLng.lat, lon: latLng.lng });
+      }
     }
   };
 
   const handleMapClick = (coords: Coordinates) => {
-    onConfirmCoordinates(coords);
+    if (isValidCoords(coords)) {
+      onConfirmCoordinates(coords);
+    }
   };
 
   return (
@@ -210,7 +263,9 @@ export default function DeliveryCalculatorMap({
           <Popup className="custom-leaflet-popup">
             <div className="p-1 font-sans text-xs">
               <p className="font-bold text-black">{FACTORY_ORIGIN.name}</p>
-              <p className="text-gray-600">{FACTORY_ORIGIN.address}, {FACTORY_ORIGIN.city}</p>
+              <p className="text-gray-600">
+                {FACTORY_ORIGIN.address}, {FACTORY_ORIGIN.city}
+              </p>
             </div>
           </Popup>
         </Marker>
@@ -238,9 +293,9 @@ export default function DeliveryCalculatorMap({
         )}
 
         {/* Driving Route Polyline */}
-        {route && route.geometry.length > 0 && (
+        {validRouteGeometry.length > 0 && (
           <Polyline
-            positions={route.geometry}
+            positions={validRouteGeometry}
             pathOptions={{
               color: "#F5C21B",
               weight: 5,

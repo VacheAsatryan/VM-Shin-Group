@@ -13,6 +13,8 @@ export interface OrderDetails {
   productName: string;
   productVariantId?: string;
   productVariantName?: string;
+  colorId?: string;
+  sizeDisplay?: string;
 
   quantity?: number;
   unit?: string;

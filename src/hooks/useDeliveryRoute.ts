@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-import { FACTORY_COORDINATES, isWithinArmenia } from "@/lib/maps/coordinates";
+import { FACTORY_COORDINATES, isWithinArmenia, calculateDistanceKm } from "@/lib/maps/coordinates";
 import { calculateDrivingRoute } from "@/lib/maps/geoapify/routing";
 import { isGeoapifyConfigured } from "@/lib/maps/geoapify/client";
 import { computeDeliveryPrice, type DeliveryPricingResult } from "@/lib/maps/delivery-pricing";
@@ -70,26 +70,36 @@ export function useDeliveryRoute(): UseDeliveryRouteReturn {
   const updateAddressText = useCallback(
     (text: string) => {
       setSelectedAddress(text);
-      if (route !== null || destinationCoords !== null) {
+      if (selectedSuggestion && text !== selectedSuggestion.formatted) {
         invalidateRoute();
       }
     },
-    [route, destinationCoords, invalidateRoute]
+    [selectedSuggestion, invalidateRoute]
   );
 
   const executeRouteCalculation = useCallback(
     async (dest: Coordinates) => {
-      if (!isConfigured) {
-        setStatus("error");
-        setErrorMessageKey("serviceNotConfigured");
-        return;
-      }
-
       if (!isWithinArmenia(dest)) {
         setStatus("error");
         setErrorMessageKey("addressOutsideArmenia");
         setRoute(null);
         setPricing(null);
+        return;
+      }
+
+      if (!isConfigured) {
+        const distKm = Math.max(1, calculateDistanceKm(FACTORY_COORDINATES, dest));
+        const pricingResult = computeDeliveryPrice(distKm);
+        setRoute({
+          distanceKm: distKm,
+          timeMinutes: Math.round((distKm / 45) * 60),
+          geometry: [
+            [FACTORY_COORDINATES.lat, FACTORY_COORDINATES.lon],
+            [dest.lat, dest.lon],
+          ],
+        });
+        setPricing(pricingResult);
+        setStatus("routeReady");
         return;
       }
 
@@ -128,11 +138,19 @@ export function useDeliveryRoute(): UseDeliveryRouteReturn {
       } catch (err: unknown) {
         if (abortController.signal.aborted) return;
 
-        console.warn("Geoapify Route Calculation failed:", err);
-        setStatus("error");
-        setRoute(null);
-        setPricing(null);
-        setErrorMessageKey("routeBuildFailed");
+        console.warn("Geoapify Route Calculation fallback:", err);
+        const distKm = Math.max(1, calculateDistanceKm(FACTORY_COORDINATES, dest));
+        const pricingResult = computeDeliveryPrice(distKm);
+        setRoute({
+          distanceKm: distKm,
+          timeMinutes: Math.round((distKm / 45) * 60),
+          geometry: [
+            [FACTORY_COORDINATES.lat, FACTORY_COORDINATES.lon],
+            [dest.lat, dest.lon],
+          ],
+        });
+        setPricing(pricingResult);
+        setStatus("routeReady");
       }
     },
     [isConfigured]
@@ -140,19 +158,30 @@ export function useDeliveryRoute(): UseDeliveryRouteReturn {
 
   const selectSuggestion = useCallback(
     async (suggestion: AddressSuggestion) => {
+      if (!suggestion || !suggestion.coordinates) return;
+      
+      const coords = suggestion.coordinates;
+      if (typeof coords.lat !== "number" || typeof coords.lon !== "number" || isNaN(coords.lat) || isNaN(coords.lon)) {
+        return;
+      }
+
       setSelectedSuggestion(suggestion);
-      setSelectedAddress(suggestion.formatted);
-      setDestinationCoords(suggestion.coordinates);
+      setSelectedAddress(suggestion.formatted || "");
+      setDestinationCoords(coords);
       setDeliveryLocationAdjustedManually(false);
       setStatus("addressSelected");
 
-      await executeRouteCalculation(suggestion.coordinates);
+      await executeRouteCalculation(coords);
     },
     [executeRouteCalculation]
   );
 
   const adjustDestinationCoordinates = useCallback(
     async (newCoords: Coordinates) => {
+      if (!newCoords || typeof newCoords.lat !== "number" || typeof newCoords.lon !== "number" || isNaN(newCoords.lat) || isNaN(newCoords.lon)) {
+        return;
+      }
+
       setDestinationCoords(newCoords);
       setDeliveryLocationAdjustedManually(true);
 

@@ -66,11 +66,7 @@ export default function DeliveryStep({
     : t("delivery.deliveryNotCalculated");
 
   const handleSelectSuggestion = (suggestion: AddressSuggestion) => {
-    setSelectedAddress(suggestion.formattedAddress);
-    adjustDestinationCoordinates({
-      lat: suggestion.lat,
-      lon: suggestion.lon,
-    });
+    selectSuggestion(suggestion);
   };
 
   const handleConfirmCoordinates = (coords: { lat: number; lon: number }) => {
@@ -94,6 +90,12 @@ export default function DeliveryStep({
     const payload: EstimateSummaryPayload = {
       category: result.category,
       variantId: result.variant.id,
+      colorId:
+        result.input && "colorId" in result.input && typeof result.input.colorId === "string"
+          ? result.input.colorId
+          : result.category === "paving-stones"
+          ? "gray"
+          : undefined,
       input: result.input,
       metrics: result.metrics,
       pricing: {
@@ -185,13 +187,8 @@ export default function DeliveryStep({
           locale={locale}
         />
 
-        {/* Missing API Key Notice */}
-        {!isConfigured && (
-          <DeliveryMapError isMissingConfig={true} />
-        )}
-
         {/* Route Error Notification */}
-        {isConfigured && status === "error" && (
+        {status === "error" && (
           <DeliveryMapError
             errorMessageKey={errorMessageKey}
             onRetry={() => {
@@ -201,18 +198,17 @@ export default function DeliveryStep({
         )}
 
         {/* Map View & Route Calculation */}
-        {isConfigured && (
-          <div className="relative flex flex-col gap-3">
-            {status === "buildingRoute" ? (
-              <DeliveryMapLoading />
-            ) : (
-              <DeliveryCalculatorMap
-                destinationCoords={destinationCoords}
-                destinationAddress={selectedAddress}
-                route={route}
-                onConfirmCoordinates={handleConfirmCoordinates}
-              />
-            )}
+        <div className="relative flex flex-col gap-3">
+          {status === "buildingRoute" ? (
+            <DeliveryMapLoading />
+          ) : (
+            <DeliveryCalculatorMap
+              destinationCoords={destinationCoords}
+              destinationAddress={selectedAddress}
+              route={route}
+              onConfirmCoordinates={handleConfirmCoordinates}
+            />
+          )}
 
             {/* Route Summary */}
             {isRouteReady && (
@@ -223,7 +219,6 @@ export default function DeliveryStep({
               />
             )}
           </div>
-        )}
 
         {/* Delivery Summary Breakdown */}
         <div className="p-4 rounded-xl bg-background/80 border border-gold-border flex flex-col gap-3">

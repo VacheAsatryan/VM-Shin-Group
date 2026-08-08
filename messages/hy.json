@@ -644,6 +644,8 @@
       "manualMode": "Ձեռքով քանակ",
       "product": "Ապրանք",
       "variant": "Տեսակ",
+      "size": "Չափ",
+      "color": "Գույն",
       "quantity": "Քանակ",
       "enteredParameters": "Մուտքագրված պարամետրեր",
       "deliveryAddress": "Առաքման հասցե",

@@ -644,6 +644,8 @@
       "manualMode": "Ручной ввод количества",
       "product": "Товар",
       "variant": "Тип / Вариант",
+      "size": "Размер",
+      "color": "Цвет",
       "quantity": "Количество",
       "enteredParameters": "Введенные параметры",
       "deliveryAddress": "Адрес доставки",

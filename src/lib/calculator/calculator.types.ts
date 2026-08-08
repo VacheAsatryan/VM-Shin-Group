@@ -60,6 +60,7 @@ export interface PavingAreaInput {
   quantity?: number;
   variantId: string;
   reservePercent: number;
+  colorId?: string;
   accessories?: Record<string, string>;
 }
 
@@ -141,6 +142,7 @@ export interface CalculationResult {
 export interface EstimateSummaryPayload {
   category: ProductCategoryType;
   variantId: string;
+  colorId?: string;
   input: CalculatorProductInput;
   metrics: CalculationMetrics;
   pricing: PricingBreakdown;

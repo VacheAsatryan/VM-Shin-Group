@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { Link } from "@/i18n/routing";
+import RelatedProductLink from "./RelatedProductLink";
 import type { ProductDetailData, ProductVariant, PavingStoneSizeOption, PavingStoneColorOption } from "@/config/productDetails";
 import VariantGallery from "@/components/products/VariantGallery";
 import PageBackLink from "@/components/ui/PageBackLink";
@@ -27,8 +27,6 @@ export default function ProductDetailView({
   relatedProducts,
 }: ProductDetailViewProps) {
   const t = useTranslations("products");
-  const searchParams = useSearchParams();
-  const fromParam = searchParams.get("from") || "catalog";
 
   // Initial variant selection state
   const defaultVariant =
@@ -417,24 +415,45 @@ export default function ProductDetailView({
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {relatedProducts.slice(0, 4).map((relProduct) => (
-            <Link
+            <Suspense
               key={relProduct.id}
-              href={`/products/${relProduct.slug}?from=${fromParam}`}
-              className="group bg-surface border border-gold-border/30 rounded-xl overflow-hidden hover:border-gold-primary/50 hover:shadow-gold-glow/20 transition-all p-4 flex flex-col"
+              fallback={
+                <div
+                  className="bg-surface border border-gold-border/30 rounded-xl overflow-hidden p-4 flex flex-col cursor-default"
+                >
+                  <div className="relative aspect-video bg-[#0f0f0f] rounded-lg overflow-hidden mb-3">
+                    <Image
+                      src={relProduct.image}
+                      alt={t(`categories.${relProduct.translationKey}`)}
+                      fill
+                      sizes="(max-width: 640px) 100vw, 25vw"
+                      className="object-contain p-2 transition-transform"
+                    />
+                  </div>
+                  <h3 className="text-sm font-bold text-white transition-colors">
+                    {t(`categories.${relProduct.translationKey}`)}
+                  </h3>
+                </div>
+              }
             >
-              <div className="relative aspect-video bg-[#0f0f0f] rounded-lg overflow-hidden mb-3">
-                <Image
-                  src={relProduct.image}
-                  alt={t(`categories.${relProduct.translationKey}`)}
-                  fill
-                  sizes="(max-width: 640px) 100vw, 25vw"
-                  className="object-contain p-2 group-hover:scale-105 transition-transform"
-                />
-              </div>
-              <h3 className="text-sm font-bold text-white group-hover:text-primary-yellow transition-colors">
-                {t(`categories.${relProduct.translationKey}`)}
-              </h3>
-            </Link>
+              <RelatedProductLink
+                slug={relProduct.slug}
+                className="group bg-surface border border-gold-border/30 rounded-xl overflow-hidden hover:border-gold-primary/50 hover:shadow-gold-glow/20 transition-all p-4 flex flex-col"
+              >
+                <div className="relative aspect-video bg-[#0f0f0f] rounded-lg overflow-hidden mb-3">
+                  <Image
+                    src={relProduct.image}
+                    alt={t(`categories.${relProduct.translationKey}`)}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 25vw"
+                    className="object-contain p-2 group-hover:scale-105 transition-transform"
+                  />
+                </div>
+                <h3 className="text-sm font-bold text-white group-hover:text-primary-yellow transition-colors">
+                  {t(`categories.${relProduct.translationKey}`)}
+                </h3>
+              </RelatedProductLink>
+            </Suspense>
           ))}
         </div>
       </section>

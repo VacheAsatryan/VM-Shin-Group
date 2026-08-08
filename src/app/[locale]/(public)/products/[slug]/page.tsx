@@ -1,13 +1,23 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { PRODUCTS } from "@/config/products";
 import { getProductDetail } from "@/config/productDetails";
 import ProductDetailView from "@/components/products/ProductDetailView";
+import { routing } from "@/i18n/routing";
 
 export async function generateStaticParams() {
-  return PRODUCTS.map((product) => ({
-    slug: product.slug,
-  }));
+  const params: Array<{ locale: string; slug: string }> = [];
+
+  for (const locale of routing.locales) {
+    for (const product of PRODUCTS) {
+      params.push({
+        locale,
+        slug: product.slug,
+      });
+    }
+  }
+
+  return params;
 }
 
 export async function generateMetadata({
@@ -16,6 +26,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
   const product = getProductDetail(slug);
   if (!product) return {};
 
@@ -33,7 +44,8 @@ export default async function ProductDetailPage({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const productDetail = getProductDetail(slug);
 
   if (!productDetail) {

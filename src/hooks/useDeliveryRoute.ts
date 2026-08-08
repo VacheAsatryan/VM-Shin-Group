@@ -90,9 +90,12 @@ export function useDeliveryRoute(): UseDeliveryRouteReturn {
       if (!isConfigured) {
         const distKm = Math.max(1, calculateDistanceKm(FACTORY_COORDINATES, dest));
         const pricingResult = computeDeliveryPrice(distKm);
+        const durMins = Math.round((distKm / 45) * 60);
         setRoute({
+          distanceMeters: Math.round(distKm * 1000),
           distanceKm: distKm,
-          timeMinutes: Math.round((distKm / 45) * 60),
+          durationSeconds: durMins * 60,
+          durationMinutes: durMins,
           geometry: [
             [FACTORY_COORDINATES.lat, FACTORY_COORDINATES.lon],
             [dest.lat, dest.lon],
@@ -141,9 +144,12 @@ export function useDeliveryRoute(): UseDeliveryRouteReturn {
         console.warn("Geoapify Route Calculation fallback:", err);
         const distKm = Math.max(1, calculateDistanceKm(FACTORY_COORDINATES, dest));
         const pricingResult = computeDeliveryPrice(distKm);
+        const durMins = Math.round((distKm / 45) * 60);
         setRoute({
+          distanceMeters: Math.round(distKm * 1000),
           distanceKm: distKm,
-          timeMinutes: Math.round((distKm / 45) * 60),
+          durationSeconds: durMins * 60,
+          durationMinutes: durMins,
           geometry: [
             [FACTORY_COORDINATES.lat, FACTORY_COORDINATES.lon],
             [dest.lat, dest.lon],

@@ -13,6 +13,7 @@ export interface AddressSuggestion {
   region?: string;
   country?: string;
   coordinates: Coordinates;
+  placeId?: string;
 }
 
 export interface DeliveryRoute {

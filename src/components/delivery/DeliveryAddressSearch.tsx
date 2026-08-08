@@ -124,7 +124,7 @@ export default function DeliveryAddressSearch({
             const isHighlighted = index === highlightedIndex;
             return (
               <li
-                key={suggestion.placeId || suggestion.id || index}
+                key={suggestion.id || index}
                 role="option"
                 aria-selected={isHighlighted}
                 onMouseDown={(e) => {

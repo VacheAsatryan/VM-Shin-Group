@@ -2,7 +2,7 @@
 
 import { useTranslations, useLocale } from "next-intl";
 import type { OrderDetails } from "@/lib/order/order.types";
-import { formatAmd, formatKm, formatMinutes } from "@/lib/order/order-formatters";
+import { formatAmd, formatKm } from "@/lib/order/order-formatters";
 
 interface OrderSummaryProps {
   order: OrderDetails;

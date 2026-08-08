@@ -116,6 +116,14 @@ export function useDeliveryRoute(): UseDeliveryRouteReturn {
       setStatus("buildingRoute");
       setErrorMessageKey(null);
 
+      if (typeof window !== "undefined") {
+        console.log("[Routing] Started Calculation:", {
+          origin: FACTORY_COORDINATES,
+          destination: dest,
+          provider: isConfigured ? "Geoapify" : "Fallback Straight Line",
+        });
+      }
+
       try {
         const routeResult = await calculateDrivingRoute(
           FACTORY_COORDINATES,
@@ -135,6 +143,16 @@ export function useDeliveryRoute(): UseDeliveryRouteReturn {
 
         const pricingResult = computeDeliveryPrice(routeResult.distanceKm);
 
+        if (typeof window !== "undefined") {
+          console.log("[Routing] Succeeded:", {
+            origin: FACTORY_COORDINATES,
+            destination: dest,
+            distanceKm: routeResult.distanceKm,
+            durationMinutes: routeResult.durationMinutes,
+            provider: "Geoapify",
+          });
+        }
+
         setRoute(routeResult);
         setPricing(pricingResult);
         setStatus("routeReady");
@@ -145,6 +163,17 @@ export function useDeliveryRoute(): UseDeliveryRouteReturn {
         const distKm = Math.max(1, calculateDistanceKm(FACTORY_COORDINATES, dest));
         const pricingResult = computeDeliveryPrice(distKm);
         const durMins = Math.round((distKm / 45) * 60);
+
+        if (typeof window !== "undefined") {
+          console.warn("[Routing] Fallback Triggered:", {
+            origin: FACTORY_COORDINATES,
+            destination: dest,
+            distanceKm: distKm,
+            provider: "Fallback Straight Line",
+            error: err instanceof Error ? err.message : String(err),
+          });
+        }
+
         setRoute({
           distanceMeters: Math.round(distKm * 1000),
           distanceKm: distKm,

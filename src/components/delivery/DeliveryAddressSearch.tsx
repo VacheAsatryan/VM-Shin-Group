@@ -78,7 +78,7 @@ export default function DeliveryAddressSearch({
   };
 
   return (
-    <div ref={containerRef} className="relative w-full flex flex-col gap-1.5">
+    <div ref={containerRef} className="relative z-30 w-full flex flex-col gap-1.5">
       <label
         htmlFor="delivery-address-search-input"
         className="text-xs font-mono font-semibold tracking-wider text-text-secondary uppercase"
@@ -118,7 +118,7 @@ export default function DeliveryAddressSearch({
         <ul
           id="delivery-address-suggestions-list"
           role="listbox"
-          className="absolute top-full left-0 right-0 z-50 mt-1 rounded-xl bg-surface-elevated/95 border border-gold-border shadow-2xl backdrop-blur-md overflow-hidden max-h-60 overflow-y-auto"
+          className="absolute top-full left-0 right-0 z-50 mt-1 rounded-xl bg-surface-elevated border border-gold-border shadow-2xl overflow-hidden max-h-56 sm:max-h-60 overflow-y-auto"
         >
           {suggestions.map((suggestion, index) => {
             const isHighlighted = index === highlightedIndex;
@@ -128,6 +128,10 @@ export default function DeliveryAddressSearch({
                 role="option"
                 aria-selected={isHighlighted}
                 onMouseDown={(e) => {
+                  e.preventDefault();
+                  handleSelect(suggestion);
+                }}
+                onTouchStart={(e) => {
                   e.preventDefault();
                   handleSelect(suggestion);
                 }}

@@ -150,10 +150,10 @@ export default function DeliveryStep({
         </div>
       </div>
 
-      <div className="p-6 sm:p-8 rounded-xl bg-surface-elevated/90 backdrop-blur-md border border-gold-border relative overflow-hidden shadow-2xl flex flex-col gap-6">
+      <div className="p-6 sm:p-8 rounded-xl bg-surface-elevated/90 backdrop-blur-md border border-gold-border relative shadow-2xl flex flex-col gap-6">
         {/* Top Accent Line */}
         <div
-          className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary-yellow/60 to-transparent"
+          className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary-yellow/60 to-transparent rounded-t-xl"
           aria-hidden="true"
         />
 

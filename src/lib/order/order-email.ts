@@ -33,6 +33,21 @@ export function renderOrderEmail(payload: OrderRequestPayload): RenderedOrderEma
 
   const subject = `Նոր հայտ կայքից — ${order.productName} — ${customer.name}`;
 
+  const isConcrete = order.productId === "concrete";
+  const isOver40Km = order.deliveryDistanceKm !== undefined && order.deliveryDistanceKm > 40;
+
+  const emailProductPriceText = formatAmd(order.productPrice);
+
+  const emailDeliveryCostText =
+    isOver40Km
+      ? "Determined after order / Որոշվում է պատվերից հետո"
+      : formatAmd(order.estimatedDeliveryPrice);
+
+  const emailTotalText =
+    isConcrete && isOver40Km
+      ? "Determined after order / Որոշվում է պատվերից հետո"
+      : formatAmd(order.totalPrice);
+
   // Formatted Input Parameters (if parameter mode)
   let inputsFormatted = "";
   let inputsTextFormatted = "";
@@ -172,7 +187,7 @@ export function renderOrderEmail(payload: OrderRequestPayload): RenderedOrderEma
                   }
                   <tr>
                     <td style="padding: 6px 0; color: #a1a1aa;">Product Price:</td>
-                    <td style="padding: 6px 0; color: #ffffff; font-weight: 700;">${formatAmd(order.productPrice)}</td>
+                    <td style="padding: 6px 0; color: #ffffff; font-weight: 700;">${emailProductPriceText}</td>
                   </tr>
                 </table>
 
@@ -216,7 +231,7 @@ export function renderOrderEmail(payload: OrderRequestPayload): RenderedOrderEma
                   </tr>
                   <tr>
                     <td style="padding: 6px 0; color: #a1a1aa;">Delivery Cost:</td>
-                    <td style="padding: 6px 0; color: #F5C21B; font-weight: 700;">${formatAmd(order.estimatedDeliveryPrice)}</td>
+                    <td style="padding: 6px 0; color: #F5C21B; font-weight: 700;">${emailDeliveryCostText}</td>
                   </tr>
                 </table>
               </div>
@@ -227,7 +242,7 @@ export function renderOrderEmail(payload: OrderRequestPayload): RenderedOrderEma
                   Estimated Total Price / Ընդհանուր Հաշվարկ
                 </div>
                 <div style="font-size: 28px; font-weight: 900; color: #F5C21B; margin-top: 6px; font-family: monospace;">
-                  ${formatAmd(order.totalPrice)}
+                  ${emailTotalText}
                 </div>
                 <div style="font-size: 11px; color: #71717a; margin-top: 6px; font-style: italic;">
                   * Website estimate only. Final terms and pricing confirmed by manager upon contact.
@@ -273,7 +288,7 @@ PRODUCT DETAILS
 Product: ${order.productName}
 Variant: ${order.productVariantName || "Default"}
 Quantity: ${order.quantity !== undefined ? `${order.quantity} ${order.unit || ""}` : "N/A"}
-Product Price: ${formatAmd(order.productPrice)}
+Product Price: ${emailProductPriceText}
 
 ${inputsTextFormatted ? `INPUT PARAMETERS:\n${inputsTextFormatted}\n` : ""}
 DELIVERY DETAILS
@@ -285,9 +300,9 @@ Coordinates: ${
   }
 Route Distance: ${formatKm(order.deliveryDistanceKm)}
 Est. Duration: ${formatMinutes(order.estimatedDurationMinutes)}
-Delivery Cost: ${formatAmd(order.estimatedDeliveryPrice)}
+Delivery Cost: ${emailDeliveryCostText}
 
-ESTIMATED TOTAL PRICE: ${formatAmd(order.totalPrice)}
+ESTIMATED TOTAL PRICE: ${emailTotalText}
 
 * Preliminary website estimate only. Final specifications and price confirmed by manager upon phone contact.
 ==================================================

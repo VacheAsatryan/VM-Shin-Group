@@ -27,6 +27,7 @@
     "title": "Product Catalog",
     "backToHome": "Back to Home",
     "priceStatusToBeConfirmed": "Price and size to be confirmed",
+    "deliveryPriceDeterminedAfterOrder": "Delivery cost is determined after the order is placed",
     "priceTBC": "TBC",
     "viewProduct": "Learn More",
     "catalogSubtitle": "High-quality concrete and pumice concrete products direct from the manufacturer",
@@ -95,8 +96,13 @@
       "slab120Subtitle": "Reinforced concrete floor slab (1.20 m)",
       "slab060": "Type 2 — Width: 0.60 m",
       "slab060Subtitle": "Reinforced concrete floor slab (0.60 m)",
-      "concreteM250": "Ready-Mix Concrete M250 (B20)",
-      "concreteM300": "Ready-Mix Concrete M300 (B22.5)"
+      "concreteM100": "M100 B7.5",
+      "concreteM150": "M150 B12.5",
+      "concreteM200": "M200 B15",
+      "concreteM250": "M250 B20",
+      "concreteM300": "M300 B22.5",
+      "concreteM350": "M350 B25",
+      "concreteM400": "M400 B30"
     },
     "colors": {
       "gray": "Gray",
@@ -401,9 +407,13 @@
       "block25": "Pumice Block 25 (25x20x40 cm)",
       "block30": "Pumice Block 30 (30x20x40 cm)",
       "concreteBlock": "Floor Slab Panel",
-      "concreteM250": "Concrete M250 (B20)",
-      "concreteM300": "Concrete M300 (B22.5)",
-      "concreteM350": "Concrete M350 (B25)",
+      "concreteM100": "M100 B7.5",
+      "concreteM150": "M150 B12.5",
+      "concreteM200": "M200 B15",
+      "concreteM250": "M250 B20",
+      "concreteM300": "M300 B22.5",
+      "concreteM350": "M350 B25",
+      "concreteM400": "M400 B30",
       "pavingType1": "Paving Stone — Type 1",
       "pavingType2": "Paving Stone — Type 2",
       "pavingSquareSandV1": "Square paving stone — sand, variant 1",
@@ -448,10 +458,12 @@
       "m": "m",
       "pcs": "pcs",
       "pallets": "pallets",
+      "mm": "mm",
       "currency": "AMD"
     },
     "results": {
       "title": "Estimation Summary",
+      "pricePerM3": "Price per 1 m³",
       "primaryQuantity": "Required Quantity",
       "secondaryQuantity": "Total Area",
       "areaOfOnePanel": "Area of one panel",
@@ -495,7 +507,8 @@
       "estimatedTravelTime": "Estimated travel time",
       "estimatedDeliveryPrice": "Estimated delivery price",
       "manuallyAdjustedLocation": "Delivery location adjusted manually on the map",
-      "deliveryNotCalculated": "Delivery fee not calculated"
+      "deliveryNotCalculated": "Delivery fee not calculated",
+      "deliveryPriceDeterminedAfterOrder": "Delivery cost is determined after the order is placed"
     },
     "products": {},
     "accessories": {
@@ -654,6 +667,7 @@
       "deliveryPrice": "Delivery Price",
       "productSubtotal": "Product Price",
       "deliveryCost": "Delivery Price",
+      "excludingDelivery": "(excluding delivery)",
       "total": "Total Estimated"
     },
     "success": {
@@ -769,6 +783,7 @@
       "duration": "Duration",
       "notSpecified": "Not specified",
       "notCalculated": "Not calculated",
+      "determinedAfterOrder": "Determined after order",
       "close": "Close"
     },
     "pagination": {

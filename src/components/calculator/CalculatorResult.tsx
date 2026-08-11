@@ -134,7 +134,14 @@ export default function CalculatorResult({
       </div>
 
       {/* Pricing Summary */}
-      <PriceSummary pricing={result.pricing} deliveryEnabled={deliveryEnabled} />
+      <PriceSummary
+        pricing={result.pricing}
+        deliveryEnabled={deliveryEnabled}
+        isConcrete={result.category === "concrete"}
+        distanceKm={distanceKm}
+        pricePerUnit={result.variant.pricePerUnit}
+        quantity={result.metrics.primaryQuantity}
+      />
 
       {/* Delivery Estimator Control */}
       <DeliveryEstimator

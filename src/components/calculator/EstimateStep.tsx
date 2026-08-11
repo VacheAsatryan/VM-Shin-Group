@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import type { CalculationResult, EstimateSummaryPayload } from "@/lib/calculator/calculator.types";
 import { getProductImage } from "@/lib/calculator/getProductImage";
+import { PRODUCT_DETAILS } from "@/config/productDetails";
 import { Button } from "@/components/ui/Button";
 
 interface EstimateStepProps {
@@ -20,8 +21,25 @@ export default function EstimateStep({
   onRequestOffer,
 }: EstimateStepProps) {
   const t = useTranslations("calculator");
+  const tProducts = useTranslations("products");
   const currency = t("units.currency");
-  const productImage = getProductImage(result.category, result.variant.id);
+
+  const colorId = result.input && "colorId" in result.input && typeof result.input.colorId === "string" ? result.input.colorId : undefined;
+  const sizeId = result.input && "sizeId" in result.input && typeof result.input.sizeId === "string" ? result.input.sizeId : undefined;
+  const productImage = getProductImage(result.category, result.variant.id, colorId, sizeId);
+
+  const isPavingStones = result.category === "paving-stones";
+  const pavingVariantName = isPavingStones ? t(`blocks.${result.variant.nameKey}`) : "";
+  const pavingStonesConfig = PRODUCT_DETAILS["paving-stones"];
+  const pavingVariant = pavingStonesConfig?.variants.find((v) => v.id === result.variant.id);
+  const selectedSizeOpt = pavingVariant?.availableSizes?.find((s) => s.id === sizeId);
+  const pavingSizeDisplay = selectedSizeOpt
+    ? selectedSizeOpt.display.replace("mm", t("units.mm") || "mm")
+    : "";
+  const colorKey = colorId
+    ? colorId.replace(/-([a-z])/g, (_, l: string) => l.toUpperCase())
+    : "gray";
+  const pavingColorDisplay = colorId ? tProducts(`colors.${colorKey}`) : "";
 
   const handleRequestOfferClick = () => {
     const payload: EstimateSummaryPayload = {
@@ -35,7 +53,7 @@ export default function EstimateStep({
       timestamp: new Date().toISOString(),
       productName: t(`categories.${result.category}`),
       variantName: t(`blocks.${result.variant.nameKey}`),
-      imageFilename: result.variant.image ? result.variant.image.split("/").pop() : undefined,
+      imageFilename: productImage ? productImage.split("/").pop() : undefined,
       note: result.pricing.priceStatus === "to_be_confirmed" ? "exact size and price pending confirmation" : undefined,
     };
 
@@ -79,20 +97,34 @@ export default function EstimateStep({
         />
 
         {/* Selected Accessories / Configuration */}
-        {result.input.accessories && Object.keys(result.input.accessories).length > 0 && (
+        {(isPavingStones || (result.input.accessories && Object.keys(result.input.accessories).length > 0)) && (
           <div className="bg-white/5 border border-gold-border rounded-xl p-4">
             <h4 className="text-xs font-semibold text-text-muted mb-2 uppercase tracking-wider">
               {t("stepper.configuration")}
             </h4>
             <div className="flex flex-wrap gap-2">
-              {Object.entries(result.input.accessories).map(([groupId, optionId]) => (
-                <span
-                  key={groupId}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 text-white text-sm font-medium"
-                >
-                  {t(`accessories.${optionId}`)}
-                </span>
-              ))}
+              {isPavingStones && (
+                <>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 text-white text-sm font-medium">
+                    {pavingVariantName}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 text-white text-sm font-medium">
+                    {pavingSizeDisplay}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 text-white text-sm font-medium">
+                    {pavingColorDisplay}
+                  </span>
+                </>
+              )}
+              {result.input.accessories &&
+                Object.entries(result.input.accessories).map(([groupId, optionId]) => (
+                  <span
+                    key={groupId}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 text-white text-sm font-medium"
+                  >
+                    {t(`accessories.${optionId}`)}
+                  </span>
+                ))}
             </div>
           </div>
         )}
@@ -134,14 +166,38 @@ export default function EstimateStep({
         </div>
 
         {/* 3. Product Cost Subtotal */}
-        <div className="p-4 rounded-lg bg-background/80 border border-gold-border flex items-center justify-between">
-          <span className="text-xs sm:text-sm text-text-secondary font-semibold">
-            {t("results.subtotal")}:
-          </span>
-          <span className="text-lg sm:text-xl font-bold font-mono text-primary-yellow">
-            {result.pricing.productSubtotal.toLocaleString()} {currency}
-          </span>
-        </div>
+        {result.category === "concrete" ? (
+          <div className="p-4 rounded-lg bg-background/80 border border-gold-border flex flex-col gap-2">
+            <div className="flex justify-between items-center text-xs sm:text-sm text-text-secondary">
+              <span>{t("results.pricePerM3")}:</span>
+              <span className="font-mono font-bold text-text-primary">
+                {result.variant.pricePerUnit?.toLocaleString()} {currency} / {t("units.m3")}
+              </span>
+            </div>
+            <div className="flex justify-between items-center text-xs sm:text-sm text-text-secondary">
+              <span>{t("results.primaryQuantity")}:</span>
+              <span className="font-mono font-bold text-text-primary">
+                {result.metrics.primaryQuantity.toLocaleString()} {t("units.m3")}
+              </span>
+            </div>
+            <div className="h-px bg-gold-border/40 my-1" />
+            <div className="flex justify-between items-center text-sm sm:text-base font-bold">
+              <span>{t("results.subtotal")}:</span>
+              <span className="font-mono text-primary-yellow">
+                {result.pricing.productSubtotal.toLocaleString()} {currency}
+              </span>
+            </div>
+          </div>
+        ) : (
+          <div className="p-4 rounded-lg bg-background/80 border border-gold-border flex items-center justify-between">
+            <span className="text-xs sm:text-sm text-text-secondary font-semibold">
+              {t("results.subtotal")}:
+            </span>
+            <span className="text-lg sm:text-xl font-bold font-mono text-primary-yellow">
+              {result.pricing.productSubtotal.toLocaleString()} {currency}
+            </span>
+          </div>
+        )}
 
         {/* Disclaimer */}
         <div className="p-3 rounded bg-white/[0.02] border border-gold-border text-[11px] text-text-secondary font-mono">

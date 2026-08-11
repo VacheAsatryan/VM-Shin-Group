@@ -36,7 +36,9 @@ export default function DeliveryStep({
   const t = useTranslations("calculator");
   const locale = useLocale();
   const currency = t("units.currency");
-  const productImage = getProductImage(result.category, result.variant.id);
+  const colorId = result.input && "colorId" in result.input && typeof result.input.colorId === "string" ? result.input.colorId : undefined;
+  const sizeId = result.input && "sizeId" in result.input && typeof result.input.sizeId === "string" ? result.input.sizeId : undefined;
+  const productImage = getProductImage(result.category, result.variant.id, colorId, sizeId);
 
   const {
     status,
@@ -51,7 +53,7 @@ export default function DeliveryStep({
     selectSuggestion,
     adjustDestinationCoordinates,
     invalidateRoute,
-  } = useDeliveryRoute();
+  } = useDeliveryRoute({ isConcrete: result.category === "concrete" });
 
   const isRouteReady = status === "routeReady" && route !== null && pricing !== null;
 
@@ -60,7 +62,9 @@ export default function DeliveryStep({
   const finalTotal = result.pricing.productSubtotal + (deliveryEstimate || 0);
 
   const deliveryCostText = isRouteReady
-    ? deliveryEstimate !== null
+    ? route && route.distanceKm > 40
+      ? t("delivery.deliveryPriceDeterminedAfterOrder")
+      : deliveryEstimate !== null
       ? `${deliveryEstimate.toLocaleString()} ${currency}`
       : t("delivery.deliveryNotCalculated")
     : t("delivery.deliveryNotCalculated");
@@ -114,7 +118,7 @@ export default function DeliveryStep({
       timestamp: new Date().toISOString(),
       productName: t(`categories.${result.category}`),
       variantName: t(`blocks.${result.variant.nameKey}`),
-      imageFilename: result.variant.image ? result.variant.image.split("/").pop() : undefined,
+      imageFilename: productImage ? productImage.split("/").pop() : undefined,
       note: payloadNote || undefined,
     };
 
@@ -216,35 +220,94 @@ export default function DeliveryStep({
                 route={route}
                 pricing={pricing}
                 deliveryLocationAdjustedManually={deliveryLocationAdjustedManually}
+                isConcrete={result.category === "concrete"}
               />
             )}
           </div>
 
         {/* Delivery Summary Breakdown */}
-        <div className="p-4 rounded-xl bg-background/80 border border-gold-border flex flex-col gap-3">
-          <div className="flex items-center justify-between text-xs font-semibold">
-            <span className="text-text-secondary">{t("results.subtotal")}:</span>
-            <span className="font-mono text-text-primary">
-              {result.pricing.productSubtotal.toLocaleString()} {currency}
-            </span>
-          </div>
+        {result.category === "concrete" ? (
+          <div className="p-4 rounded-xl bg-background/80 border border-gold-border flex flex-col gap-3">
+            <div className="flex items-center justify-between text-xs font-semibold">
+              <span className="text-text-secondary">{t("results.pricePerM3")}:</span>
+              <span className="font-mono text-text-primary">
+                {result.variant.pricePerUnit?.toLocaleString()} {currency} / {t("units.m3")}
+              </span>
+            </div>
 
-          <div className="flex items-center justify-between text-xs font-semibold">
-            <span className="text-text-secondary">{t("results.delivery")}:</span>
-            <span className="font-mono text-primary-yellow">
-              {deliveryCostText}
-            </span>
-          </div>
+            <div className="flex items-center justify-between text-xs font-semibold">
+              <span className="text-text-secondary">{t("results.primaryQuantity")}:</span>
+              <span className="font-mono text-text-primary">
+                {result.metrics.primaryQuantity.toLocaleString()} {t("units.m3")}
+              </span>
+            </div>
 
-          <div className="h-px bg-gold-border my-1" />
+            <div className="flex items-center justify-between text-xs font-semibold">
+              <span className="text-text-secondary">{t("results.subtotal")}:</span>
+              <span className="font-mono text-text-primary">
+                {result.pricing.productSubtotal.toLocaleString()} {currency}
+              </span>
+            </div>
 
-          <div className="flex items-center justify-between text-sm sm:text-base font-bold">
-            <span className="text-text-primary uppercase tracking-wider">{t("results.total")}:</span>
-            <span className="font-mono text-xl sm:text-2xl font-black text-primary-yellow">
-              {finalTotal.toLocaleString()} {currency}
-            </span>
+            {isRouteReady && (
+              <div className="flex items-center justify-between text-xs font-semibold">
+                <span className="text-text-secondary">{t("delivery.distanceLabel")}:</span>
+                <span className="font-mono text-text-primary">
+                  {route.distanceKm.toFixed(1)} km
+                </span>
+              </div>
+            )}
+
+            <div className="flex items-center justify-between text-xs font-semibold">
+              <span className="text-text-secondary">{t("results.delivery")}:</span>
+              <span className="font-mono text-primary-yellow text-right">
+                {deliveryCostText}
+              </span>
+            </div>
+
+            <div className="h-px bg-gold-border my-1" />
+
+            <div className="flex items-center justify-between text-sm sm:text-base font-bold">
+              <span className="text-text-primary uppercase tracking-wider">{t("results.total")}:</span>
+              <span className="font-mono text-xl sm:text-2xl font-black text-primary-yellow text-right">
+                {isRouteReady && route.distanceKm > 40 ? (
+                  t("delivery.deliveryPriceDeterminedAfterOrder")
+                ) : (
+                  `${finalTotal.toLocaleString()} ${currency}`
+                )}
+              </span>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="p-4 rounded-xl bg-background/80 border border-gold-border flex flex-col gap-3">
+            <div className="flex items-center justify-between text-xs font-semibold">
+              <span className="text-text-secondary">{t("results.subtotal")}:</span>
+              <span className="font-mono text-text-primary">
+                {result.pricing.productSubtotal.toLocaleString()} {currency}
+              </span>
+            </div>
+
+            <div className="flex items-center justify-between text-xs font-semibold">
+              <span className="text-text-secondary">{t("results.delivery")}:</span>
+              <span className="font-mono text-primary-yellow">
+                {deliveryCostText}
+              </span>
+            </div>
+
+            <div className="h-px bg-gold-border my-1" />
+
+            <div className="flex items-center justify-between text-sm sm:text-base font-bold">
+              <span className="text-text-primary uppercase tracking-wider">{t("results.total")}:</span>
+              <span className="font-mono text-xl sm:text-2xl font-black text-primary-yellow">
+                {isRouteReady && route.distanceKm > 40 ? (
+                  t("delivery.deliveryPriceDeterminedAfterOrder")
+                ) : (
+                  `${finalTotal.toLocaleString()} ${currency}`
+                )}
+              </span>
+            </div>
+          </div>
+        )}
 
         {/* Navigation Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-3 pt-2">

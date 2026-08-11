@@ -61,6 +61,7 @@ export interface PavingAreaInput {
   variantId: string;
   reservePercent: number;
   colorId?: string;
+  sizeId?: string;
   accessories?: Record<string, string>;
 }
 

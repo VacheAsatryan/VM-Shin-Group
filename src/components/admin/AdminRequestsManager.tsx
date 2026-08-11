@@ -513,23 +513,33 @@ export default function AdminRequestsManager({
                   </div>
                   <div className="flex justify-between py-1">
                     <span className="text-zinc-400">{t("drawer.productPrice")}:</span>
-                    <span className="font-mono text-zinc-300">{formatCurrency(selectedOrder.product_price)}</span>
+                    <span className="font-mono text-zinc-300">
+                      {formatCurrency(selectedOrder.product_price)}
+                    </span>
                   </div>
                   <div className="flex justify-between py-1">
                     <span className="text-zinc-400">{t("drawer.productsTotal")}:</span>
-                    <span className="font-mono text-zinc-200">{formatCurrency(selectedOrder.products_total)}</span>
+                    <span className="font-mono text-zinc-200">
+                      {formatCurrency(selectedOrder.products_total)}
+                    </span>
                   </div>
                   <div className="flex justify-between py-1">
                     <span className="text-zinc-400">{t("drawer.deliveryPrice")}:</span>
                     <span className="font-mono text-zinc-300">
-                      {selectedOrder.delivery_price !== null
+                      {(selectedOrder.product_slug === "concrete" && selectedOrder.delivery_distance_km !== null && selectedOrder.delivery_distance_km > 40)
+                        ? t("drawer.determinedAfterOrder")
+                        : selectedOrder.delivery_price !== null
                         ? formatCurrency(selectedOrder.delivery_price)
                         : t("drawer.notCalculated")}
                     </span>
                   </div>
                   <div className="flex justify-between pt-2 text-sm font-bold">
                     <span className="text-zinc-100">{t("drawer.totalPrice")}:</span>
-                    <span className="text-[#F5C21B] font-mono">{formatCurrency(selectedOrder.total_price)}</span>
+                    <span className="text-[#F5C21B] font-mono">
+                      {(selectedOrder.product_slug === "concrete" && selectedOrder.delivery_distance_km !== null && selectedOrder.delivery_distance_km > 40)
+                        ? t("drawer.determinedAfterOrder")
+                        : formatCurrency(selectedOrder.total_price)}
+                    </span>
                   </div>
                 </div>
               </div>

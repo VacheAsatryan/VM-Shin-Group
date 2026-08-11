@@ -28,7 +28,12 @@ export interface UseDeliveryRouteReturn {
   resetAll: () => void;
 }
 
-export function useDeliveryRoute(): UseDeliveryRouteReturn {
+export interface UseDeliveryRouteOptions {
+  isConcrete?: boolean;
+}
+
+export function useDeliveryRoute(options?: UseDeliveryRouteOptions): UseDeliveryRouteReturn {
+  const isConcrete = !!options?.isConcrete;
   const [status, setStatus] = useState<DeliveryStateStatus>("idle");
   const [selectedAddress, setSelectedAddress] = useState<string>("");
   const [selectedSuggestion, setSelectedSuggestion] = useState<AddressSuggestion | null>(null);
@@ -89,7 +94,7 @@ export function useDeliveryRoute(): UseDeliveryRouteReturn {
 
       if (!isConfigured) {
         const distKm = Math.max(1, calculateDistanceKm(FACTORY_COORDINATES, dest));
-        const pricingResult = computeDeliveryPrice(distKm);
+        const pricingResult = computeDeliveryPrice(distKm, isConcrete);
         const durMins = Math.round((distKm / 45) * 60);
         setRoute({
           distanceMeters: Math.round(distKm * 1000),
@@ -141,7 +146,7 @@ export function useDeliveryRoute(): UseDeliveryRouteReturn {
           return;
         }
 
-        const pricingResult = computeDeliveryPrice(routeResult.distanceKm);
+        const pricingResult = computeDeliveryPrice(routeResult.distanceKm, isConcrete);
 
         if (typeof window !== "undefined") {
           console.log("[Routing] Succeeded:", {
@@ -161,7 +166,7 @@ export function useDeliveryRoute(): UseDeliveryRouteReturn {
 
         console.warn("Geoapify Route Calculation fallback:", err);
         const distKm = Math.max(1, calculateDistanceKm(FACTORY_COORDINATES, dest));
-        const pricingResult = computeDeliveryPrice(distKm);
+        const pricingResult = computeDeliveryPrice(distKm, isConcrete);
         const durMins = Math.round((distKm / 45) * 60);
 
         if (typeof window !== "undefined") {
@@ -188,7 +193,7 @@ export function useDeliveryRoute(): UseDeliveryRouteReturn {
         setStatus("routeReady");
       }
     },
-    [isConfigured]
+    [isConfigured, isConcrete]
   );
 
   const selectSuggestion = useCallback(

@@ -27,6 +27,7 @@
     "title": "Արտադրանքի կատալոգ",
     "backToHome": "Վերադառնալ գլխավոր էջ",
     "priceStatusToBeConfirmed": "Գինը և չափսը ճշտվում են",
+    "deliveryPriceDeterminedAfterOrder": "Առաքման արժեքը որոշվում է պատվերից հետո",
     "priceTBC": "Ճշտվում է",
     "viewProduct": "Մանրամասն",
     "catalogSubtitle": "Բարձրորակ բետոնե և պեմզաբետոնե արտադրատեսակներ՝ անմիջապես արտադրողից",
@@ -41,7 +42,7 @@
     "estimatorTitle": "Ծավալի և արժեքի արագ հաշվարկ",
     "relatedTitle": "Այլ արտադրատեսակներ",
     "perPcs": "֏ / հատ",
-    "perM3": "֏ / խմ",
+    "perM3": "֏ / մ³",
     "perSqM": "֏ / քմ",
     "selectedVariant": "Ընտրված տեսակը",
     "selectVariant": "Ընտրեք բլոկի չափսը և տեսակը",
@@ -95,8 +96,13 @@
       "slab120Subtitle": "Երկաթբետոնե ծածկի պանել (1.20 մ)",
       "slab060": "Տիպ 2 — Լայնություն՝ 0.60 մ",
       "slab060Subtitle": "Երկաթբետոնե ծածկի պանել (0.60 մ)",
-      "concreteM250": "Բետոն M250 (B20)",
-      "concreteM300": "Բետոն M300 (B22.5)"
+      "concreteM100": "M100 B7.5",
+      "concreteM150": "M150 B12.5",
+      "concreteM200": "M200 B15",
+      "concreteM250": "M250 B20",
+      "concreteM300": "M300 B22.5",
+      "concreteM350": "M350 B25",
+      "concreteM400": "M400 B30"
     },
     "categories": {
       "pemzablok": "Պեմզաբլոկ",
@@ -373,7 +379,7 @@
       "reservePercent": "Պահուստ (%)",
       "variantLabel": "Արտադրանքի տեսակ / Չափս",
       "modeLabel": "Հաշվարկման եղանակ",
-      "modeDirect": "Ուղղակի ծավալ (մ³)",
+      "modeDirect": "Ծավալ (մ³)",
       "modeDirectDesc": "Մուտքագրեք պահանջվող հստակ ծավալը։",
       "modeDimensions": "Չափսերով (երկ. x լայն. x հաստ.)",
       "modeDimensionsDesc": "Հաշվարկել՝ օգտագործելով երկարությունը, լայնությունը և խորությունը։",
@@ -400,9 +406,13 @@
       "block20Groove": "Պեմզաբլոկ 20 Ակոսավոր (20x20x40 սմ)",
       "block25": "Պեմզաբլոկ 25 (25x20x40 սմ)",
       "block30": "Պեմզաբլոկ 30 (30x20x40 սմ)",
-      "concreteM250": "Բետոն M250 (B20)",
-      "concreteM300": "Բետոն M300 (B22.5)",
-      "concreteM350": "Բետոն M350 (B25)",
+      "concreteM100": "M100 B7.5",
+      "concreteM150": "M150 B12.5",
+      "concreteM200": "M200 B15",
+      "concreteM250": "M250 B20",
+      "concreteM300": "M300 B22.5",
+      "concreteM350": "M350 B25",
+      "concreteM400": "M400 B30",
       "pavingSquareSandV1": "Քառակուսի բետոնե սալիկ — ավազագույն, տարբերակ 1",
       "pavingRectangleBrownV1": "Ուղղանկյուն բետոնե սալիկ — շագանակագույն, տարբերակ 1",
       "pavingRectangleGrayV1": "Ուղղանկյուն բետոնե սալիկ — մոխրագույն, տարբերակ 1",
@@ -448,10 +458,12 @@
       "pcs": "հատ",
       "pallets": "պալետ",
       "currency": "դր",
-      "m": "մ"
+      "m": "մ",
+      "mm": "մմ"
     },
     "results": {
       "title": "Հաշվարկի արդյունք",
+      "pricePerM3": "Գինը 1 մ³-ի համար",
       "primaryQuantity": "Պահանջվող քանակ",
       "secondaryQuantity": "Ընդհանուր մակերես",
       "palletsCount": "Պալետների քանակ",
@@ -495,7 +507,8 @@
       "estimatedTravelTime": "Մոտավոր ժամանակ ճանապարհին",
       "estimatedDeliveryPrice": "Առաքման մոտավոր արժեք",
       "manuallyAdjustedLocation": "Առաքման տեղադիրքը ճշգրտվել է քարտեզի վրա",
-      "deliveryNotCalculated": "Առաքման արժեքը դեռ հաշվարկված չէ"
+      "deliveryNotCalculated": "Առաքման արժեքը դեռ հաշվարկված չէ",
+      "deliveryPriceDeterminedAfterOrder": "Առաքման արժեքը որոշվում է պատվերից հետո"
     },
     "products": {},
     "accessories": {
@@ -769,6 +782,7 @@
       "duration": "Տևողություն",
       "notSpecified": "Նշված չէ",
       "notCalculated": "Չի հաշվարկվել",
+      "determinedAfterOrder": "Որոշվում է պատվերից հետո",
       "close": "Փակել"
     },
     "pagination": {

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { motion, useReducedMotion } from "framer-motion";
 import { CALCULATOR_PRODUCTS } from "@/config/calculatorProducts";
+import { PRODUCT_DETAILS } from "@/config/productDetails";
 import type {
   ProductCategoryConfig,
   ProductVariantConfig,
@@ -74,6 +75,8 @@ function getDefaultInputForCategory(
         widthMeters: 5,
         variantId,
         reservePercent: 5,
+        sizeId: variantId === "paving-type-1" ? "55-130-130" : "55-100-200",
+        colorId: "gray",
       };
     case "curbstones":
       return {
@@ -196,7 +199,16 @@ export default function CalculatorSection({
   // Handle Variant Selection (Step 2)
   const handleSelectVariant = (newVariant: ProductVariantConfig) => {
     setSelectedVariant(newVariant);
-    setInput((prev) => ({ ...prev, variantId: newVariant.id }));
+    setInput((prev) => {
+      if (prev.type === "paving_area") {
+        return {
+          ...prev,
+          variantId: newVariant.id,
+          sizeId: newVariant.id === "paving-type-1" ? "55-130-130" : "55-100-200",
+        };
+      }
+      return { ...prev, variantId: newVariant.id };
+    });
   };
 
   // Submit Step 2 (Parameters -> Estimate Step 3)
@@ -237,6 +249,12 @@ export default function CalculatorSection({
       productName: payload.productName || t(`categories.${payload.category}`),
       productVariantId: payload.variantId,
       productVariantName: payload.variantName || t(`blocks.${selectedVariant.nameKey}`),
+      sizeDisplay:
+        payload.input && "sizeId" in payload.input && typeof (payload.input as unknown as Record<string, unknown>).sizeId === "string"
+          ? (PRODUCT_DETAILS["paving-stones"]?.variants || [])
+              .find((v) => v.id === payload.variantId)
+              ?.availableSizes?.find((s) => s.id === (payload.input as unknown as Record<string, unknown>).sizeId)?.display.replace("mm", t("units.mm") || "mm")
+          : undefined,
       colorId:
         payload.colorId ||
         (payload.input && "colorId" in payload.input && typeof payload.input.colorId === "string"
@@ -254,7 +272,7 @@ export default function CalculatorSection({
       destinationLongitude: payload.destinationLongitude,
       deliveryDistanceKm: payload.estimatedDistanceKm,
       estimatedDurationMinutes: payload.estimatedDurationMinutes,
-      estimatedDeliveryPrice: payload.estimatedDeliveryPrice,
+      estimatedDeliveryPrice: payload.pricing.deliveryEstimate,
       deliveryLocationAdjustedManually: payload.deliveryLocationAdjustedManually,
       totalPrice: payload.pricing.estimatedTotal,
     };

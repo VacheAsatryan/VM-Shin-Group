@@ -24,7 +24,7 @@ const INPUT_KEY_LABELS: Record<string, { hy: string; ru: string; en: string }> =
 const VALUE_LABELS: Record<string, { hy: string; ru: string; en: string }> = {
   dimensions: { hy: "Չափսերով", ru: "По размерам", en: "By Dimensions" },
   quantity: { hy: "Ըստ քանակի", ru: "По количеству", en: "By Quantity" },
-  direct: { hy: "Ուղղակի ծավալ", ru: "Прямой объём", en: "Direct Volume" },
+  direct: { hy: "Ծավալ", ru: "Прямой объём", en: "Direct Volume" },
 };
 
 const IGNORED_INPUT_KEYS = new Set([
@@ -88,8 +88,8 @@ export default function OrderSummary({ order }: OrderSummaryProps) {
 
   const filteredInputs = order.inputs
     ? Object.entries(order.inputs).filter(
-        ([k, v]) => !IGNORED_INPUT_KEYS.has(k) && v !== undefined && v !== null && v !== ""
-      )
+      ([k, v]) => !IGNORED_INPUT_KEYS.has(k) && v !== undefined && v !== null && v !== ""
+    )
     : [];
 
   return (
@@ -173,7 +173,11 @@ export default function OrderSummary({ order }: OrderSummaryProps) {
             </div>
             <div className="text-right">
               <span className="text-text-secondary block">{t("deliveryPrice")}:</span>
-              <span className="text-primary-yellow font-bold">{formatAmd(order.estimatedDeliveryPrice)}</span>
+              <span className="text-primary-yellow font-bold text-right block">
+                {order.deliveryDistanceKm && order.deliveryDistanceKm > 40
+                  ? tProducts("deliveryPriceDeterminedAfterOrder")
+                  : formatAmd(order.estimatedDeliveryPrice)}
+              </span>
             </div>
           </div>
         </div>
@@ -183,19 +187,29 @@ export default function OrderSummary({ order }: OrderSummaryProps) {
       <div className="pt-2 border-t border-gold-border/30 flex flex-col gap-1.5">
         <div className="flex items-center justify-between text-xs font-semibold">
           <span className="text-text-secondary">{t("productSubtotal")}:</span>
-          <span className="font-mono text-text-primary">{order.productPrice.toLocaleString()} {currency}</span>
+          <span className="font-mono text-text-primary">
+            {order.productPrice.toLocaleString()} {currency}
+          </span>
         </div>
         <div className="flex items-center justify-between text-xs font-semibold">
           <span className="text-text-secondary">{t("deliveryCost")}:</span>
-          <span className="font-mono text-primary-yellow">{formatAmd(order.estimatedDeliveryPrice)}</span>
+          <span className="font-mono text-primary-yellow text-right block">
+            {order.deliveryDistanceKm && order.deliveryDistanceKm > 40
+              ? tProducts("deliveryPriceDeterminedAfterOrder")
+              : formatAmd(order.estimatedDeliveryPrice)}
+          </span>
         </div>
 
         <div className="h-px bg-gold-border/60 my-1" />
 
         <div className="flex items-center justify-between text-sm font-bold">
           <span className="text-text-primary uppercase tracking-wider">{t("total")}:</span>
-          <span className="font-mono text-base sm:text-lg font-black text-primary-yellow">
-            {order.totalPrice.toLocaleString()} {currency}
+          <span className="font-mono text-base sm:text-lg font-black text-primary-yellow text-right">
+            {order.deliveryDistanceKm && order.deliveryDistanceKm > 40 ? (
+              tProducts("deliveryPriceDeterminedAfterOrder")
+            ) : (
+              `${order.totalPrice.toLocaleString()} ${currency}`
+            )}
           </span>
         </div>
       </div>

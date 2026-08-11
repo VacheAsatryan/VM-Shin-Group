@@ -30,7 +30,9 @@ export default function ParametersStep({
   onSubmit,
 }: ParametersStepProps) {
   const t = useTranslations("calculator");
-  const productImage = getProductImage(category.id, selectedVariant.id);
+  const colorId = input && "colorId" in input && typeof input.colorId === "string" ? input.colorId : undefined;
+  const sizeId = input && "sizeId" in input && typeof input.sizeId === "string" ? input.sizeId : undefined;
+  const productImage = getProductImage(category.id, selectedVariant.id, colorId, sizeId);
 
   return (
     <div className="max-w-3xl mx-auto flex flex-col gap-6">

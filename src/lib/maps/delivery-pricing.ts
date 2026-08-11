@@ -1,5 +1,3 @@
-import { DELIVERY_CONFIG } from "@/config/delivery";
-
 export interface DeliveryPricingResult {
   price: number | null;
   currency: string;
@@ -8,30 +6,58 @@ export interface DeliveryPricingResult {
   distanceKm: number;
 }
 
+/**
+ * Computes delivery pricing using final tier-based rules.
+ * 
+ * Boundary pricing tiers:
+ * - 0 < distance <= 5 km   -> 2,000 AMD
+ * - 5 < distance <= 10 km  -> 3,000 AMD
+ * - 10 < distance <= 15 km -> 4,000 AMD
+ * - 15 < distance <= 20 km -> 5,000 AMD
+ * - 20 < distance <= 30 km -> 6,000 AMD
+ * - 30 < distance <= 40 km -> 8,000 AMD
+ * - distance > 40 km       -> null (determined after order)
+ * 
+ * Ready-mix concrete ALWAYS returns null (determined after order).
+ */
 export function computeDeliveryPrice(
   distanceKm: number,
-  enabled: boolean = true
+  isConcrete: boolean = false
 ): DeliveryPricingResult {
-  const currency = DELIVERY_CONFIG.currency || "AMD";
+  const currency = "AMD";
 
-  if (!enabled || distanceKm <= 0) {
+  // Tariffs apply EXCLUSIVELY to ready-mix concrete
+  if (!isConcrete || distanceKm <= 0) {
     return {
       price: null,
       currency,
-      isApproximate: true,
-      requiresManagerConfirmation: false,
-      distanceKm: 0,
+      isApproximate: false,
+      requiresManagerConfirmation: !isConcrete || distanceKm > 40,
+      distanceKm: distanceKm <= 0 ? 0 : distanceKm,
     };
   }
 
-  // Temporary test tariff: deliveryPrice = distanceKm * 300 AMD (rounded to whole AMD)
-  const price = Math.round(distanceKm * DELIVERY_CONFIG.costPerKm);
+  let price: number | null = null;
+
+  if (distanceKm <= 5) {
+    price = 2000;
+  } else if (distanceKm <= 10) {
+    price = 3000;
+  } else if (distanceKm <= 15) {
+    price = 4000;
+  } else if (distanceKm <= 20) {
+    price = 5000;
+  } else if (distanceKm <= 30) {
+    price = 6000;
+  } else if (distanceKm <= 40) {
+    price = 8000;
+  }
 
   return {
     price,
     currency,
-    isApproximate: true,
-    requiresManagerConfirmation: false,
+    isApproximate: false,
+    requiresManagerConfirmation: price === null,
     distanceKm,
   };
 }

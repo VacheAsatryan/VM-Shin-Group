@@ -1,0 +1,51 @@
+export const PAVING_STONE_IMAGE_MAP: Record<string, Record<string, Record<string, string>>> = {
+  "paving-type-1": {
+    "55-130-130": {
+      gray: "/images/products/paving-stones/paving-stone-rectangle-gray-v1.webp",
+      "light-gray": "/images/products/paving-stones/paving-stone-rectangle-light-gray-v1.webp",
+      "dark-gray": "/images/products/paving-stones/paving-stone-rectangle-dark-gray-v1.webp",
+      red: "/images/products/paving-stones/paving-stone-rectangle-red-v1.webp",
+      brown: "/images/products/paving-stones/paving-stone-square-brown-v1.webp",
+      sand: "/images/products/paving-stones/paving-stone-square-sand-v1.webp",
+      mix: "/images/products/paving-stones/paving-stone-type-1.png",
+    },
+    "55-130-165": {
+      gray: "/images/products/paving-stones/paving-stone-rectangle-gray-v1.webp",
+      "light-gray": "/images/products/paving-stones/paving-stone-rectangle-light-gray-v1.webp",
+      "dark-gray": "/images/products/paving-stones/paving-stone-rectangle-dark-gray-v1.webp",
+      red: "/images/products/paving-stones/paving-stone-rectangle-red-v1.webp",
+      brown: "/images/products/paving-stones/paving-stone-rectangle-brown-v1.webp",
+      sand: "/images/products/paving-stones/paving-stone-rectangle-sand-v1.webp",
+      mix: "/images/products/paving-stones/paving-stone-type-1.png",
+    },
+    "55-130-230": {
+      gray: "/images/products/paving-stones/paving-stone-rectangle-gray-v1.webp",
+      "light-gray": "/images/products/paving-stones/paving-stone-rectangle-light-gray-v1.webp",
+      "dark-gray": "/images/products/paving-stones/paving-stone-rectangle-dark-gray-v1.webp",
+      red: "/images/products/paving-stones/paving-stone-rectangle-red-v1.webp",
+      brown: "/images/products/paving-stones/paving-stone-rectangle-brown-v1.webp",
+      sand: "/images/products/paving-stones/paving-stone-rectangle-sand-v1.webp",
+      mix: "/images/products/paving-stones/paving-stone-type-1.png",
+    },
+    "55-230-265": {
+      gray: "/images/products/paving-stones/paving-stone-rectangle-gray-v1.webp",
+      "light-gray": "/images/products/paving-stones/paving-stone-rectangle-light-gray-v1.webp",
+      "dark-gray": "/images/products/paving-stones/paving-stone-rectangle-dark-gray-v1.webp",
+      red: "/images/products/paving-stones/paving-stone-rectangle-red-v1.webp",
+      brown: "/images/products/paving-stones/paving-stone-rectangle-brown-v1.webp",
+      sand: "/images/products/paving-stones/paving-stone-rectangle-sand-v1.webp",
+      mix: "/images/products/paving-stones/paving-stone-type-1.png",
+    },
+  },
+  "paving-type-2": {
+    "55-100-200": {
+      gray: "/images/products/paving-stones/paving-stone-rectangle-gray-v2.webp",
+      "light-gray": "/images/products/paving-stones/paving-stone-rectangle-light-gray-v1.webp",
+      "dark-gray": "/images/products/paving-stones/paving-stone-rectangle-dark-gray-v1.webp",
+      red: "/images/products/paving-stones/paving-stone-rectangle-red-v1.webp",
+      brown: "/images/products/paving-stones/paving-stone-rectangle-brown-v1.webp",
+      sand: "/images/products/paving-stones/paving-stone-rectangle-sand-v1.webp",
+      mix: "/images/products/paving-stones/paving-stone-type-2.png",
+    },
+  },
+};

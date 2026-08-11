@@ -9,12 +9,14 @@ interface DeliveryRouteSummaryProps {
   pricing: DeliveryPricingResult | null;
   deliveryLocationAdjustedManually: boolean;
   onResetLocation?: () => void;
+  isConcrete?: boolean;
 }
 
 export default function DeliveryRouteSummary({
   route,
   pricing,
   deliveryLocationAdjustedManually,
+  isConcrete,
 }: DeliveryRouteSummaryProps) {
   const t = useTranslations("calculator");
   const currency = t("units.currency");
@@ -43,10 +45,14 @@ export default function DeliveryRouteSummary({
           <span className="text-[10px] text-text-secondary uppercase">
             {t("delivery.estimatedDeliveryPrice")}
           </span>
-          <span className="text-sm sm:text-base font-bold text-primary-yellow">
-            {pricing.price !== null
-              ? `${pricing.price.toLocaleString()} ${currency}`
-              : t("priceConfirmedByManager")}
+          <span className="text-sm sm:text-base font-bold text-primary-yellow text-right">
+            {isConcrete || route.distanceKm > 40 ? (
+              t("delivery.deliveryPriceDeterminedAfterOrder")
+            ) : pricing.price !== null ? (
+              `${pricing.price.toLocaleString()} ${currency}`
+            ) : (
+              t("priceConfirmedByManager")
+            )}
           </span>
         </div>
       </div>

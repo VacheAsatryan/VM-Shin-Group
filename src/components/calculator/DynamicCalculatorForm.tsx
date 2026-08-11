@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import type { CalculatorProductInput } from "@/lib/calculator/calculator.types";
 import { CALCULATOR_PRODUCTS } from "@/config/calculatorProducts";
+import { PRODUCT_DETAILS } from "@/config/productDetails";
 import CalculatorField from "./CalculatorField";
 
 interface DynamicCalculatorFormProps {
@@ -178,6 +179,13 @@ export default function DynamicCalculatorForm({
         { id: "mix", hex: "linear-gradient(135deg, #9E3838 0%, #6B4337 50%, #D6B887 100%)" },
       ];
 
+      const pavingStonesConfig = PRODUCT_DETAILS["paving-stones"];
+      const currentVariant =
+        pavingStonesConfig?.variants.find((v) => v.id === input.variantId) ||
+        pavingStonesConfig?.variants[0];
+      const sizeOptions = currentVariant?.availableSizes || [];
+      const currentSizeId = input.sizeId || (input.variantId === "paving-type-1" ? "55-130-130" : "55-100-200");
+
       return (
         <div className="flex flex-col gap-4">
           {/* Color Selection for Paving Stones */}
@@ -215,6 +223,23 @@ export default function DynamicCalculatorForm({
               })}
             </div>
           </div>
+
+          {/* Size Selection for Paving Stones */}
+          {sizeOptions.length > 0 && (
+            <div className="flex flex-col gap-2">
+              <CalculatorField
+                id="paving-size"
+                label={tProducts("selectSize")}
+                type="select"
+                value={currentSizeId}
+                onChange={(e) => onChangeInput({ ...input, sizeId: e.target.value })}
+                options={sizeOptions.map((s) => ({
+                  value: s.id,
+                  label: s.display.replace("mm", t("units.mm") || "mm"),
+                }))}
+              />
+            </div>
+          )}
 
           <div className="flex flex-col gap-3 mb-2">
             <label className="text-xs font-mono font-semibold tracking-wider text-text-secondary uppercase">

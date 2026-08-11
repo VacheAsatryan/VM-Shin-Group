@@ -12,7 +12,6 @@ import { calculateConcreteVolume } from "./strategies/calculateConcreteVolume";
 import { calculateQuantityProduct } from "./strategies/calculateQuantityProduct";
 import { calculateFloorSlabs } from "./strategies/calculateFloorSlabs";
 import { calculateProductPrice } from "./pricing/calculateProductPrice";
-import { calculateDeliveryPrice } from "./pricing/calculateDeliveryPrice";
 import { PRODUCT_DETAILS } from "@/config/productDetails";
 
 export function calculateProductEstimate(
@@ -65,8 +64,8 @@ export function calculateProductEstimate(
   const accessoriesTotal = accessoriesTotalPerUnit * (metrics.primaryQuantity || 1);
   const productSubtotal = baseProductSubtotal + accessoriesTotal;
   
-  const deliveryEstimate = calculateDeliveryPrice();
-  const estimatedTotal = productSubtotal + (deliveryEstimate || 0);
+  const deliveryEstimate = null;
+  const estimatedTotal = productSubtotal;
 
   return {
     category: categoryConfig.id,

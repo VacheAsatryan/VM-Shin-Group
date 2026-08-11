@@ -81,6 +81,7 @@ export async function POST(request: Request): Promise<NextResponse<OrderServerRe
         : null;
 
     const productSlug = payload.order.productId.trim().slice(0, 100);
+    const isConcrete = productSlug === "concrete";
     const productName = catalogResolution.canonicalProductName.slice(0, 150);
     const productVariant = catalogResolution.canonicalVariantName
       ? catalogResolution.canonicalVariantName.slice(0, 150)
@@ -111,7 +112,7 @@ export async function POST(request: Request): Promise<NextResponse<OrderServerRe
 
     // Recalculate Delivery Price on Server
     const deliveryPrice =
-      deliveryDistanceKm !== null
+      isConcrete && deliveryDistanceKm !== null && deliveryDistanceKm <= 40
         ? calculateDeliveryPrice(deliveryDistanceKm, true)
         : null;
 

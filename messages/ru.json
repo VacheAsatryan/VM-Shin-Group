@@ -27,6 +27,7 @@
     "title": "Каталог продукции",
     "backToHome": "Вернуться на главную",
     "priceStatusToBeConfirmed": "Цена и размер уточняются",
+    "deliveryPriceDeterminedAfterOrder": "Стоимость доставки определяется после оформления заказа",
     "priceTBC": "Уточняется",
     "viewProduct": "Подробнее",
     "catalogSubtitle": "Высококачественные бетонные и пемзобетонные изделия прямо от завода-производителя",
@@ -95,8 +96,13 @@
       "slab120Subtitle": "Панель перекрытия (1.20 м)",
       "slab060": "Тип 2 — Ширина: 0.60 м",
       "slab060Subtitle": "Панель перекрытия (0.60 м)",
-      "concreteM250": "Товарный бетон M250 (B20)",
-      "concreteM300": "Товарный бетон M300 (B22.5)"
+      "concreteM100": "M100 B7.5",
+      "concreteM150": "M150 B12.5",
+      "concreteM200": "M200 B15",
+      "concreteM250": "M250 B20",
+      "concreteM300": "M300 B22.5",
+      "concreteM350": "M350 B25",
+      "concreteM400": "M400 B30"
     },
     "colors": {
       "gray": "Серый",
@@ -401,9 +407,13 @@
       "block25": "Пемзаблок 25 (25x20x40 см)",
       "block30": "Пемзаблок 30 (30x20x40 см)",
       "concreteBlock": "Панель перекрытия",
-      "concreteM250": "Бетон M250 (B20)",
-      "concreteM300": "Бетон M300 (B22.5)",
-      "concreteM350": "Бетон M350 (B25)",
+      "concreteM100": "M100 B7.5",
+      "concreteM150": "M150 B12.5",
+      "concreteM200": "M200 B15",
+      "concreteM250": "M250 B20",
+      "concreteM300": "M300 B22.5",
+      "concreteM350": "M350 B25",
+      "concreteM400": "M400 B30",
       "pavingType1": "Тротуарная плитка — тип 1",
       "pavingType2": "Тротуарная плитка — тип 2",
       "pavingSquareSandV1": "Квадратная брусчатка — песочная, variant 1",
@@ -448,10 +458,12 @@
       "m": "м",
       "pcs": "шт.",
       "pallets": "поддонов",
+      "mm": "мм",
       "currency": "AMD"
     },
     "results": {
       "title": "Результаты расчёта",
+      "pricePerM3": "Цена за 1 м³",
       "primaryQuantity": "Требуемое количество",
       "secondaryQuantity": "Общая площадь",
       "areaOfOnePanel": "Площадь одной панели",
@@ -495,7 +507,8 @@
       "serviceNotConfiguredTitle": "Сервис карты",
       "estimatedTravelTime": "Ориентировочное время в пути",
       "estimatedDeliveryPrice": "Ориентировочная стоимость доставки",
-      "manuallyAdjustedLocation": "Точка доставки скорректирована вручную на карте"
+      "manuallyAdjustedLocation": "Точка доставки скорректирована вручную на карте",
+      "deliveryPriceDeterminedAfterOrder": "Стоимость доставки определяется после оформления заказа"
     },
     "products": {},
     "accessories": {
@@ -654,7 +667,8 @@
       "deliveryPrice": "Доставка",
       "productSubtotal": "Стоимость товара",
       "deliveryCost": "Стоимость доставки",
-      "total": "Итого"
+      "excludingDelivery": "(без доставки)",
+      "total": "Итого примерно"
     },
     "success": {
       "title": "Заявка успешно отправлена",
@@ -769,6 +783,7 @@
       "duration": "Время в пути",
       "notSpecified": "Не указано",
       "notCalculated": "Не рассчитано",
+      "determinedAfterOrder": "Определяется после заказа",
       "close": "Закрыть"
     },
     "pagination": {

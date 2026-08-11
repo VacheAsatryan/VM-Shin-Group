@@ -151,20 +151,20 @@ export default function ProductDetailView({
                   </div>
 
                   {/* Price Banner */}
-                  <div className="flex items-baseline gap-4 mb-6 p-4 rounded-xl bg-surface border border-gold-border/40 w-fit">
+                  <div className="flex flex-col gap-1.5 mb-6 p-4 rounded-xl bg-surface border border-gold-border/40 max-w-xl">
                     {selectedVariant.priceStatus === "to_be_confirmed" ? (
                       <span className="text-xl sm:text-2xl font-black text-primary-yellow">
                         {t("priceStatusToBeConfirmed")}
                       </span>
                     ) : (
-                      <>
+                      <div className="flex items-baseline gap-4">
                         <span className="text-3xl font-black text-primary-yellow">
-                          {finalPrice} {t(selectedVariant.price.unitKey)}
+                          {finalPrice.toLocaleString()} {t(selectedVariant.price.unitKey)}
                         </span>
                         <span className="text-xs text-text-muted">
                           {currentSizeLabel}
                         </span>
-                      </>
+                      </div>
                     )}
                   </div>
 

@@ -1,11 +1,11 @@
-import { DELIVERY_CONFIG } from "@/config/delivery";
+import { computeDeliveryPrice } from "@/lib/maps/delivery-pricing";
 
 export function calculateDeliveryPrice(
   distanceKm?: number,
-  enabled: boolean = true
+  isConcrete: boolean = false
 ): number | null {
-  if (!enabled || !distanceKm || distanceKm <= 0) {
+  if (distanceKm === undefined || distanceKm <= 0) {
     return null;
   }
-  return Math.round(distanceKm * DELIVERY_CONFIG.costPerKm);
+  return computeDeliveryPrice(distanceKm, isConcrete).price;
 }

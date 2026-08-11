@@ -157,7 +157,7 @@ export default function EstimateStep({
 
           {result.metrics.secondaryQuantity ? (
             <div className="p-3.5 rounded-lg bg-background/60 border border-gold-border flex items-center justify-between">
-              <span className="text-xs text-text-secondary">{t("results.secondaryQuantity")}:</span>
+              <span className="text-xs text-text-secondary">{result.category === "concrete-block" ? t("results.panelsCount") : t("results.secondaryQuantity")}:</span>
               <span className="text-sm font-bold font-mono text-text-primary">
                 {result.metrics.secondaryQuantity.toLocaleString()} {t(`units.${result.metrics.secondaryUnitKey}`)}
               </span>

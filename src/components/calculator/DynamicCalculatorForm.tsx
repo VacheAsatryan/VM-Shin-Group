@@ -169,20 +169,13 @@ export default function DynamicCalculatorForm({
 
     case "paving_area": {
       const currentColorId = input.colorId || "gray";
-      const availableColors = [
-        { id: "gray", hex: "#8E949B" },
-        { id: "light-gray", hex: "#C6CCD3" },
-        { id: "dark-gray", hex: "#4E545B" },
-        { id: "red", hex: "#9E3838" },
-        { id: "brown", hex: "#6B4337" },
-        { id: "sand", hex: "#D6B887" },
-        { id: "mix", hex: "linear-gradient(135deg, #9E3838 0%, #6B4337 50%, #D6B887 100%)" },
-      ];
 
       const pavingStonesConfig = PRODUCT_DETAILS["paving-stones"];
       const currentVariant =
         pavingStonesConfig?.variants.find((v) => v.id === input.variantId) ||
         pavingStonesConfig?.variants[0];
+
+      const availableColors = currentVariant?.availableColors || [];
       const sizeOptions = currentVariant?.availableSizes || [];
       const currentSizeId = input.sizeId || (input.variantId === "paving-type-1" ? "55-130-130" : "55-100-200");
 

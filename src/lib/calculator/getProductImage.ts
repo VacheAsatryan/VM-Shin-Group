@@ -19,6 +19,7 @@ export function getProductImage(
     return DEFAULT_FALLBACK_IMAGE;
   }
 
+
   // 1. Paving Stones configuration-specific asset lookup
   if (categoryId === "paving-stones" && variantId) {
     const defaultSize = variantId === "paving-type-1" ? "55-130-130" : "55-100-200";
@@ -28,6 +29,13 @@ export function getProductImage(
     const customImage = PAVING_STONE_IMAGE_MAP[variantId]?.[resolvedSize]?.[resolvedColor];
     if (customImage) {
       return customImage;
+    }
+    
+    // Fallback to generic same-type image
+    if (variantId === "paving-type-1") {
+      return "/images/products/paving-stones/paving-stone-type-1.png";
+    } else {
+      return "/images/products/paving-stones/paving-stone-type-2.png";
     }
   }
 

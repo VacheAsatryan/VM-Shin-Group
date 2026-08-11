@@ -24,10 +24,10 @@ export function calculateFloorSlabs(
   const coverageAreaSqMeters = Number((quantity * areaOfOnePanel).toFixed(4));
 
   return {
-    primaryQuantity: quantity,
-    primaryUnitKey: "pcs",
-    secondaryQuantity: coverageAreaSqMeters,
-    secondaryUnitKey: "m2",
+    primaryQuantity: coverageAreaSqMeters,
+    primaryUnitKey: "m2",
+    secondaryQuantity: quantity,
+    secondaryUnitKey: "pcs",
     coverageAreaSqMeters,
   };
 }

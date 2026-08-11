@@ -48,6 +48,8 @@ const reducedMotionVariants = {
 interface CalculatorSectionProps {
   initialProductCategory?: string;
   initialVariantId?: string;
+  initialColorId?: string;
+  initialSizeId?: string;
   initialAccessories?: Record<string, string>;
   onRequestOffer?: (summary: EstimateSummaryPayload) => void;
 }
@@ -117,6 +119,8 @@ function getDefaultInputForCategory(
 export default function CalculatorSection({
   initialProductCategory,
   initialVariantId,
+  initialColorId,
+  initialSizeId,
   initialAccessories,
   onRequestOffer,
 }: CalculatorSectionProps) {
@@ -144,20 +148,38 @@ export default function CalculatorSection({
     if (initialAccessories) {
       defInput.accessories = initialAccessories;
     }
+    if (defInput.type === "paving_area") {
+      if (initialColorId) {
+        defInput.colorId = initialColorId;
+      }
+      if (initialSizeId) {
+        defInput.sizeId = initialSizeId;
+      }
+    }
     return defInput;
   });
 
   const [prevVariantId, setPrevVariantId] = useState(initialVariantId);
+  const [prevColorId, setPrevColorId] = useState(initialColorId);
+  const [prevSizeId, setPrevSizeId] = useState(initialSizeId);
   const [prevAccessories, setPrevAccessories] = useState(initialAccessories);
 
   // Order Confirmation Modal State
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
 
-  // Sync state during render when initialVariantId or initialAccessories prop changes
+  // Sync state during render when initial props change
   let stateSynced = false;
   if (initialVariantId && initialVariantId !== prevVariantId) {
     setPrevVariantId(initialVariantId);
+    stateSynced = true;
+  }
+  if (initialColorId && initialColorId !== prevColorId) {
+    setPrevColorId(initialColorId);
+    stateSynced = true;
+  }
+  if (initialSizeId && initialSizeId !== prevSizeId) {
+    setPrevSizeId(initialSizeId);
     stateSynced = true;
   }
 
@@ -176,11 +198,22 @@ export default function CalculatorSection({
       setSelectedVariant(matchedVariant);
     }
 
-    setInput((prev) => ({
-      ...prev,
-      variantId: matchedVariant.id,
-      accessories: initialAccessories || prev.accessories,
-    }));
+    setInput((prev) => {
+      const nextInput = {
+        ...prev,
+        variantId: matchedVariant.id,
+        accessories: initialAccessories || prev.accessories,
+      };
+      if (nextInput.type === "paving_area") {
+        if (initialColorId) {
+          nextInput.colorId = initialColorId;
+        }
+        if (initialSizeId) {
+          nextInput.sizeId = initialSizeId;
+        }
+      }
+      return nextInput;
+    });
   }
 
   // Handle Category Selection (Step 1 -> Step 2)
@@ -201,10 +234,16 @@ export default function CalculatorSection({
     setSelectedVariant(newVariant);
     setInput((prev) => {
       if (prev.type === "paving_area") {
+        const nextSizeId = newVariant.id === "paving-type-1" ? "55-130-130" : "55-100-200";
+        let nextColorId = prev.colorId || "gray";
+        if (newVariant.id === "paving-type-2" && nextColorId === "mix") {
+          nextColorId = "gray";
+        }
         return {
           ...prev,
           variantId: newVariant.id,
-          sizeId: newVariant.id === "paving-type-1" ? "55-130-130" : "55-100-200",
+          sizeId: nextSizeId,
+          colorId: nextColorId,
         };
       }
       return { ...prev, variantId: newVariant.id };
@@ -252,16 +291,16 @@ export default function CalculatorSection({
       sizeDisplay:
         payload.input && "sizeId" in payload.input && typeof (payload.input as unknown as Record<string, unknown>).sizeId === "string"
           ? (PRODUCT_DETAILS["paving-stones"]?.variants || [])
-              .find((v) => v.id === payload.variantId)
-              ?.availableSizes?.find((s) => s.id === (payload.input as unknown as Record<string, unknown>).sizeId)?.display.replace("mm", t("units.mm") || "mm")
+            .find((v) => v.id === payload.variantId)
+            ?.availableSizes?.find((s) => s.id === (payload.input as unknown as Record<string, unknown>).sizeId)?.display.replace("mm", t("units.mm") || "mm")
           : undefined,
       colorId:
         payload.colorId ||
         (payload.input && "colorId" in payload.input && typeof payload.input.colorId === "string"
           ? payload.input.colorId
           : payload.category === "paving-stones"
-          ? "gray"
-          : undefined),
+            ? "gray"
+            : undefined),
       quantity: payload.metrics.primaryQuantity,
       unit: t(`units.${payload.metrics.primaryUnitKey}`),
       inputs: rawInputs,

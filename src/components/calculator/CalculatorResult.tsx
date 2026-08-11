@@ -119,7 +119,7 @@ export default function CalculatorResult({
         ) : result.metrics.secondaryQuantity ? (
           <div className="p-4 rounded-lg bg-background/60 border border-gold-border flex flex-col">
             <span className="text-xs text-text-secondary mb-1">
-              {t("results.secondaryQuantity")}
+              {result.category === "concrete-block" ? t("results.panelsCount") : t("results.secondaryQuantity")}
             </span>
             <div className="flex items-baseline gap-1.5 mt-auto">
               <span className="text-2xl sm:text-3xl font-black font-mono text-text-primary tracking-tight">

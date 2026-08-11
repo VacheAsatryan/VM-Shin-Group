@@ -44,6 +44,7 @@
     "perPcs": "֏ / шт",
     "perM3": "֏ / м³",
     "perSqM": "֏ / м²",
+    "perM2": "֏ / м²",
     "selectedVariant": "Выбранный вариант",
     "selectVariant": "Выберите вариант блока",
     "previousVariant": "Предыдущий вариант",
@@ -464,6 +465,7 @@
     "results": {
       "title": "Результаты расчёта",
       "pricePerM3": "Цена за 1 м³",
+      "panelsCount": "Количество панелей",
       "primaryQuantity": "Требуемое количество",
       "secondaryQuantity": "Общая площадь",
       "areaOfOnePanel": "Площадь одной панели",

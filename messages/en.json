@@ -44,6 +44,7 @@
     "perPcs": "AMD / pc",
     "perM3": "AMD / m³",
     "perSqM": "AMD / m²",
+    "perM2": "AMD / m²",
     "selectedVariant": "Selected Variant",
     "selectVariant": "Select Block Size & Type",
     "previousVariant": "Previous variant",
@@ -464,6 +465,7 @@
     "results": {
       "title": "Estimation Summary",
       "pricePerM3": "Price per 1 m³",
+      "panelsCount": "Number of Panels",
       "primaryQuantity": "Required Quantity",
       "secondaryQuantity": "Total Area",
       "areaOfOnePanel": "Area of one panel",

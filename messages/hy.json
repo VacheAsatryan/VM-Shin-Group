@@ -44,6 +44,7 @@
     "perPcs": "֏ / հատ",
     "perM3": "֏ / մ³",
     "perSqM": "֏ / քմ",
+    "perM2": "֏ / մ²",
     "selectedVariant": "Ընտրված տեսակը",
     "selectVariant": "Ընտրեք բլոկի չափսը և տեսակը",
     "previousVariant": "Նախորդ տարբերակը",
@@ -464,6 +465,7 @@
     "results": {
       "title": "Հաշվարկի արդյունք",
       "pricePerM3": "Գինը 1 մ³-ի համար",
+      "panelsCount": "Պանելների քանակ",
       "primaryQuantity": "Պահանջվող քանակ",
       "secondaryQuantity": "Ընդհանուր մակերես",
       "palletsCount": "Պալետների քանակ",

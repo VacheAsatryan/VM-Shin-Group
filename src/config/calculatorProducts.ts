@@ -68,7 +68,7 @@ export const CALCULATOR_PRODUCTS: ProductCategoryConfig[] = [
   {
     id: "concrete-block",
     nameKey: "concreteBlock",
-    unitLabelKey: "pcs",
+    unitLabelKey: "m2",
     image: "/images/products/concrete-blocks/concrete-block.png",
     calculationType: "floor_slabs",
     variants: [

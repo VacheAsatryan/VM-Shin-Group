@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "motion/react";
 import { Link } from "@/i18n/routing";
+import { getProductImage } from "@/lib/calculator/getProductImage";
 import RelatedProductLink from "./RelatedProductLink";
 import type { ProductDetailData, ProductVariant, PavingStoneSizeOption, PavingStoneColorOption } from "@/config/productDetails";
 import VariantGallery from "@/components/products/VariantGallery";
@@ -34,7 +35,7 @@ export default function ProductDetailView({
     productDetail.variants[0];
 
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(defaultVariant);
-  const [mainImageSrc, setMainImageSrc] = useState<string>(selectedVariant.image);
+  const [hasImageError, setHasImageError] = useState(false);
 
   // Paving stone size & color selection states
   const [selectedSize, setSelectedSize] = useState<PavingStoneSizeOption | undefined>(
@@ -44,9 +45,18 @@ export default function ProductDetailView({
     defaultVariant.availableColors?.[0]
   );
 
+  const resolvedImage = getProductImage(
+    productDetail.id,
+    selectedVariant.id,
+    selectedColor?.id,
+    selectedSize?.id
+  );
+  
+  const mainImageSrc = hasImageError ? selectedVariant.fallbackImage : resolvedImage;
+
   const handleVariantSelect = (variant: ProductVariant) => {
     setSelectedVariant(variant);
-    setMainImageSrc(variant.image);
+    setHasImageError(false);
     if (variant.availableSizes && variant.availableSizes.length > 0) {
       setSelectedSize(variant.availableSizes[0]);
     }
@@ -106,7 +116,7 @@ export default function ProductDetailView({
                       priority
                       sizes="(max-width: 1024px) 100vw, 40vw"
                       className="object-contain p-6 group-hover:scale-105 transition-transform duration-500 z-10"
-                      onError={() => setMainImageSrc(selectedVariant.fallbackImage)}
+                      onError={() => setHasImageError(true)}
                     />
                   </motion.div>
                 </AnimatePresence>
@@ -185,7 +195,7 @@ export default function ProductDetailView({
                             <button
                               key={sizeOpt.id}
                               type="button"
-                              onClick={() => setSelectedSize(sizeOpt)}
+                              onClick={() => { setSelectedSize(sizeOpt); setHasImageError(false); }}
                               className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl border text-xs font-bold transition-all ${
                                 isSizeActive
                                   ? "bg-surface border-gold-primary text-primary-yellow shadow-gold-glow/20 ring-1 ring-gold-primary/50"
@@ -218,7 +228,7 @@ export default function ProductDetailView({
                             <button
                               key={colorOpt.id}
                               type="button"
-                              onClick={() => setSelectedColor(colorOpt)}
+                              onClick={() => { setSelectedColor(colorOpt); setHasImageError(false); }}
                               className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-semibold transition-all ${
                                 isColorActive
                                   ? "bg-surface border-gold-primary text-white shadow-gold-glow/20 ring-1 ring-gold-primary/50"
@@ -394,6 +404,8 @@ export default function ProductDetailView({
             (productDetail.calculatorProductId as ProductCategoryType) || "pemzablok"
           }
           initialVariantId={selectedVariant.calculatorConfig.calculatorVariantId}
+          initialColorId={selectedColor?.id}
+          initialSizeId={selectedSize?.id}
         />
       </section>
 

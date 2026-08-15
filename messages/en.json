@@ -28,6 +28,8 @@
     "backToHome": "Back to Home",
     "priceStatusToBeConfirmed": "Price and size to be confirmed",
     "deliveryPriceDeterminedAfterOrder": "Delivery cost is determined after the order is placed",
+    "concretePriceCalculatedAfterDelivery": "The price will be calculated after the delivery address is provided",
+    "estimatedPrice": "Estimated price",
     "priceTBC": "TBC",
     "vatIncluded": "Including value-added tax (VAT)",
     "viewProduct": "Learn More",
@@ -512,7 +514,9 @@
       "estimatedDeliveryPrice": "Estimated delivery price",
       "manuallyAdjustedLocation": "Delivery location adjusted manually on the map",
       "deliveryNotCalculated": "Delivery fee not calculated",
-      "deliveryPriceDeterminedAfterOrder": "Delivery cost is determined after the order is placed"
+      "deliveryPriceDeterminedAfterOrder": "Delivery cost is determined after the order is placed",
+      "concretePriceCalculatedAfterDelivery": "The price will be calculated after the delivery address is provided",
+      "estimatedPrice": "Estimated price"
     },
     "products": {},
     "accessories": {

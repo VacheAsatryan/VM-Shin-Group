@@ -1,11 +1,24 @@
-import { computeDeliveryPrice } from "@/lib/maps/delivery-pricing";
+import { getDeliveryRatePerM3 } from "@/lib/maps/delivery-pricing";
 
 export function calculateDeliveryPrice(
   distanceKm?: number,
-  isConcrete: boolean = false
+  isConcrete: boolean = false,
+  volumeM3?: number
 ): number | null {
-  if (distanceKm === undefined || distanceKm <= 0) {
+  if (
+    !isConcrete ||
+    distanceKm === undefined ||
+    distanceKm <= 0 ||
+    volumeM3 === undefined ||
+    volumeM3 <= 0
+  ) {
     return null;
   }
-  return computeDeliveryPrice(distanceKm, isConcrete).price;
+
+  const ratePerM3 = getDeliveryRatePerM3(distanceKm);
+  if (ratePerM3 === null) {
+    return null;
+  }
+
+  return Math.round(volumeM3 * ratePerM3);
 }

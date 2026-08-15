@@ -139,6 +139,7 @@ export default function ProductDetailView({
                 variants={productDetail.variants}
                 selectedVariantId={selectedVariant.id}
                 onSelectVariant={handleVariantSelect}
+                isConcrete={productDetail.id === "concrete"}
               />
 
             </div>
@@ -168,7 +169,11 @@ export default function ProductDetailView({
 
                   {/* Price Banner */}
                   <div className="flex flex-col gap-1.5 mb-6 p-4 rounded-xl bg-surface border border-gold-border/40 max-w-xl">
-                    {selectedVariant.priceStatus === "to_be_confirmed" ? (
+                    {productDetail.id === "concrete" ? (
+                      <span className="text-sm sm:text-base font-medium text-text-secondary">
+                        {t("concretePriceCalculatedAfterDelivery")}
+                      </span>
+                    ) : selectedVariant.priceStatus === "to_be_confirmed" ? (
                       <span className="text-xl sm:text-2xl font-black text-primary-yellow">
                         {t("priceStatusToBeConfirmed")}
                       </span>

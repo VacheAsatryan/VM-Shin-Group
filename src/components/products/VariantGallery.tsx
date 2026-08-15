@@ -11,12 +11,14 @@ interface VariantGalleryProps {
   variants: ProductVariant[];
   selectedVariantId: string;
   onSelectVariant: (variant: ProductVariant) => void;
+  isConcrete?: boolean;
 }
 
 export default function VariantGallery({
   variants,
   selectedVariantId,
   onSelectVariant,
+  isConcrete,
 }: VariantGalleryProps) {
   const t = useTranslations("products");
   const tGlobal = useTranslations();
@@ -127,6 +129,7 @@ export default function VariantGallery({
               onSelect={() => onSelectVariant(variant)}
               t={t}
               tGlobal={tGlobal}
+              isConcrete={isConcrete}
             />
           );
         })}
@@ -145,8 +148,9 @@ const VariantCard = React.forwardRef<
     onSelect: () => void;
     t: (key: string) => string;
     tGlobal: (key: string) => string;
+    isConcrete?: boolean;
   }
->(function VariantCard({ variant, isSelected, onSelect, t, tGlobal }, ref) {
+>(function VariantCard({ variant, isSelected, onSelect, t, tGlobal, isConcrete }, ref) {
   const fallbackThumb = variant.thumbnail || variant.image;
   const [imageSrc, setImageSrc] = useState(fallbackThumb);
   const [imageError, setImageError] = useState(false);
@@ -211,17 +215,23 @@ const VariantCard = React.forwardRef<
 
         {/* Price & Stock */}
         <div className="mt-1 pt-1.5 border-t border-gold-border/30 flex items-center justify-between text-xs">
-          <div className="flex flex-col">
-            <span className="font-bold text-primary-yellow">
-              {variant.priceStatus === "to_be_confirmed"
-                ? t("priceTBC")
-                : `${variant.price.amount} ${t(variant.price.unitKey)}`}
+          {isConcrete ? (
+            <span className="text-[10px] font-medium text-text-secondary leading-tight">
+              {t("concretePriceCalculatedAfterDelivery")}
             </span>
-            {variant.priceStatus !== "to_be_confirmed" && (
-              <VatIncludedNote className="text-[9px] text-text-muted/70 font-normal block" />
-            )}
-          </div>
-          <span className="text-[10px] text-text-muted">
+          ) : (
+            <div className="flex flex-col">
+              <span className="font-bold text-primary-yellow">
+                {variant.priceStatus === "to_be_confirmed"
+                  ? t("priceTBC")
+                  : `${variant.price.amount} ${t(variant.price.unitKey)}`}
+              </span>
+              {variant.priceStatus !== "to_be_confirmed" && (
+                <VatIncludedNote className="text-[9px] text-text-muted/70 font-normal block" />
+              )}
+            </div>
+          )}
+          <span className="text-[10px] text-text-muted shrink-0">
             {variant.weightKg && variant.weightKg > 0 ? `${variant.weightKg} kg` : ""}
           </span>
         </div>

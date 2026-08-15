@@ -44,6 +44,7 @@ export default function OrderSummary({ order }: OrderSummaryProps) {
   const currency = tUnits("currency") || "դր";
 
   const isManualMode = order.calculationMode === "manual";
+  const isConcrete = order.productId === "concrete";
 
   const getLocalizedColor = (colorId: string) => {
     const key = colorId.replace(/-([a-z])/g, (_, l) => l.toUpperCase());
@@ -172,52 +173,82 @@ export default function OrderSummary({ order }: OrderSummaryProps) {
               <span className="text-text-secondary block">{t("distance")}:</span>
               <span className="text-primary-yellow font-bold">{formatKm(order.deliveryDistanceKm)}</span>
             </div>
-            <div className="text-right">
-              <span className="text-text-secondary block">{t("deliveryPrice")}:</span>
-              <span className="text-primary-yellow font-bold text-right block">
-                {order.deliveryDistanceKm && order.deliveryDistanceKm > 40
-                  ? tProducts("deliveryPriceDeterminedAfterOrder")
-                  : formatAmd(order.estimatedDeliveryPrice)}
-              </span>
-            </div>
+            {!isConcrete && (
+              <div className="text-right">
+                <span className="text-text-secondary block">{t("deliveryPrice")}:</span>
+                <span className="text-primary-yellow font-bold text-right block">
+                  {order.deliveryDistanceKm && order.deliveryDistanceKm > 40
+                    ? tProducts("deliveryPriceDeterminedAfterOrder")
+                    : formatAmd(order.estimatedDeliveryPrice)}
+                </span>
+              </div>
+            )}
           </div>
         </div>
       )}
 
       {/* Pricing Breakdown */}
       <div className="pt-2 border-t border-gold-border/30 flex flex-col gap-1.5">
-        <div className="flex items-center justify-between text-xs font-semibold">
-          <span className="text-text-secondary">{t("productSubtotal")}:</span>
-          <span className="font-mono text-text-primary">
-            {order.productPrice.toLocaleString()} {currency}
-          </span>
-        </div>
-        <div className="flex items-center justify-between text-xs font-semibold">
-          <span className="text-text-secondary">{t("deliveryCost")}:</span>
-          <span className="font-mono text-primary-yellow text-right block">
-            {order.deliveryDistanceKm && order.deliveryDistanceKm > 40
-              ? tProducts("deliveryPriceDeterminedAfterOrder")
-              : formatAmd(order.estimatedDeliveryPrice)}
-          </span>
-        </div>
-
-        <div className="h-px bg-gold-border/60 my-1" />
-
-        <div className="flex flex-col items-end">
-          <div className="flex items-center justify-between w-full text-sm font-bold">
-            <span className="text-text-primary uppercase tracking-wider">{t("total")}:</span>
-            <span className="font-mono text-base sm:text-lg font-black text-primary-yellow text-right">
-              {order.deliveryDistanceKm && order.deliveryDistanceKm > 40 ? (
-                tProducts("deliveryPriceDeterminedAfterOrder")
-              ) : (
-                `${order.totalPrice.toLocaleString()} ${currency}`
-              )}
-            </span>
+        {isConcrete ? (
+          <div className="flex flex-col items-end">
+            {!order.deliveryAddress || order.estimatedDeliveryPrice === null && !(order.deliveryDistanceKm && order.deliveryDistanceKm > 40) ? (
+              <span className="text-xs font-medium text-text-secondary text-right block">
+                {tProducts("concretePriceCalculatedAfterDelivery")}
+              </span>
+            ) : order.deliveryDistanceKm && order.deliveryDistanceKm > 40 ? (
+              <span className="text-xs sm:text-sm font-bold text-primary-yellow text-right block">
+                {tProducts("deliveryPriceDeterminedAfterOrder")}
+              </span>
+            ) : (
+              <div className="flex flex-col items-end w-full">
+                <div className="flex items-center justify-between w-full text-xs sm:text-sm font-bold">
+                  <span className="text-text-secondary font-medium uppercase tracking-wider">
+                    {tProducts("estimatedPrice")}:
+                  </span>
+                  <span className="font-mono text-base sm:text-lg font-black text-primary-yellow text-right">
+                    ≈ {order.totalPrice.toLocaleString()} {currency}
+                  </span>
+                </div>
+                <VatIncludedNote namespace="orderModal" className="text-[10px] text-text-muted font-normal text-right block mt-0.5" />
+              </div>
+            )}
           </div>
-          {!(order.deliveryDistanceKm && order.deliveryDistanceKm > 40) && (
-            <VatIncludedNote namespace="orderModal" className="text-[10px] text-text-muted font-normal text-right block mt-0.5" />
-          )}
-        </div>
+        ) : (
+          <>
+            <div className="flex items-center justify-between text-xs font-semibold">
+              <span className="text-text-secondary">{t("productSubtotal")}:</span>
+              <span className="font-mono text-text-primary">
+                {order.productPrice.toLocaleString()} {currency}
+              </span>
+            </div>
+            <div className="flex items-center justify-between text-xs font-semibold">
+              <span className="text-text-secondary">{t("deliveryCost")}:</span>
+              <span className="font-mono text-primary-yellow text-right block">
+                {order.deliveryDistanceKm && order.deliveryDistanceKm > 40
+                  ? tProducts("deliveryPriceDeterminedAfterOrder")
+                  : formatAmd(order.estimatedDeliveryPrice)}
+              </span>
+            </div>
+
+            <div className="h-px bg-gold-border/60 my-1" />
+
+            <div className="flex flex-col items-end">
+              <div className="flex items-center justify-between w-full text-sm font-bold">
+                <span className="text-text-primary uppercase tracking-wider">{t("total")}:</span>
+                <span className="font-mono text-base sm:text-lg font-black text-primary-yellow text-right">
+                  {order.deliveryDistanceKm && order.deliveryDistanceKm > 40 ? (
+                    tProducts("deliveryPriceDeterminedAfterOrder")
+                  ) : (
+                    `${order.totalPrice.toLocaleString()} ${currency}`
+                  )}
+                </span>
+              </div>
+              {!(order.deliveryDistanceKm && order.deliveryDistanceKm > 40) && (
+                <VatIncludedNote namespace="orderModal" className="text-[10px] text-text-muted font-normal text-right block mt-0.5" />
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

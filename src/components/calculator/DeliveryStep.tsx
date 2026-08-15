@@ -41,6 +41,9 @@ export default function DeliveryStep({
   const sizeId = result.input && "sizeId" in result.input && typeof result.input.sizeId === "string" ? result.input.sizeId : undefined;
   const productImage = getProductImage(result.category, result.variant.id, colorId, sizeId);
 
+  const isConcrete = result.category === "concrete";
+  const concreteVolumeM3 = isConcrete ? result.metrics.volumeM3 || result.metrics.primaryQuantity : undefined;
+
   const {
     status,
     selectedAddress,
@@ -54,20 +57,23 @@ export default function DeliveryStep({
     selectSuggestion,
     adjustDestinationCoordinates,
     invalidateRoute,
-  } = useDeliveryRoute({ isConcrete: result.category === "concrete" });
+  } = useDeliveryRoute({
+    isConcrete,
+    volumeM3: concreteVolumeM3,
+  });
 
   const isRouteReady = status === "routeReady" && route !== null && pricing !== null;
+  const totalDeliveryPrice = pricing?.totalDeliveryPrice ?? pricing?.price ?? null;
+  const isOverMaxDistance = route ? route.distanceKm > 40 : false;
 
-  // Calculate final total with delivery if route is ready
-  const deliveryEstimate = isRouteReady && pricing?.price !== null ? pricing.price : null;
+  // Calculate final total with delivery if route is ready and <= 40 km
+  const deliveryEstimate = isRouteReady && !isOverMaxDistance && totalDeliveryPrice !== null ? totalDeliveryPrice : null;
   const finalTotal = result.pricing.productSubtotal + (deliveryEstimate || 0);
 
   const deliveryCostText = isRouteReady
-    ? route && route.distanceKm > 40
+    ? isOverMaxDistance || totalDeliveryPrice === null
       ? t("delivery.deliveryPriceDeterminedAfterOrder")
-      : deliveryEstimate !== null
-      ? `${deliveryEstimate.toLocaleString()} ${currency}`
-      : t("delivery.deliveryNotCalculated")
+      : `${totalDeliveryPrice.toLocaleString()} ${currency}`
     : t("delivery.deliveryNotCalculated");
 
   const handleSelectSuggestion = (suggestion: AddressSuggestion) => {
@@ -229,13 +235,7 @@ export default function DeliveryStep({
         {/* Delivery Summary Breakdown */}
         {result.category === "concrete" ? (
           <div className="p-4 rounded-xl bg-background/80 border border-gold-border flex flex-col gap-3">
-            <div className="flex items-center justify-between text-xs font-semibold">
-              <span className="text-text-secondary">{t("results.pricePerM3")}:</span>
-              <span className="font-mono text-text-primary">
-                {result.variant.pricePerUnit?.toLocaleString()} {currency} / {t("units.m3")}
-              </span>
-            </div>
-
+            {/* Required Quantity */}
             <div className="flex items-center justify-between text-xs font-semibold">
               <span className="text-text-secondary">{t("results.primaryQuantity")}:</span>
               <span className="font-mono text-text-primary">
@@ -243,14 +243,8 @@ export default function DeliveryStep({
               </span>
             </div>
 
-            <div className="flex items-center justify-between text-xs font-semibold">
-              <span className="text-text-secondary">{t("results.subtotal")}:</span>
-              <span className="font-mono text-text-primary">
-                {result.pricing.productSubtotal.toLocaleString()} {currency}
-              </span>
-            </div>
-
-            {isRouteReady && (
+            {/* Distance if route is ready */}
+            {isRouteReady && route && (
               <div className="flex items-center justify-between text-xs font-semibold">
                 <span className="text-text-secondary">{t("delivery.distanceLabel")}:</span>
                 <span className="font-mono text-text-primary">
@@ -259,28 +253,34 @@ export default function DeliveryStep({
               </div>
             )}
 
-            <div className="flex items-center justify-between text-xs font-semibold">
-              <span className="text-text-secondary">{t("results.delivery")}:</span>
-              <span className="font-mono text-primary-yellow text-right">
-                {deliveryCostText}
-              </span>
-            </div>
-
             <div className="h-px bg-gold-border my-1" />
 
+            {/* Combined Estimated Price or Notice */}
             <div className="flex flex-col items-end">
-              <div className="flex items-center justify-between w-full text-sm sm:text-base font-bold">
-                <span className="text-text-primary uppercase tracking-wider">{t("results.total")}:</span>
-                <span className="font-mono text-xl sm:text-2xl font-black text-primary-yellow text-right">
-                  {isRouteReady && route.distanceKm > 40 ? (
-                    t("delivery.deliveryPriceDeterminedAfterOrder")
-                  ) : (
-                    `${finalTotal.toLocaleString()} ${currency}`
-                  )}
-                </span>
-              </div>
-              {!(isRouteReady && route.distanceKm > 40) && (
-                <VatIncludedNote namespace="calculator" className="text-[10px] text-text-muted font-normal block text-right mt-0.5" />
+              {!isRouteReady || !route ? (
+                <div className="w-full text-right">
+                  <span className="text-xs font-medium text-text-secondary block">
+                    {t("delivery.concretePriceCalculatedAfterDelivery")}
+                  </span>
+                </div>
+              ) : isOverMaxDistance ? (
+                <div className="w-full text-right">
+                  <span className="text-xs font-bold text-primary-yellow block">
+                    {t("delivery.deliveryPriceDeterminedAfterOrder")}
+                  </span>
+                </div>
+              ) : (
+                <div className="flex flex-col items-end w-full">
+                  <div className="flex items-center justify-between w-full text-sm sm:text-base font-bold">
+                    <span className="text-text-secondary font-medium uppercase tracking-wider text-xs sm:text-sm">
+                      {t("delivery.estimatedPrice")}:
+                    </span>
+                    <span className="font-mono text-xl sm:text-2xl font-black text-primary-yellow text-right">
+                      ≈ {finalTotal.toLocaleString()} {currency}
+                    </span>
+                  </div>
+                  <VatIncludedNote namespace="calculator" className="text-[10px] text-text-muted font-normal block text-right mt-0.5" />
+                </div>
               )}
             </div>
           </div>

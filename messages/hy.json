@@ -28,6 +28,8 @@
     "backToHome": "Վերադառնալ գլխավոր էջ",
     "priceStatusToBeConfirmed": "Գինը և չափսը ճշտվում են",
     "deliveryPriceDeterminedAfterOrder": "Առաքման արժեքը որոշվում է պատվերից հետո",
+    "concretePriceCalculatedAfterDelivery": "Արժեքը կհաշվարկվի առաքման հասցեն նշելուց հետո",
+    "estimatedPrice": "Մոտավոր արժեք",
     "priceTBC": "Ճշտվում է",
     "vatIncluded": "Ներառյալ ավելացված արժեքի հարկը (ԱԱՀ)",
     "viewProduct": "Մանրամասն",
@@ -512,7 +514,9 @@
       "estimatedDeliveryPrice": "Առաքման մոտավոր արժեք",
       "manuallyAdjustedLocation": "Առաքման տեղադիրքը ճշգրտվել է քարտեզի վրա",
       "deliveryNotCalculated": "Առաքման արժեքը դեռ հաշվարկված չէ",
-      "deliveryPriceDeterminedAfterOrder": "Առաքման արժեքը որոշվում է պատվերից հետո"
+      "deliveryPriceDeterminedAfterOrder": "Առաքման արժեքը որոշվում է պատվերից հետո",
+      "concretePriceCalculatedAfterDelivery": "Արժեքը կհաշվարկվի առաքման հասցեն նշելուց հետո",
+      "estimatedPrice": "Մոտավոր արժեք"
     },
     "products": {},
     "accessories": {

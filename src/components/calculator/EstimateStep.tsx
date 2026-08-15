@@ -168,29 +168,10 @@ export default function EstimateStep({
 
         {/* 3. Subtotal Card */}
         {result.category === "concrete" ? (
-          <div className="p-4 rounded-lg bg-background/80 border border-gold-border flex flex-col gap-2">
-            <div className="flex justify-between text-xs text-text-secondary">
-              <span>{t("results.pricePerM3")}:</span>
-              <span className="font-mono text-text-primary">
-                {result.variant.pricePerUnit?.toLocaleString()} {currency} / {t("units.m3")}
-              </span>
-            </div>
-            <div className="flex justify-between text-xs text-text-secondary">
-              <span>{t("results.volume")}:</span>
-              <span className="font-mono text-text-primary">
-                {result.metrics.primaryQuantity.toLocaleString()} {t("units.m3")}
-              </span>
-            </div>
-            <div className="h-px bg-gold-border/40 my-1" />
-            <div className="flex justify-between items-center text-sm sm:text-base font-bold">
-              <span>{t("results.subtotal")}:</span>
-              <div className="flex flex-col items-end">
-                <span className="font-mono text-primary-yellow">
-                  {result.pricing.productSubtotal.toLocaleString()} {currency}
-                </span>
-                <VatIncludedNote namespace="calculator" className="text-[10px] text-text-muted font-normal block mt-0.5" />
-              </div>
-            </div>
+          <div className="p-4 rounded-lg bg-background/80 border border-gold-border flex flex-col items-center text-center gap-2">
+            <span className="text-xs sm:text-sm font-medium text-text-secondary">
+              {t("delivery.concretePriceCalculatedAfterDelivery")}
+            </span>
           </div>
         ) : (
           <div className="p-4 rounded-lg bg-background/80 border border-gold-border flex items-center justify-between">

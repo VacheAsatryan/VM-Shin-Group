@@ -27,6 +27,9 @@ export default function DeliveryRouteSummary({
   }
 
   const distanceKmFormatted = route.distanceKm.toFixed(1);
+  const totalDeliveryPrice = pricing.totalDeliveryPrice ?? pricing.price;
+  const isOverMaxDistance = route.distanceKm > 40;
+  const showManagerConfirmation = isOverMaxDistance || totalDeliveryPrice === null;
 
   return (
     <div className="p-4 rounded-xl bg-background/80 border border-gold-border flex flex-col gap-3 shadow-lg">
@@ -47,15 +50,18 @@ export default function DeliveryRouteSummary({
             {t("delivery.estimatedDeliveryPrice")}
           </span>
           <span className="text-sm sm:text-base font-bold text-primary-yellow text-right">
-            {isConcrete || route.distanceKm > 40 ? (
+            {showManagerConfirmation ? (
               t("delivery.deliveryPriceDeterminedAfterOrder")
-            ) : pricing.price !== null ? (
-              `${pricing.price.toLocaleString()} ${currency}`
+            ) : isConcrete ? (
+              <span className="text-xs font-normal text-text-secondary">
+                {t("delivery.concretePriceCalculatedAfterDelivery")}
+              </span>
             ) : (
-              t("priceConfirmedByManager")
+              `${totalDeliveryPrice!.toLocaleString()} ${currency}`
             )}
           </span>
-          {!isConcrete && route.distanceKm <= 40 && pricing.price !== null && (
+
+          {!showManagerConfirmation && !isConcrete && (
             <VatIncludedNote namespace="calculator" className="text-[9px] text-text-muted font-normal block text-right mt-0.5" />
           )}
         </div>

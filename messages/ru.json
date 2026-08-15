@@ -28,6 +28,8 @@
     "backToHome": "Вернуться на главную",
     "priceStatusToBeConfirmed": "Цена и размер уточняются",
     "deliveryPriceDeterminedAfterOrder": "Стоимость доставки определяется после оформления заказа",
+    "concretePriceCalculatedAfterDelivery": "Стоимость будет рассчитана после указания адреса доставки",
+    "estimatedPrice": "Ориентировочная стоимость",
     "priceTBC": "Уточняется",
     "vatIncluded": "Включая налог на добавленную стоимость (НДС)",
     "viewProduct": "Подробнее",
@@ -512,7 +514,9 @@
       "estimatedTravelTime": "Ориентировочное время в пути",
       "estimatedDeliveryPrice": "Ориентировочная стоимость доставки",
       "manuallyAdjustedLocation": "Точка доставки скорректирована вручную на карте",
-      "deliveryPriceDeterminedAfterOrder": "Стоимость доставки определяется после оформления заказа"
+      "deliveryPriceDeterminedAfterOrder": "Стоимость доставки определяется после оформления заказа",
+      "concretePriceCalculatedAfterDelivery": "Стоимость будет рассчитана после указания адреса доставки",
+      "estimatedPrice": "Ориентировочная стоимость"
     },
     "products": {},
     "accessories": {

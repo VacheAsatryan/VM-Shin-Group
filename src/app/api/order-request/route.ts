@@ -113,7 +113,7 @@ export async function POST(request: Request): Promise<NextResponse<OrderServerRe
     // Recalculate Delivery Price on Server
     const deliveryPrice =
       isConcrete && deliveryDistanceKm !== null && deliveryDistanceKm <= 40
-        ? calculateDeliveryPrice(deliveryDistanceKm, true)
+        ? calculateDeliveryPrice(deliveryDistanceKm, true, quantity)
         : null;
 
     // Server-Calculated Final Total Price

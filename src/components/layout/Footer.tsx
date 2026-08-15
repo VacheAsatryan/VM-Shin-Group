@@ -219,13 +219,13 @@ export default function Footer() {
           </p>
 
           <div className="flex items-center gap-6">
-            <Link href="#privacy" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
+            <Link href="/privacy-policy" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
               {t("bottom.privacy")}
             </Link>
-            <Link href="#terms" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
+            <Link href="/terms" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
               {t("bottom.terms")}
             </Link>
-            <Link href="#cookies" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
+            <Link href="/cookie-policy" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
               {t("bottom.cookies")}
             </Link>
           </div>

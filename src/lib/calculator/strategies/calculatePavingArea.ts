@@ -1,4 +1,5 @@
 import type { PavingAreaInput, ProductVariantConfig, CalculationMetrics } from "../calculator.types";
+import { getPavingStonePieceAreaM2 } from "../pavingStoneGeometry";
 
 export function calculatePavingArea(
   input: PavingAreaInput,
@@ -8,18 +9,19 @@ export function calculatePavingArea(
   const width = Math.max(0, input.widthMeters || 0);
   const reserve = Math.max(0, input.reservePercent || 0) / 100;
 
-  const itemsPerSqM = variant.itemsPerSqMeter || 50;
+  const pieceAreaM2 = getPavingStonePieceAreaM2(variant.id, input.sizeId);
 
   let coverageAreaSqMeters = 0;
   let secondaryQuantity = 0;
 
   if (input.mode === "quantity") {
     secondaryQuantity = Math.max(0, input.quantity || 0);
-    coverageAreaSqMeters = Number((secondaryQuantity / itemsPerSqM).toFixed(2));
+    // Full float precision preserves exact subtotal = coverageAreaSqMeters * pricePerUnit (4,000 AMD/m²)
+    coverageAreaSqMeters = secondaryQuantity * pieceAreaM2;
   } else {
     const rawArea = length * width;
-    coverageAreaSqMeters = Number((rawArea * (1 + reserve)).toFixed(2));
-    secondaryQuantity = Math.ceil(coverageAreaSqMeters * itemsPerSqM);
+    coverageAreaSqMeters = rawArea * (1 + reserve);
+    secondaryQuantity = pieceAreaM2 > 0 ? Math.ceil(coverageAreaSqMeters / pieceAreaM2) : 0;
   }
 
   const palletsCount =

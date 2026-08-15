@@ -12,6 +12,9 @@ import VariantGallery from "@/components/products/VariantGallery";
 import PageBackLink from "@/components/ui/PageBackLink";
 import CalculatorSection from "@/components/sections/CalculatorSection";
 import type { ProductCategoryType } from "@/lib/calculator/calculator.types";
+import VatIncludedNote from "@/components/ui/VatIncludedNote";
+import ConsultationModal from "@/components/consultation/ConsultationModal";
+import { useLocale } from "next-intl";
 
 interface ProductDetailViewProps {
   productDetail: ProductDetailData;
@@ -28,6 +31,9 @@ export default function ProductDetailView({
   relatedProducts,
 }: ProductDetailViewProps) {
   const t = useTranslations("products");
+  const locale = useLocale();
+
+  const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false);
 
   // Initial variant selection state
   const defaultVariant =
@@ -167,13 +173,16 @@ export default function ProductDetailView({
                         {t("priceStatusToBeConfirmed")}
                       </span>
                     ) : (
-                      <div className="flex items-baseline gap-4">
-                        <span className="text-3xl font-black text-primary-yellow">
-                          {finalPrice.toLocaleString()} {t(selectedVariant.price.unitKey)}
-                        </span>
-                        <span className="text-xs text-text-muted">
-                          {currentSizeLabel}
-                        </span>
+                      <div className="flex flex-col">
+                        <div className="flex items-baseline gap-4">
+                          <span className="text-3xl font-black text-primary-yellow">
+                            {finalPrice.toLocaleString()} {t(selectedVariant.price.unitKey)}
+                          </span>
+                          <span className="text-xs text-text-muted">
+                            {currentSizeLabel}
+                          </span>
+                        </div>
+                        <VatIncludedNote className="text-xs text-text-muted/80 font-normal mt-1" />
                       </div>
                     )}
                   </div>
@@ -292,12 +301,13 @@ export default function ProductDetailView({
                   {t("calculateCta")} ({currentSizeLabel})
                 </a>
 
-                <a
-                  href="#contact"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-surface border border-gold-border/50 hover:border-gold-primary hover:text-gold-text text-white font-semibold text-sm transition-all hover:bg-surface-hover"
+                <button
+                  type="button"
+                  onClick={() => setIsConsultationModalOpen(true)}
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-surface border border-gold-border/50 hover:border-gold-primary hover:text-gold-text text-white font-semibold text-sm transition-all hover:bg-surface-hover cursor-pointer"
                 >
                   {t("consultationCta")}
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -469,6 +479,12 @@ export default function ProductDetailView({
           ))}
         </div>
       </section>
+
+      <ConsultationModal
+        isOpen={isConsultationModalOpen}
+        onClose={() => setIsConsultationModalOpen(false)}
+        locale={locale}
+      />
     </div>
   );
 }

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { motion } from "motion/react";
 import type { ProductVariant } from "@/config/productDetails";
+import VatIncludedNote from "@/components/ui/VatIncludedNote";
 
 interface VariantGalleryProps {
   variants: ProductVariant[];
@@ -210,11 +211,16 @@ const VariantCard = React.forwardRef<
 
         {/* Price & Stock */}
         <div className="mt-1 pt-1.5 border-t border-gold-border/30 flex items-center justify-between text-xs">
-          <span className="font-bold text-primary-yellow">
-            {variant.priceStatus === "to_be_confirmed"
-              ? t("priceTBC")
-              : `${variant.price.amount} ${t(variant.price.unitKey)}`}
-          </span>
+          <div className="flex flex-col">
+            <span className="font-bold text-primary-yellow">
+              {variant.priceStatus === "to_be_confirmed"
+                ? t("priceTBC")
+                : `${variant.price.amount} ${t(variant.price.unitKey)}`}
+            </span>
+            {variant.priceStatus !== "to_be_confirmed" && (
+              <VatIncludedNote className="text-[9px] text-text-muted/70 font-normal block" />
+            )}
+          </div>
           <span className="text-[10px] text-text-muted">
             {variant.weightKg && variant.weightKg > 0 ? `${variant.weightKg} kg` : ""}
           </span>

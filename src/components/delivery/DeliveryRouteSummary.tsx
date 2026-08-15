@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import type { DeliveryRoute } from "@/lib/maps/geoapify/types";
 import type { DeliveryPricingResult } from "@/lib/maps/delivery-pricing";
+import VatIncludedNote from "@/components/ui/VatIncludedNote";
 
 interface DeliveryRouteSummaryProps {
   route: DeliveryRoute | null;
@@ -54,6 +55,9 @@ export default function DeliveryRouteSummary({
               t("priceConfirmedByManager")
             )}
           </span>
+          {!isConcrete && route.distanceKm <= 40 && pricing.price !== null && (
+            <VatIncludedNote namespace="calculator" className="text-[9px] text-text-muted font-normal block text-right mt-0.5" />
+          )}
         </div>
       </div>
 

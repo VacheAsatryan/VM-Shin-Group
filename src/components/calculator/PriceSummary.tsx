@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import type { PricingBreakdown } from "@/lib/calculator/calculator.types";
+import VatIncludedNote from "@/components/ui/VatIncludedNote";
 
 interface PriceSummaryProps {
   pricing: PricingBreakdown;
@@ -82,15 +83,20 @@ export default function PriceSummary({
         <div className="h-px bg-gold-border my-1" />
 
         {/* Final Total */}
-        <div className="flex items-center justify-between text-sm sm:text-base font-bold">
-          <span className="text-text-primary uppercase tracking-wider">{t("results.total")}:</span>
-          <span className="text-primary-yellow font-mono text-xl sm:text-2xl font-black text-right">
-            {isDistanceOverLimit ? (
-              t("delivery.deliveryPriceDeterminedAfterOrder")
-            ) : (
-              `${pricing.estimatedTotal.toLocaleString()} ${currency}`
-            )}
-          </span>
+        <div className="flex flex-col items-end">
+          <div className="flex items-center justify-between w-full text-sm sm:text-base font-bold">
+            <span className="text-text-primary uppercase tracking-wider">{t("results.total")}:</span>
+            <span className="text-primary-yellow font-mono text-xl sm:text-2xl font-black text-right">
+              {isDistanceOverLimit ? (
+                t("delivery.deliveryPriceDeterminedAfterOrder")
+              ) : (
+                `${pricing.estimatedTotal.toLocaleString()} ${currency}`
+              )}
+            </span>
+          </div>
+          {!isDistanceOverLimit && (
+            <VatIncludedNote namespace="calculator" className="text-[10px] text-text-muted font-normal mt-1 text-right" />
+          )}
         </div>
 
         {/* Disclaimer Banner */}
@@ -135,22 +141,27 @@ export default function PriceSummary({
       <div className="h-px bg-gold-border my-1" />
 
       {/* Total */}
-      <div className="flex items-center justify-between text-sm sm:text-base font-bold">
-        <span className="text-text-primary uppercase tracking-wider">{t("results.total")}:</span>
-        <span className="text-primary-yellow font-mono text-xl sm:text-2xl font-black text-right">
-          {isTBC ? (
-            t("priceTBC")
-          ) : isDistanceOverLimit ? (
-            t("delivery.deliveryPriceDeterminedAfterOrder")
-          ) : (
-            `${pricing.estimatedTotal.toLocaleString()} ${currency}`
-          )}
-          {isTBC && deliveryEnabled && pricing.deliveryEstimate !== null && !isDistanceOverLimit && (
-            <span className="text-xs text-text-muted font-normal block sm:inline sm:ml-2">
-              (+ {pricing.deliveryEstimate.toLocaleString()} {currency} {t("results.delivery")})
-            </span>
-          )}
-        </span>
+      <div className="flex flex-col items-end">
+        <div className="flex items-center justify-between w-full text-sm sm:text-base font-bold">
+          <span className="text-text-primary uppercase tracking-wider">{t("results.total")}:</span>
+          <span className="text-primary-yellow font-mono text-xl sm:text-2xl font-black text-right">
+            {isTBC ? (
+              t("priceTBC")
+            ) : isDistanceOverLimit ? (
+              t("delivery.deliveryPriceDeterminedAfterOrder")
+            ) : (
+              `${pricing.estimatedTotal.toLocaleString()} ${currency}`
+            )}
+            {isTBC && deliveryEnabled && pricing.deliveryEstimate !== null && !isDistanceOverLimit && (
+              <span className="text-xs text-text-muted font-normal block sm:inline sm:ml-2">
+                (+ {pricing.deliveryEstimate.toLocaleString()} {currency} {t("results.delivery")})
+              </span>
+            )}
+          </span>
+        </div>
+        {!isTBC && !isDistanceOverLimit && (
+          <VatIncludedNote namespace="calculator" className="text-[10px] text-text-muted font-normal mt-1 text-right" />
+        )}
       </div>
 
       {/* Demo Pricing or Manager Confirmation Disclaimer Banner */}

@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import { FACTORY_ORIGIN } from "@/config/delivery";
+import VatIncludedNote from "@/components/ui/VatIncludedNote";
 import type { CalculationResult, EstimateSummaryPayload } from "@/lib/calculator/calculator.types";
 import { getProductImage } from "@/lib/calculator/getProductImage";
 import { useDeliveryRoute } from "@/hooks/useDeliveryRoute";
@@ -267,15 +268,20 @@ export default function DeliveryStep({
 
             <div className="h-px bg-gold-border my-1" />
 
-            <div className="flex items-center justify-between text-sm sm:text-base font-bold">
-              <span className="text-text-primary uppercase tracking-wider">{t("results.total")}:</span>
-              <span className="font-mono text-xl sm:text-2xl font-black text-primary-yellow text-right">
-                {isRouteReady && route.distanceKm > 40 ? (
-                  t("delivery.deliveryPriceDeterminedAfterOrder")
-                ) : (
-                  `${finalTotal.toLocaleString()} ${currency}`
-                )}
-              </span>
+            <div className="flex flex-col items-end">
+              <div className="flex items-center justify-between w-full text-sm sm:text-base font-bold">
+                <span className="text-text-primary uppercase tracking-wider">{t("results.total")}:</span>
+                <span className="font-mono text-xl sm:text-2xl font-black text-primary-yellow text-right">
+                  {isRouteReady && route.distanceKm > 40 ? (
+                    t("delivery.deliveryPriceDeterminedAfterOrder")
+                  ) : (
+                    `${finalTotal.toLocaleString()} ${currency}`
+                  )}
+                </span>
+              </div>
+              {!(isRouteReady && route.distanceKm > 40) && (
+                <VatIncludedNote namespace="calculator" className="text-[10px] text-text-muted font-normal block text-right mt-0.5" />
+              )}
             </div>
           </div>
         ) : (
@@ -296,15 +302,20 @@ export default function DeliveryStep({
 
             <div className="h-px bg-gold-border my-1" />
 
-            <div className="flex items-center justify-between text-sm sm:text-base font-bold">
-              <span className="text-text-primary uppercase tracking-wider">{t("results.total")}:</span>
-              <span className="font-mono text-xl sm:text-2xl font-black text-primary-yellow">
-                {isRouteReady && route.distanceKm > 40 ? (
-                  t("delivery.deliveryPriceDeterminedAfterOrder")
-                ) : (
-                  `${finalTotal.toLocaleString()} ${currency}`
-                )}
-              </span>
+            <div className="flex flex-col items-end">
+              <div className="flex items-center justify-between w-full text-sm sm:text-base font-bold">
+                <span className="text-text-primary uppercase tracking-wider">{t("results.total")}:</span>
+                <span className="font-mono text-xl sm:text-2xl font-black text-primary-yellow">
+                  {isRouteReady && route.distanceKm > 40 ? (
+                    t("delivery.deliveryPriceDeterminedAfterOrder")
+                  ) : (
+                    `${finalTotal.toLocaleString()} ${currency}`
+                  )}
+                </span>
+              </div>
+              {!(isRouteReady && route.distanceKm > 40) && (
+                <VatIncludedNote namespace="calculator" className="text-[10px] text-text-muted font-normal block text-right mt-0.5" />
+              )}
             </div>
           </div>
         )}

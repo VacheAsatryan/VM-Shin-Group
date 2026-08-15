@@ -29,6 +29,7 @@
     "priceStatusToBeConfirmed": "Price and size to be confirmed",
     "deliveryPriceDeterminedAfterOrder": "Delivery cost is determined after the order is placed",
     "priceTBC": "TBC",
+    "vatIncluded": "Including value-added tax (VAT)",
     "viewProduct": "Learn More",
     "catalogSubtitle": "High-quality concrete and pumice concrete products direct from the manufacturer",
     "breadcrumbHome": "Home",
@@ -337,9 +338,10 @@
     }
   },
   "calculator": {
-    "eyebrow": "MATERIAL CALCULATOR",
-    "priceTBC": "To be confirmed",
+    "eyebrow": "MATERIALS CALCULATOR",
+    "priceTBC": "TBC",
     "priceConfirmedByManager": "Price will be confirmed by manager",
+    "vatIncluded": "Including value-added tax (VAT)",
     "title": "Estimate the Approximate Material Quantity",
     "description": "Enter key dimensions to get an instant preliminary material calculation for your project.",
     "explanationTitle": "Precise Planning for Your Project",
@@ -625,11 +627,134 @@
     "documentsTitle": "Documents, Quality Control and Recognition | VM SHIN GROUP",
     "documentsDesc": "Verification certificates for scales used in our concrete manufacturing processes, plus letters of appreciation.",
     "documentsOgTitle": "Documents, Quality Control and Recognition | VM SHIN GROUP",
-    "documentsOgDesc": "Verification certificates for scales used in our concrete manufacturing processes, plus letters of appreciation."
+    "documentsOgDesc": "Verification certificates for scales used in our concrete manufacturing processes, plus letters of appreciation.",
+    "privacyTitle": "Privacy Policy | VM SHIN GROUP",
+    "privacyDesc": "Official Privacy Policy of VM SHIN GROUP: data collection, processing, protection and user rights.",
+    "privacyOgTitle": "Privacy Policy | VM SHIN GROUP",
+    "privacyOgDesc": "Official Privacy Policy of VM SHIN GROUP:",
+    "termsTitle": "Terms of Use | VM SHIN GROUP",
+    "termsDesc": "Official Terms of Use for VM SHIN GROUP website, material calculators and order request submissions.",
+    "termsOgTitle": "Terms of Use | VM SHIN GROUP",
+    "termsOgDesc": "Official Terms of Use for VM SHIN GROUP website:",
+    "cookiesTitle": "Cookie Policy | VM SHIN GROUP",
+    "cookiesDesc": "Description of cookie technologies and functional files used on VM SHIN GROUP website.",
+    "cookiesOgTitle": "Cookie Policy | VM SHIN GROUP",
+    "cookiesOgDesc": "Description of cookie technologies on VM SHIN GROUP website:"
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "subtitle": "VM SHIN GROUP respects your privacy and ensures the protection of data provided to us.",
+    "effectiveDate": "Effective Date: August 15, 2026",
+    "sections": {
+      "general": {
+        "title": "1. General Provisions",
+        "text": "This Privacy Policy defines the procedures for collecting, processing, storing, and protecting information gathered by VM SHIN GROUP (Armavir, Yerevanyan highway 12/4, Armenia) through its official website."
+      },
+      "collectedData": {
+        "title": "2. Information We Collect",
+        "intro": "When using our website or submitting an order request, the following information may be collected:",
+        "item1": "Customer's full name",
+        "item2": "Contact phone number",
+        "item3": "Email address (if provided)",
+        "item4": "Delivery address and geographical coordinates (if delivery is selected)",
+        "item5": "Selected products, variants, quantities, and calculated volumes",
+        "item6": "Additional user comments attached to the request",
+        "item7": "Administrative access security data (for authorized personnel)"
+      },
+      "purpose": {
+        "title": "3. Purpose of Data Processing",
+        "intro": "Collected information is used strictly for the following operational purposes:",
+        "item1": "Processing order requests and calculating preliminary estimates",
+        "item2": "Contacting the customer to confirm order specifics",
+        "item3": "Estimating delivery route distance and transport costs",
+        "item4": "Ensuring customer service quality and website performance optimization"
+      },
+      "storage": {
+        "title": "4. Data Storage & Security",
+        "text": "Data is stored in a secure cloud database (Supabase) backed by technical and organizational security measures. Access is strictly limited to authorized company personnel. Information is retained for necessary operational, accounting, and customer service periods."
+      },
+      "thirdParties": {
+        "title": "5. Third-Party Services",
+        "text": "The company does not sell or trade customer personal data to third parties for marketing purposes. Essential technological service providers are used solely for site infrastructure (database: Supabase, map routing: Geoapify, transactional emails: Resend)."
+      },
+      "userRights": {
+        "title": "6. User Rights",
+        "text": "You have the right to contact us to access, update, or request deletion of your submitted personal information. To do so, email us at vm.shingroup@gmail.com or call +374 77 770330."
+      },
+      "updates": {
+        "title": "7. Policy Updates",
+        "text": "The company reserves the right to periodically update this policy. Updates become effective immediately upon publication on the website."
+      }
+    }
+  },
+  "termsOfUse": {
+    "title": "Terms of Use",
+    "subtitle": "Rules and guidelines for using the VM SHIN GROUP official website and material calculators.",
+    "effectiveDate": "Effective Date: August 15, 2026",
+    "sections": {
+      "purpose": {
+        "title": "1. Purpose of the Website",
+        "text": "This website is the official informational and online estimation platform for VM SHIN GROUP, showcasing company products (concrete, pumice blocks, paving stones, curbstones, manholes) and material calculation tools."
+      },
+      "pricing": {
+        "title": "2. Pricing & VAT Notice",
+        "text": "All prices displayed on the website are in Armenian Dram (AMD) and include Value-Added Tax (VAT). The company reserves the right to adjust product prices and technical specifications without prior notice."
+      },
+      "calculators": {
+        "title": "3. Material Calculators & Estimates",
+        "text": "Online calculators provide preliminary estimates of required material volumes (m², m³, linear meters, piece counts) and approximate costs. Final quantities and commercial terms are verified by company managers upon reviewing the order request."
+      },
+      "orders": {
+        "title": "4. Order Request Submission",
+        "text": "Submitting an order request via the website constitutes a preliminary quote inquiry, not an automatically billed purchase contract. Company specialists contact the customer after submission to confirm availability, delivery schedules, and final terms."
+      },
+      "delivery": {
+        "title": "5. Delivery Conditions",
+        "text": "Automated delivery calculations apply to distances up to 40 km. Deliveries exceeding 40 km or specialized concrete mixer/pump dispatches require manual fee calculation and manager confirmation."
+      },
+      "copyright": {
+        "title": "6. Intellectual Property",
+        "text": "All text, photographs, trademarks, logos, and calculator software logic published on this website belong to VM SHIN GROUP and are protected by law."
+      },
+      "limitation": {
+        "title": "7. Limitation of Liability",
+        "text": "Users are responsible for the accuracy of input dimensions and contact details. The company is not liable for inaccurate independent calculations performed by third parties based on preliminary calculator data."
+      },
+      "contacts": {
+        "title": "8. Contact & Resolution",
+        "text": "For questions or clarifications, contact customer service at vm.shingroup@gmail.com or call +374 77 770330."
+      }
+    }
+  },
+  "cookiePolicy": {
+    "title": "Cookie Policy",
+    "subtitle": "Information regarding cookie files and technologies used on the VM SHIN GROUP website.",
+    "effectiveDate": "Effective Date: August 15, 2026",
+    "sections": {
+      "definition": {
+        "title": "1. What Are Cookies",
+        "text": "Cookies are small text files stored on your device (computer or mobile) when visiting a website. They help the website remember your preferences and ensure secure operation."
+      },
+      "technologies": {
+        "title": "2. Cookies Used on Our Website",
+        "intro": "Our website uses strictly essential technical and functional files only:",
+        "item1": "Security & Authentication Cookies (Supabase Auth) — to maintain secure access to the administrative system",
+        "item2": "Language Preference Cookie (NEXT_LOCALE) — to remember your selected language (Armenian, Russian, English)"
+      },
+      "noTracking": {
+        "title": "3. Analytics & Marketing Cookies",
+        "text": "Our website DOES NOT USE advertising, tracking, or third-party analytics cookies (such as Google Analytics or marketing pixels). We do not track your online activity across other websites."
+      },
+      "management": {
+        "title": "4. Managing Cookie Files",
+        "text": "You may block or delete cookie files through your browser settings. Please note that blocking essential technical cookies may impact administrative sign-in functionality."
+      }
+    }
   },
   "orderModal": {
-    "modalTitle": "Confirm request",
-    "modalDescription": "Review the details and provide your contact information.",
+    "modalTitle": "Confirm Order Request",
+    "modalDescription": "Please review the details and provide your contact information.",
+    "vatIncluded": "Including value-added tax (VAT)",
     "cancelButton": "Cancel",
     "submitButton": "Confirm and send",
     "submittingButton": "Sending...",
@@ -683,6 +808,29 @@
       "message": "Please try again or contact us by phone.",
       "retryButton": "Try again",
       "defaultMessage": "An error occurred while sending your request."
+    }
+  },
+  "consultationModal": {
+    "title": "Request a Consultation",
+    "description": "Fill in your contact details and our specialist will get back to you shortly.",
+    "nameLabel": "Your Name",
+    "namePlaceholder": "Your Name",
+    "phoneLabel": "Phone Number",
+    "phonePlaceholder": "+374 77 123456",
+    "emailLabel": "Email Address (optional)",
+    "emailPlaceholder": "example@domain.com",
+    "messageLabel": "Question or Message (optional)",
+    "messagePlaceholder": "Specify your question or requirements...",
+    "submitButton": "Submit Request",
+    "submittingButton": "Sending...",
+    "closeAriaLabel": "Close modal",
+    "successTitle": "Request Sent",
+    "successMessage": "Your request has been sent. We will contact you shortly.",
+    "errorMessage": "An error occurred. Please try again or call us directly.",
+    "errors": {
+      "nameRequired": "Name is required (at least 2 characters)",
+      "phoneRequired": "A valid phone number is required",
+      "invalidEmail": "Invalid email address"
     }
   },
   "adminAuth": {
@@ -786,6 +934,7 @@
       "notSpecified": "Not specified",
       "notCalculated": "Not calculated",
       "determinedAfterOrder": "Determined after order",
+      "vatIncluded": "VAT included",
       "close": "Close"
     },
     "pagination": {

@@ -290,18 +290,36 @@ export default function AdminRequestsManager({
                     </td>
                     {/* Product */}
                     <td className="px-5 py-4">
-                      <div className="font-medium text-zinc-200">{req.product_name}</div>
-                      {req.product_variant && (
-                        <div className="text-xs text-zinc-400">{req.product_variant}</div>
+                      {req.product_slug === "consultation" ? (
+                        <div className="font-semibold text-purple-400 flex items-center gap-1.5 text-xs">
+                          <span className="px-2 py-0.5 rounded bg-purple-500/10 border border-purple-500/30">
+                            💬 Խորհրդատվություն / Consultation
+                          </span>
+                        </div>
+                      ) : (
+                        <>
+                          <div className="font-medium text-zinc-200">{req.product_name}</div>
+                          {req.product_variant && (
+                            <div className="text-xs text-zinc-400">{req.product_variant}</div>
+                          )}
+                        </>
                       )}
                     </td>
                     {/* Quantity */}
                     <td className="px-5 py-4 whitespace-nowrap font-medium text-zinc-300">
-                      {req.quantity} {req.unit}
+                      {req.product_slug === "consultation" ? (
+                        <span className="text-zinc-500">—</span>
+                      ) : (
+                        `${req.quantity} ${req.unit}`
+                      )}
                     </td>
                     {/* Total Price */}
                     <td className="px-5 py-4 whitespace-nowrap font-semibold text-zinc-100">
-                      {formatCurrency(req.total_price)}
+                      {req.product_slug === "consultation" ? (
+                        <span className="text-zinc-500">—</span>
+                      ) : (
+                        formatCurrency(req.total_price)
+                      )}
                     </td>
                     {/* Status Dropdown Badge */}
                     <td className="px-5 py-4 whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
@@ -351,18 +369,28 @@ export default function AdminRequestsManager({
                 </div>
 
                 <div className="bg-zinc-950/60 p-3 rounded-xl border border-zinc-800/40 text-xs space-y-1">
-                  <div className="font-medium text-zinc-200">{req.product_name}</div>
-                  {req.product_variant && (
-                    <div className="text-zinc-400">{req.product_variant}</div>
+                  {req.product_slug === "consultation" ? (
+                    <div className="font-semibold text-purple-400 flex items-center gap-1.5 text-xs py-1">
+                      <span className="px-2 py-0.5 rounded bg-purple-500/10 border border-purple-500/30">
+                        💬 Խորհրդատվություն / Consultation
+                      </span>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="font-medium text-zinc-200">{req.product_name}</div>
+                      {req.product_variant && (
+                        <div className="text-zinc-400">{req.product_variant}</div>
+                      )}
+                      <div className="flex justify-between items-center pt-1 text-zinc-300 font-medium">
+                        <span>
+                          {req.quantity} {req.unit}
+                        </span>
+                        <span className="font-bold text-[#F5C21B] text-sm">
+                          {formatCurrency(req.total_price)}
+                        </span>
+                      </div>
+                    </>
                   )}
-                  <div className="flex justify-between items-center pt-1 text-zinc-300 font-medium">
-                    <span>
-                      {req.quantity} {req.unit}
-                    </span>
-                    <span className="font-bold text-[#F5C21B] text-sm">
-                      {formatCurrency(req.total_price)}
-                    </span>
-                  </div>
                 </div>
 
                 {/* Card Footer Status Dropdown */}
@@ -492,56 +520,70 @@ export default function AdminRequestsManager({
               {/* 2. Order Details Section */}
               <div className="space-y-3 bg-zinc-900/40 p-4 rounded-xl border border-zinc-800/80">
                 <h3 className="text-xs font-bold uppercase tracking-wider text-[#F5C21B]">
-                  {t("drawer.orderSection")}
+                  {selectedOrder.product_slug === "consultation" ? "Խորհրդատվության Հայտ" : t("drawer.orderSection")}
                 </h3>
-                <div className="space-y-2 text-xs divide-y divide-zinc-800/40">
-                  <div className="flex justify-between py-1">
-                    <span className="text-zinc-400">{t("drawer.product")}:</span>
-                    <span className="font-semibold text-zinc-100">{selectedOrder.product_name}</span>
+                {selectedOrder.product_slug === "consultation" ? (
+                  <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-semibold flex items-center gap-2">
+                    <span>💬</span>
+                    <span>Խորհրդատվություն / Consultation Request</span>
                   </div>
-                  {selectedOrder.product_variant && (
+                ) : (
+                  <div className="space-y-2 text-xs divide-y divide-zinc-800/40">
                     <div className="flex justify-between py-1">
-                      <span className="text-zinc-400">{t("drawer.variant")}:</span>
-                      <span className="text-zinc-200">{selectedOrder.product_variant}</span>
+                      <span className="text-zinc-400">{t("drawer.product")}:</span>
+                      <span className="font-semibold text-zinc-100">{selectedOrder.product_name}</span>
                     </div>
-                  )}
-                  <div className="flex justify-between py-1">
-                    <span className="text-zinc-400">{t("drawer.quantity")}:</span>
-                    <span className="font-medium text-zinc-200">
-                      {selectedOrder.quantity} {selectedOrder.unit}
-                    </span>
+                    {selectedOrder.product_variant && (
+                      <div className="flex justify-between py-1">
+                        <span className="text-zinc-400">{t("drawer.variant")}:</span>
+                        <span className="text-zinc-200">{selectedOrder.product_variant}</span>
+                      </div>
+                    )}
+                    <div className="flex justify-between py-1">
+                      <span className="text-zinc-400">{t("drawer.quantity")}:</span>
+                      <span className="font-medium text-zinc-200">
+                        {selectedOrder.quantity} {selectedOrder.unit}
+                      </span>
+                    </div>
+                    <div className="flex justify-between py-1">
+                      <span className="text-zinc-400">{t("drawer.productPrice")}:</span>
+                      <span className="font-mono text-zinc-300">
+                        {formatCurrency(selectedOrder.product_price)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between py-1">
+                      <span className="text-zinc-400">{t("drawer.productsTotal")}:</span>
+                      <span className="font-mono text-zinc-200">
+                        {formatCurrency(selectedOrder.products_total)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between py-1">
+                      <span className="text-zinc-400">{t("drawer.deliveryPrice")}:</span>
+                      <span className="font-mono text-zinc-300">
+                        {(selectedOrder.product_slug === "concrete" && selectedOrder.delivery_distance_km !== null && selectedOrder.delivery_distance_km > 40)
+                          ? t("drawer.determinedAfterOrder")
+                          : selectedOrder.delivery_price !== null
+                          ? formatCurrency(selectedOrder.delivery_price)
+                          : t("drawer.notCalculated")}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-baseline pt-2 text-sm font-bold">
+                      <span className="text-zinc-100">{t("drawer.totalPrice")}:</span>
+                      <div className="flex flex-col items-end">
+                        <span className="text-[#F5C21B] font-mono">
+                          {(selectedOrder.product_slug === "concrete" && selectedOrder.delivery_distance_km !== null && selectedOrder.delivery_distance_km > 40)
+                            ? t("drawer.determinedAfterOrder")
+                            : formatCurrency(selectedOrder.total_price)}
+                        </span>
+                        {!(selectedOrder.product_slug === "concrete" && selectedOrder.delivery_distance_km !== null && selectedOrder.delivery_distance_km > 40) && (
+                          <span className="text-[10px] text-zinc-500 font-normal block mt-0.5">
+                            ({t("drawer.vatIncluded")})
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex justify-between py-1">
-                    <span className="text-zinc-400">{t("drawer.productPrice")}:</span>
-                    <span className="font-mono text-zinc-300">
-                      {formatCurrency(selectedOrder.product_price)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between py-1">
-                    <span className="text-zinc-400">{t("drawer.productsTotal")}:</span>
-                    <span className="font-mono text-zinc-200">
-                      {formatCurrency(selectedOrder.products_total)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between py-1">
-                    <span className="text-zinc-400">{t("drawer.deliveryPrice")}:</span>
-                    <span className="font-mono text-zinc-300">
-                      {(selectedOrder.product_slug === "concrete" && selectedOrder.delivery_distance_km !== null && selectedOrder.delivery_distance_km > 40)
-                        ? t("drawer.determinedAfterOrder")
-                        : selectedOrder.delivery_price !== null
-                        ? formatCurrency(selectedOrder.delivery_price)
-                        : t("drawer.notCalculated")}
-                    </span>
-                  </div>
-                  <div className="flex justify-between pt-2 text-sm font-bold">
-                    <span className="text-zinc-100">{t("drawer.totalPrice")}:</span>
-                    <span className="text-[#F5C21B] font-mono">
-                      {(selectedOrder.product_slug === "concrete" && selectedOrder.delivery_distance_km !== null && selectedOrder.delivery_distance_km > 40)
-                        ? t("drawer.determinedAfterOrder")
-                        : formatCurrency(selectedOrder.total_price)}
-                    </span>
-                  </div>
-                </div>
+                )}
               </div>
 
               {/* 3. Delivery Section */}

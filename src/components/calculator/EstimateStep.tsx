@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import VatIncludedNote from "@/components/ui/VatIncludedNote";
 import type { CalculationResult, EstimateSummaryPayload } from "@/lib/calculator/calculator.types";
 import { getProductImage } from "@/lib/calculator/getProductImage";
 import { PRODUCT_DETAILS } from "@/config/productDetails";
@@ -34,7 +35,7 @@ export default function EstimateStep({
   const pavingVariant = pavingStonesConfig?.variants.find((v) => v.id === result.variant.id);
   const selectedSizeOpt = pavingVariant?.availableSizes?.find((s) => s.id === sizeId);
   const pavingSizeDisplay = selectedSizeOpt
-    ? selectedSizeOpt.display.replace("mm", t("units.mm") || "mm")
+    ? selectedSizeOpt.display.replace("mm", t.has("units.mm") ? t("units.mm") : "mm")
     : "";
   const colorKey = colorId
     ? colorId.replace(/-([a-z])/g, (_, l: string) => l.toUpperCase())
@@ -165,27 +166,30 @@ export default function EstimateStep({
           ) : null}
         </div>
 
-        {/* 3. Product Cost Subtotal */}
+        {/* 3. Subtotal Card */}
         {result.category === "concrete" ? (
           <div className="p-4 rounded-lg bg-background/80 border border-gold-border flex flex-col gap-2">
-            <div className="flex justify-between items-center text-xs sm:text-sm text-text-secondary">
+            <div className="flex justify-between text-xs text-text-secondary">
               <span>{t("results.pricePerM3")}:</span>
-              <span className="font-mono font-bold text-text-primary">
+              <span className="font-mono text-text-primary">
                 {result.variant.pricePerUnit?.toLocaleString()} {currency} / {t("units.m3")}
               </span>
             </div>
-            <div className="flex justify-between items-center text-xs sm:text-sm text-text-secondary">
-              <span>{t("results.primaryQuantity")}:</span>
-              <span className="font-mono font-bold text-text-primary">
+            <div className="flex justify-between text-xs text-text-secondary">
+              <span>{t("results.volume")}:</span>
+              <span className="font-mono text-text-primary">
                 {result.metrics.primaryQuantity.toLocaleString()} {t("units.m3")}
               </span>
             </div>
             <div className="h-px bg-gold-border/40 my-1" />
             <div className="flex justify-between items-center text-sm sm:text-base font-bold">
               <span>{t("results.subtotal")}:</span>
-              <span className="font-mono text-primary-yellow">
-                {result.pricing.productSubtotal.toLocaleString()} {currency}
-              </span>
+              <div className="flex flex-col items-end">
+                <span className="font-mono text-primary-yellow">
+                  {result.pricing.productSubtotal.toLocaleString()} {currency}
+                </span>
+                <VatIncludedNote namespace="calculator" className="text-[10px] text-text-muted font-normal block mt-0.5" />
+              </div>
             </div>
           </div>
         ) : (
@@ -193,9 +197,12 @@ export default function EstimateStep({
             <span className="text-xs sm:text-sm text-text-secondary font-semibold">
               {t("results.subtotal")}:
             </span>
-            <span className="text-lg sm:text-xl font-bold font-mono text-primary-yellow">
-              {result.pricing.productSubtotal.toLocaleString()} {currency}
-            </span>
+            <div className="flex flex-col items-end">
+              <span className="text-lg sm:text-xl font-bold font-mono text-primary-yellow">
+                {result.pricing.productSubtotal.toLocaleString()} {currency}
+              </span>
+              <VatIncludedNote namespace="calculator" className="text-[10px] text-text-muted font-normal block mt-0.5" />
+            </div>
           </div>
         )}
 

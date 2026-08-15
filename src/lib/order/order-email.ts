@@ -244,6 +244,9 @@ export function renderOrderEmail(payload: OrderRequestPayload): RenderedOrderEma
                 <div style="font-size: 28px; font-weight: 900; color: #F5C21B; margin-top: 6px; font-family: monospace;">
                   ${emailTotalText}
                 </div>
+                <div style="font-size: 11px; color: #a1a1aa; margin-top: 4px;">
+                  Includes VAT / Ներառյալ ԱԱՀ (VAT included / Ներառյալ ավելացված արժեքի հարկը)
+                </div>
                 <div style="font-size: 11px; color: #71717a; margin-top: 6px; font-style: italic;">
                   * Website estimate only. Final terms and pricing confirmed by manager upon contact.
                 </div>

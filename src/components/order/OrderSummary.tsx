@@ -3,6 +3,7 @@
 import { useTranslations, useLocale } from "next-intl";
 import type { OrderDetails } from "@/lib/order/order.types";
 import { formatAmd, formatKm } from "@/lib/order/order-formatters";
+import VatIncludedNote from "@/components/ui/VatIncludedNote";
 
 interface OrderSummaryProps {
   order: OrderDetails;
@@ -202,15 +203,20 @@ export default function OrderSummary({ order }: OrderSummaryProps) {
 
         <div className="h-px bg-gold-border/60 my-1" />
 
-        <div className="flex items-center justify-between text-sm font-bold">
-          <span className="text-text-primary uppercase tracking-wider">{t("total")}:</span>
-          <span className="font-mono text-base sm:text-lg font-black text-primary-yellow text-right">
-            {order.deliveryDistanceKm && order.deliveryDistanceKm > 40 ? (
-              tProducts("deliveryPriceDeterminedAfterOrder")
-            ) : (
-              `${order.totalPrice.toLocaleString()} ${currency}`
-            )}
-          </span>
+        <div className="flex flex-col items-end">
+          <div className="flex items-center justify-between w-full text-sm font-bold">
+            <span className="text-text-primary uppercase tracking-wider">{t("total")}:</span>
+            <span className="font-mono text-base sm:text-lg font-black text-primary-yellow text-right">
+              {order.deliveryDistanceKm && order.deliveryDistanceKm > 40 ? (
+                tProducts("deliveryPriceDeterminedAfterOrder")
+              ) : (
+                `${order.totalPrice.toLocaleString()} ${currency}`
+              )}
+            </span>
+          </div>
+          {!(order.deliveryDistanceKm && order.deliveryDistanceKm > 40) && (
+            <VatIncludedNote namespace="orderModal" className="text-[10px] text-text-muted font-normal text-right block mt-0.5" />
+          )}
         </div>
       </div>
     </div>

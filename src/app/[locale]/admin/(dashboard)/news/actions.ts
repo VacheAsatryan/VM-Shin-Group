@@ -5,6 +5,7 @@ import { requireAdmin } from "@/lib/auth/auth.server";
 import { createClient } from "@/lib/supabase/server";
 import type { NewsInsert, NewsStatus, NewsUpdate, SupportedLocale } from "@/lib/supabase/types";
 import { slugifyText, generateAutoSlug } from "@/lib/utils/slugify";
+import { routing } from "@/i18n/routing";
 
 export type NewsActionResult =
   | { success: true; newsId: string; slug: string }
@@ -202,12 +203,14 @@ export async function createNewsAction(
       };
     }
 
-    // 8. Cache Revalidation
+    // 8. Cache Revalidation across all configured locales
     revalidatePath("/admin/news");
-    revalidatePath(`/${locale}/admin/news`);
     revalidatePath("/news");
-    revalidatePath(`/${locale}/news`);
-    revalidatePath(`/${locale}/news/${insertedRow.slug}`);
+    for (const loc of routing.locales) {
+      revalidatePath(`/${loc}/admin/news`);
+      revalidatePath(`/${loc}/news`);
+      revalidatePath(`/${loc}/news/${insertedRow.slug}`);
+    }
 
     return {
       success: true,
@@ -405,12 +408,13 @@ export async function updateNewsAction(
     }
 
     revalidatePath("/admin/news");
-    revalidatePath(`/${locale}/admin/news`);
-    revalidatePath(`/admin/news/${id}/edit`);
-    revalidatePath(`/${locale}/admin/news/${id}/edit`);
     revalidatePath("/news");
-    revalidatePath(`/${locale}/news`);
-    revalidatePath(`/${locale}/news/${updatedRow.slug}`);
+    for (const loc of routing.locales) {
+      revalidatePath(`/${loc}/admin/news`);
+      revalidatePath(`/${loc}/admin/news/${id}/edit`);
+      revalidatePath(`/${loc}/news`);
+      revalidatePath(`/${loc}/news/${updatedRow.slug}`);
+    }
 
     return {
       success: true,
@@ -443,6 +447,10 @@ export async function deleteNewsAction(id: string): Promise<{ success: boolean; 
 
     revalidatePath("/admin/news");
     revalidatePath("/news");
+    for (const loc of routing.locales) {
+      revalidatePath(`/${loc}/admin/news`);
+      revalidatePath(`/${loc}/news`);
+    }
 
     return { success: true };
   } catch {

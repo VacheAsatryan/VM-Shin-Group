@@ -9,6 +9,16 @@ import { createNewsAction, updateNewsAction, type NewsActionResult } from "@/app
 import { generateAutoSlug, slugifyText } from "@/lib/utils/slugify";
 import NewsImageUploader from "./NewsImageUploader";
 
+const toLocalDateTimeString = (dateOrString: Date | string) => {
+  const date = new Date(dateOrString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+};
+
 interface AdminNewsFormProps {
   article?: NewsRow;
   locale: string;
@@ -61,7 +71,7 @@ export default function AdminNewsForm({ article, locale }: AdminNewsFormProps) {
 
   const [status, setStatus] = useState<"draft" | "published">(article?.status || "draft");
   const [publishedAt, setPublishedAt] = useState(
-    article?.published_at ? new Date(article.published_at).toISOString().slice(0, 16) : ""
+    article?.published_at ? toLocalDateTimeString(article.published_at) : ""
   );
   const [coverImageUrl, setCoverImageUrl] = useState(article?.cover_image_url || "");
 
@@ -112,7 +122,8 @@ export default function AdminNewsForm({ article, locale }: AdminNewsFormProps) {
     formData.append("source_locale", sourceLocale);
     formData.append("slug", slug);
     formData.append("status", status);
-    formData.append("published_at", publishedAt);
+    const utcPublishedAt = publishedAt ? new Date(publishedAt).toISOString() : "";
+    formData.append("published_at", utcPublishedAt);
     formData.append("cover_image_url", coverImageUrl);
 
     formData.append("title_hy", titleHy);

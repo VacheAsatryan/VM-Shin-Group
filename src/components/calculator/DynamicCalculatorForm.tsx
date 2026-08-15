@@ -228,7 +228,7 @@ export default function DynamicCalculatorForm({
                 onChange={(e) => onChangeInput({ ...input, sizeId: e.target.value })}
                 options={sizeOptions.map((s) => ({
                   value: s.id,
-                  label: s.display.replace("mm", t("units.mm") || "mm"),
+                  label: s.display.replace("mm", t.has("units.mm") ? t("units.mm") : "mm"),
                 }))}
               />
             </div>

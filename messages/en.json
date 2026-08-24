@@ -39,6 +39,44 @@
     "inStockFactory": "In Stock • Factory Quality",
     "calculateCta": "Calculate Estimate",
     "consultationCta": "Request Consultation",
+    "productSeo": {
+      "pemzablok": {
+        "title": "Pumice Blocks & Building Blocks in Armavir | VM Shin Group",
+        "description": "High-quality pumice blocks and concrete wall blocks from manufacturer VM Shin Group in Armavir, Armenia. Various sizes, insulation, and fast delivery.",
+        "ogTitle": "Pumice Blocks in Armavir | VM Shin Group",
+        "ogDescription": "Pumice blocks and wall construction blocks direct from manufacturer in Armavir, Armenia."
+      },
+      "concrete-block": {
+        "title": "Floor Slabs & Concrete Panels in Armavir | VM Shin Group",
+        "description": "Durable floor slab panels and precast concrete blocks manufactured in Armavir, Armenia by VM Shin Group. Accurate m² calculations and site delivery.",
+        "ogTitle": "Floor Slab Panels & Precast Concrete | VM Shin Group",
+        "ogDescription": "High-strength floor slabs and structural concrete panels directly from the manufacturer in Armavir."
+      },
+      "concrete": {
+        "title": "Ready-Mix Concrete Delivery in Armavir | VM Shin Group",
+        "description": "High-grade ready-mix concrete manufactured in Armavir, Armenia by VM Shin Group. M100 to M400 concrete grades, volume calculation, and mixer delivery.",
+        "ogTitle": "Ready-Mix Concrete in Armavir | VM Shin Group",
+        "ogDescription": "Ready-mix concrete supply and mixer truck delivery across Armavir region from VM Shin Group."
+      },
+      "paving-stones": {
+        "title": "Paving Stones & Pavers in Armavir | VM Shin Group",
+        "description": "Paving stones, pavers, and sidewalk tiles manufactured in Armavir, Armenia by VM Shin Group. Multiple colors, sizes, area calculation, and delivery.",
+        "ogTitle": "Paving Stones & Pavers in Armavir | VM Shin Group",
+        "ogDescription": "Premium paving stones and outdoor pavers directly from manufacturer VM Shin Group in Armavir."
+      },
+      "curbstones": {
+        "title": "Curbstones & Border Stones in Armavir | VM Shin Group",
+        "description": "Road and garden curbstones manufactured in Armavir, Armenia by VM Shin Group. High durability concrete border stones, calculation, and delivery.",
+        "ogTitle": "Curbstones & Border Stones in Armavir | VM Shin Group",
+        "ogDescription": "Heavy-duty road and garden curbstones directly from manufacturer VM Shin Group in Armavir."
+      },
+      "manholes": {
+        "title": "Concrete Manholes & Covers in Armavir | VM Shin Group",
+        "description": "Precast concrete manholes, rings, and cover slabs manufactured in Armavir, Armenia by VM Shin Group. Utility manhole elements and site delivery.",
+        "ogTitle": "Concrete Manholes & Covers in Armavir | VM Shin Group",
+        "ogDescription": "Heavy-duty concrete manhole elements and cover slabs directly from manufacturer in Armavir."
+      }
+    },
     "specsTitle": "Technical Specifications",
     "featuresTitle": "Features & Advantages",
     "applicationsTitle": "Scope of Application",

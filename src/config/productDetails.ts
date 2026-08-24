@@ -169,7 +169,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetailData> = {
         slug: "pumice-10x20x40",
         sizeLabel: "10 × 20 × 40",
         subtitleKey: "variants.partitionStandard",
-        dimensions: "400 × 100 × 200 мм",
+        dimensions: "390 × 90 × 200 мм",
         price: { amount: 155, currency: "AMD", unitKey: "perPcs" },
         weightKg: 8.0,
         itemsPerPallet: 100,
@@ -181,7 +181,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetailData> = {
         fallbackImage: "/images/products/pumice-blocks/pemzablok.png",
         descriptionKey: "variants.desc10",
         specs: [
-          { labelKey: "dimensions", valueRaw: "400 × 100 × 200 мм" },
+          { labelKey: "dimensions", valueRaw: "390 × 90 × 200 мм" },
           { labelKey: "density", valueRaw: "850 - 900 кг/м³" },
           { labelKey: "weightPerUnit", valueRaw: "8.0 кг" },
           { labelKey: "compressiveStrength", valueRaw: "M35" },
@@ -206,7 +206,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetailData> = {
         slug: "pumice-15x20x40",
         sizeLabel: "15 × 20 × 40",
         subtitleKey: "variants.semiBearing",
-        dimensions: "400 × 150 × 200 мм",
+        dimensions: "390 × 140 × 200 мм",
         price: { amount: 200, currency: "AMD", unitKey: "perPcs" },
         weightKg: 11.5,
         itemsPerPallet: 75,
@@ -218,7 +218,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetailData> = {
         fallbackImage: "/images/products/pumice-blocks/pemzablok.png",
         descriptionKey: "variants.desc15",
         specs: [
-          { labelKey: "dimensions", valueRaw: "400 × 150 × 200 мм" },
+          { labelKey: "dimensions", valueRaw: "390 × 140 × 200 мм" },
           { labelKey: "density", valueRaw: "900 - 950 кг/м³" },
           { labelKey: "weightPerUnit", valueRaw: "11.5 кг" },
           { labelKey: "compressiveStrength", valueRaw: "M50" },
@@ -243,7 +243,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetailData> = {
         slug: "pumice-20x20x40",
         sizeLabel: "20 × 20 × 40",
         subtitleKey: "variants.loadBearingStandard",
-        dimensions: "400 × 200 × 200 мм",
+        dimensions: "390 × 190 × 200 мм",
         price: { amount: 225, currency: "AMD", unitKey: "perPcs" },
         weightKg: 14.0,
         itemsPerPallet: 60,
@@ -255,7 +255,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetailData> = {
         fallbackImage: "/images/products/pumice-blocks/pemzablok.png",
         descriptionKey: "variants.desc20",
         specs: [
-          { labelKey: "dimensions", valueRaw: "400 × 200 × 200 мм" },
+          { labelKey: "dimensions", valueRaw: "390 × 190 × 200 мм" },
           { labelKey: "density", valueRaw: "950 - 1000 кг/м³" },
           { labelKey: "weightPerUnit", valueRaw: "14.0 кг" },
           { labelKey: "compressiveStrength", valueRaw: "M50" },
@@ -280,7 +280,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetailData> = {
         slug: "pumice-20x20x40-groove",
         sizeLabel: "20 × 20 × 40 (Groove)",
         subtitleKey: "variants.loadBearingGroove",
-        dimensions: "400 × 200 × 200 мм (Բաց / Паз)",
+        dimensions: "390 × 190 × 200 мм (Բաց / Паз)",
         price: { amount: 215, currency: "AMD", unitKey: "perPcs" },
         weightKg: 13.8,
         itemsPerPallet: 60,
@@ -292,7 +292,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetailData> = {
         fallbackImage: "/images/products/pumice-blocks/pemzablok.png",
         descriptionKey: "variants.desc20Groove",
         specs: [
-          { labelKey: "dimensions", valueRaw: "400 × 200 × 200 мм (Шпунтованный)" },
+          { labelKey: "dimensions", valueRaw: "390 × 190 × 200 мм (Шпунтованный)" },
           { labelKey: "density", valueRaw: "950 - 1000 кг/м³" },
           { labelKey: "weightPerUnit", valueRaw: "13.8 кг" },
           { labelKey: "compressiveStrength", valueRaw: "M50" },
@@ -314,7 +314,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetailData> = {
       },
     ],
     specs: [
-      { labelKey: "dimensions", valueRaw: "400 × (60-200) × 200 мм" },
+      { labelKey: "dimensions", valueRaw: "390 × (60-190) × 200 мм" },
       { labelKey: "density", valueRaw: "800 - 1000 кг/м³" },
       { labelKey: "compressiveStrength", valueRaw: "M35 - M50" },
       { labelKey: "thermalConductivity", valueRaw: "0.18 - 0.22 Вт/(м·°C)" },
@@ -380,7 +380,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetailData> = {
         titleKey: "variants.slab120",
         sizeLabel: "1.20 մ",
         subtitleKey: "variants.slab120Subtitle",
-        dimensions: "Լայնություն՝ 1.20 մ, Երկարություն՝ 2.90–6.30 մ",
+        dimensions: "Լայնություն՝ 120 սմ, Երկարություն՝ 290–630 սմ",
         price: { amount: 8500, currency: "AMD", unitKey: "perM2" },
         weightKg: 350,
         itemsPerPallet: 1,
@@ -390,8 +390,8 @@ export const PRODUCT_DETAILS: Record<string, ProductDetailData> = {
         fallbackImage: "/images/products/concrete-blocks/concrete-block.png",
         descriptionKey: "descriptions.concrete-block",
         specs: [
-          { labelKey: "width", valueRaw: "1.20 մ" },
-          { labelKey: "lengthRange", valueRaw: "2.90 - 6.30 մ" },
+          { labelKey: "width", valueRaw: "120 սմ" },
+          { labelKey: "lengthRange", valueRaw: "290 - 630 սմ" },
         ],
         calculatorConfig: {
           calculatorProductId: "concrete-block",
@@ -410,7 +410,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetailData> = {
         titleKey: "variants.slab060",
         sizeLabel: "0.60 մ",
         subtitleKey: "variants.slab060Subtitle",
-        dimensions: "Լայնություն՝ 0.60 մ, Երկարություն՝ 2.90–6.30 մ",
+        dimensions: "Լայնություն՝ 60 սմ, Երկարություն՝ 290–630 սմ",
         price: { amount: 8500, currency: "AMD", unitKey: "perM2" },
         weightKg: 175,
         itemsPerPallet: 1,
@@ -420,8 +420,8 @@ export const PRODUCT_DETAILS: Record<string, ProductDetailData> = {
         fallbackImage: "/images/products/concrete-blocks/concrete-block.png",
         descriptionKey: "descriptions.concrete-block",
         specs: [
-          { labelKey: "width", valueRaw: "0.60 մ" },
-          { labelKey: "lengthRange", valueRaw: "2.90 - 6.30 մ" },
+          { labelKey: "width", valueRaw: "60 սմ" },
+          { labelKey: "lengthRange", valueRaw: "290 - 630 սմ" },
         ],
         calculatorConfig: {
           calculatorProductId: "concrete-block",
@@ -436,8 +436,8 @@ export const PRODUCT_DETAILS: Record<string, ProductDetailData> = {
       },
     ],
     specs: [
-      { labelKey: "width", valueRaw: "1.20 մ / 0.60 մ" },
-      { labelKey: "lengthRange", valueRaw: "2.90 մ - 6.30 մ" },
+      { labelKey: "width", valueRaw: "120 սմ / 60 սմ" },
+      { labelKey: "lengthRange", valueRaw: "290 - 630 սմ" },
     ],
     features: [
       {

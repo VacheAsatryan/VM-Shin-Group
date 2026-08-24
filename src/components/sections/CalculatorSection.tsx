@@ -67,7 +67,7 @@ function getDefaultInputForCategory(
         heightMeters: 3,
         wallCount: 1,
         variantId,
-        reservePercent: 5,
+        reservePercent: 0,
       };
     case "paving_area":
       return {
@@ -76,7 +76,7 @@ function getDefaultInputForCategory(
         lengthMeters: 10,
         widthMeters: 5,
         variantId,
-        reservePercent: 5,
+        reservePercent: 0,
         sizeId: variantId === "paving-type-1" ? "55-130-130" : "55-100-200",
         colorId: "gray",
       };
@@ -86,7 +86,7 @@ function getDefaultInputForCategory(
         mode: "dimensions",
         linearLengthMeters: 20,
         variantId,
-        reservePercent: 5,
+        reservePercent: 0,
       };
     case "concrete_volume":
       return {
@@ -97,14 +97,14 @@ function getDefaultInputForCategory(
         widthMeters: 2,
         depthMeters: 0.5,
         variantId,
-        reservePercent: 5,
+        reservePercent: 0,
       };
     case "floor_slabs":
       return {
         type: "floor_slabs",
         variantId,
-        lengthMeters: 3.0,
-        quantity: 10,
+        areaSqMeters: 0,
+        reservePercent: 0,
       };
     case "quantity_product":
     default:

@@ -4,6 +4,7 @@ import { PRODUCTS } from "@/config/products";
 import { getProductDetail } from "@/config/productDetails";
 import ProductDetailView from "@/components/products/ProductDetailView";
 import { routing } from "@/i18n/routing";
+import { CANONICAL_DOMAIN, getSeoAlternates } from "@/lib/seo/metadata";
 
 export async function generateStaticParams() {
   const params: Array<{ locale: string; slug: string }> = [];
@@ -32,10 +33,13 @@ export async function generateMetadata({
 
   const t = await getTranslations({ locale, namespace: "products" });
   const productName = t(`categories.${product.translationKey}`);
+  const alternates = getSeoAlternates(`/products/${slug}`, locale);
 
   return {
+    metadataBase: new URL(CANONICAL_DOMAIN),
     title: `${productName} | VM Shin Group`,
     description: t(`descriptions.${product.translationKey}`),
+    alternates,
   };
 }
 

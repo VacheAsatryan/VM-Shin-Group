@@ -4,6 +4,7 @@ import SafeImage from "@/components/ui/SafeImage";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import type { SupportedLocale } from "@/lib/supabase/types";
+import { CANONICAL_DOMAIN, getSeoAlternates } from "@/lib/seo/metadata";
 
 interface PageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -12,6 +13,7 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps) {
   const { locale, slug } = await params;
   const currentLocale = (locale as SupportedLocale) || "hy";
+  const alternates = getSeoAlternates(`/news/${slug}`, locale);
 
   const supabase = await createClient();
   const { data: article } = await supabase
@@ -23,7 +25,9 @@ export async function generateMetadata({ params }: PageProps) {
 
   if (!article) {
     return {
+      metadataBase: new URL(CANONICAL_DOMAIN),
       title: "Article Not Found | VM SHIN GROUP",
+      alternates,
     };
   }
 
@@ -51,11 +55,14 @@ export async function generateMetadata({ params }: PageProps) {
   const description = getField("excerpt");
 
   return {
+    metadataBase: new URL(CANONICAL_DOMAIN),
     title: `${title} | VM SHIN GROUP`,
     description,
+    alternates,
     openGraph: {
       title: `${title} | VM SHIN GROUP`,
       description,
+      url: alternates.canonical,
       images: article.cover_image_url ? [{ url: article.cover_image_url }] : [],
     },
   };

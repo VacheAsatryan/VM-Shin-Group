@@ -3,6 +3,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import type { CareerRow, SupportedLocale } from "@/lib/supabase/types";
 import SafeImage from "@/components/ui/SafeImage";
+import { CANONICAL_DOMAIN, getSeoAlternates } from "@/lib/seo/metadata";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -11,10 +12,13 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "publicCareers" });
+  const alternates = getSeoAlternates("/careers", locale);
 
   return {
+    metadataBase: new URL(CANONICAL_DOMAIN),
     title: `${t("title")} | VM SHIN GROUP`,
     description: t("subtitle"),
+    alternates,
   };
 }
 

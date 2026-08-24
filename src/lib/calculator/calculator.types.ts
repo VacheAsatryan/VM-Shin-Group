@@ -78,8 +78,8 @@ export interface CurbstonesInput {
 export interface FloorSlabsInput {
   type: "floor_slabs";
   variantId: string;
-  lengthMeters: number;
-  quantity: number;
+  areaSqMeters: number;
+  reservePercent?: number;
   accessories?: Record<string, string>;
 }
 

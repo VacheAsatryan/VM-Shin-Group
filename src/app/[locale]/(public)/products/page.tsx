@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { PRODUCTS } from "@/config/products";
 import PageBackLink from "@/components/ui/PageBackLink";
+import { CANONICAL_DOMAIN, getSeoAlternates } from "@/lib/seo/metadata";
 
 export async function generateMetadata({
   params,
@@ -11,10 +12,13 @@ export async function generateMetadata({
 }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "products" });
+  const alternates = getSeoAlternates("/products", locale);
 
   return {
+    metadataBase: new URL(CANONICAL_DOMAIN),
     title: `${t("title")} | VM Shin Group`,
     description: t("catalogSubtitle"),
+    alternates,
   };
 }
 

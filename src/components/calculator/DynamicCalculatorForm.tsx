@@ -494,17 +494,6 @@ export default function DynamicCalculatorForm({
 
     case "floor_slabs": {
       const slabCategory = CALCULATOR_PRODUCTS.find((p) => p.calculationType === "floor_slabs");
-      const lengthVal =
-        typeof input.lengthMeters === "number" && !isNaN(input.lengthMeters)
-          ? input.lengthMeters
-          : 2.9;
-      const isValidLength = lengthVal >= 2.9 && lengthVal <= 6.3;
-      const activeVariant =
-        slabCategory?.variants.find((v) => v.id === input.variantId) ||
-        slabCategory?.variants[0];
-      const widthVal = activeVariant?.widthMeters || 1.2;
-      const areaOfOne = Number((widthVal * (isValidLength ? lengthVal : 2.9)).toFixed(2));
-      const totalAreaVal = Number(((input.quantity || 1) * areaOfOne).toFixed(2));
       const slabVariants = slabCategory?.variants || [];
 
       return (
@@ -537,71 +526,40 @@ export default function DynamicCalculatorForm({
             </div>
           </div>
 
-          {/* Panel Length & Quantity */}
+          {/* Direct Area (m²) Input & Reserve */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="flex flex-col gap-1">
-              <CalculatorField
-                id="slab-length"
-                label={t("inputs.panelLength")}
-                type="number"
-                value={input.lengthMeters}
-                onChange={(e) => {
-                  const val = parseFloat(e.target.value);
-                  onChangeInput({
-                    ...input,
-                    lengthMeters: isNaN(val) ? 2.9 : val,
-                  });
-                }}
-                min={2.9}
-                max={6.3}
-                step={0.1}
-                suffix="m"
-              />
-              <span className="text-[11px] font-mono text-text-muted">
-                {t("inputs.lengthRangeHint")}
-              </span>
-              {!isValidLength && (
-                <span className="text-xs font-mono text-red-400 font-semibold">
-                  ⚠ {t("inputs.lengthValidationError")}
-                </span>
-              )}
-            </div>
-
             <CalculatorField
-              id="slab-quantity"
-              label={t("inputs.quantity")}
+              id="slab-area"
+              label={t("inputs.requiredArea")}
               type="number"
-              value={input.quantity}
+              value={input.areaSqMeters || 0}
               onChange={(e) =>
                 onChangeInput({
                   ...input,
-                  quantity: Math.max(1, parseInt(e.target.value, 10) || 1),
+                  areaSqMeters: parseFloat(e.target.value) || 0,
                 })
               }
-              min={1}
-              step={1}
-              suffix="pcs"
+              min={0}
+              step="any"
+              suffix="m²"
             />
-          </div>
 
-          {/* Real-time Calculated Metrics Card */}
-          <div className="p-4 rounded-xl bg-white/[0.03] border border-gold-border/50 grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs">
-            <div className="flex flex-col gap-0.5">
-              <span className="text-text-muted text-[11px] uppercase tracking-wider">
-                {t("results.areaOfOnePanel")}:
-              </span>
-              <span className="text-text-primary font-bold text-base">
-                {areaOfOne} {t("units.m2")}
-              </span>
-            </div>
-            <div className="flex flex-col gap-0.5">
-              <span className="text-text-muted text-[11px] uppercase tracking-wider">
-                {t("results.totalArea")}:
-              </span>
-              <span className="text-primary-yellow font-bold text-base">
-                {totalAreaVal} {t("units.m2")}
-              </span>
-            </div>
+            <CalculatorField
+              id="slab-reserve"
+              label={t("inputs.reservePercent")}
+              type="number"
+              value={input.reservePercent || 0}
+              onChange={(e) =>
+                onChangeInput({
+                  ...input,
+                  reservePercent: parseFloat(e.target.value) || 0,
+                })
+              }
+              min={0}
+              max={25}
+              step="any"
+              suffix="%"
+            />
           </div>
         </div>
       );

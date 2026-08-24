@@ -10,7 +10,7 @@ interface CalculatorFieldProps {
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   min?: number;
   max?: number;
-  step?: number;
+  step?: number | string;
   options?: { value: string; label: string }[];
   suffix?: string;
 }
@@ -23,7 +23,7 @@ export default function CalculatorField({
   onChange,
   min = 0,
   max = 1000,
-  step = 0.1,
+  step = "any",
   options = [],
   suffix,
 }: CalculatorFieldProps) {

@@ -14,8 +14,10 @@ export interface DeliveryPricingResult {
  * - 5 < distance <= 10 km  -> 3,000 AMD / m³
  * - 10 < distance <= 15 km -> 4,000 AMD / m³
  * - 15 < distance <= 20 km -> 5,000 AMD / m³
- * - 20 < distance <= 30 km -> 6,000 AMD / m³
- * - 30 < distance <= 40 km -> 8,000 AMD / m³
+ * - 20 < distance <= 25 km -> 6,000 AMD / m³
+ * - 25 < distance <= 30 km -> 7,000 AMD / m³
+ * - 30 < distance <= 35 km -> 8,000 AMD / m³
+ * - 35 < distance <= 40 km -> 9,000 AMD / m³
  * - distance > 40 km       -> null (determined after order / manager confirmation)
  */
 export function getDeliveryRatePerM3(distanceKm: number): number | null {
@@ -24,8 +26,10 @@ export function getDeliveryRatePerM3(distanceKm: number): number | null {
   if (distanceKm <= 10) return 3000;
   if (distanceKm <= 15) return 4000;
   if (distanceKm <= 20) return 5000;
-  if (distanceKm <= 30) return 6000;
-  if (distanceKm <= 40) return 8000;
+  if (distanceKm <= 25) return 6000;
+  if (distanceKm <= 30) return 7000;
+  if (distanceKm <= 35) return 8000;
+  if (distanceKm <= 40) return 9000;
   return null;
 }
 

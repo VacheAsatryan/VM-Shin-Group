@@ -11,6 +11,7 @@ import { getProductImage } from "@/lib/calculator/getProductImage";
 import ProductVariantFields from "./ProductVariantFields";
 import DynamicCalculatorForm from "./DynamicCalculatorForm";
 import { Button } from "@/components/ui/Button";
+import ConsultationContactBlock from "@/components/consultation/ConsultationContactBlock";
 
 interface ParametersStepProps {
   category: ProductCategoryConfig;
@@ -60,6 +61,9 @@ export default function ParametersStep({
           </span>
         </div>
       </div>
+
+      {/* Consultation Contact Notice */}
+      <ConsultationContactBlock />
 
       {/* Input Parameters Box */}
       <div className="p-6 sm:p-8 rounded-xl bg-surface/90 border border-gold-border/40 shadow-xl flex flex-col gap-6">

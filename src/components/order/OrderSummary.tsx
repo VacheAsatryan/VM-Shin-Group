@@ -19,6 +19,7 @@ const INPUT_KEY_LABELS: Record<string, { hy: string; ru: string; en: string }> =
   directVolumeM3: { hy: "Ծավալ", ru: "Объём", en: "Volume" },
   depthMeters: { hy: "Խորություն / Հաստություն", ru: "Глубина / Толщина", en: "Depth / Thickness" },
   quantity: { hy: "Քանակ", ru: "Количество", en: "Quantity" },
+  areaSqMeters: { hy: "Պահանջվող մակերես", ru: "Требуемая площадь", en: "Required Area" },
   reservePercent: { hy: "Պահուստ", ru: "Запас", en: "Reserve" },
 };
 
@@ -83,6 +84,10 @@ export default function OrderSummary({ order }: OrderSummaryProps) {
     }
     if (key === "directVolumeM3") {
       const unitStr = locale === "hy" ? "մ³" : locale === "ru" ? "м³" : "m³";
+      return `${strVal} ${unitStr}`;
+    }
+    if (key === "areaSqMeters") {
+      const unitStr = locale === "hy" ? "մ²" : locale === "ru" ? "м²" : "m²";
       return `${strVal} ${unitStr}`;
     }
     return strVal;

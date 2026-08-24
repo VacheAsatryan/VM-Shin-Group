@@ -38,7 +38,7 @@ export function calculateProductEstimate(
       metrics = calculateQuantityProduct(input, variant);
       break;
     case "floor_slabs":
-      metrics = calculateFloorSlabs(input, variant);
+      metrics = calculateFloorSlabs(input);
       break;
   }
 

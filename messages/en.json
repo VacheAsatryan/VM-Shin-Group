@@ -396,7 +396,8 @@
       "calcByAreaDesc": "Calculate using surface length and width.",
       "calcByRunningMeters": "Calculate by running meters",
       "calcByRunningMetersDesc": "Calculate using total linear length.",
-      "panelType": "Panel Type (width)",
+      "panelType": "Panel Type (Width)",
+      "requiredArea": "Required area (m²)",
       "panelLength": "Panel Length (m)",
       "lengthRangeHint": "Allowed length: 2.90 m - 6.30 m (step 0.10 m)",
       "lengthValidationError": "Length must be between 2.90 m and 6.30 m",
@@ -482,6 +483,12 @@
       "pricingDisclaimer": "Displayed prices are demonstration values and are not a commercial offer.",
       "cta": "Send request"
     },
+    "consultationBlock": {
+      "title": "Need advice?",
+      "description": "We’ll help you choose the right option and calculate the required quantity.",
+      "callAction": "Call",
+      "requestAction": "Request consultation"
+    },
     "delivery": {
       "title": "Delivery Estimator",
       "toggleLabel": "Include Delivery Estimation",
@@ -547,7 +554,7 @@
       "addressLabel": "Address",
       "address": "Armavir, Yerevan Highway 12/4, Armenia",
       "phoneLabel": "Phone",
-      "phone": "+374 77 770330",
+      "phone": "+374 93 186077",
       "emailLabel": "Email",
       "email": "vm.shingroup@gmail.com",
       "workingHoursLabel": "Working Hours",
@@ -624,10 +631,10 @@
     }
   },
   "seo": {
-    "title": "VM Shin Group | Concrete Products Manufacturing & Supply",
-    "description": "VM Shin Group is a leading manufacturer of concrete and pumice blocks in Armavir, Armenia. High quality concrete, paving stones, tiles and curbstones.",
-    "ogTitle": "VM Shin Group | Concrete Products Manufacturing & Supply",
-    "ogDescription": "VM Shin Group is a leading manufacturer of concrete and pumice blocks in Armavir, Armenia. High quality concrete, paving stones, tiles and curbstones.",
+    "title": "VM Shin Group | Concrete, Pumice Blocks, Pavers & Construction Products in Armavir",
+    "description": "VM Shin Group is a manufacturer of ready-mix concrete, pumice blocks, paving stones, curbstones, and construction products in Armavir, Armenia. Direct production, calculation, and delivery.",
+    "ogTitle": "VM Shin Group | Concrete & Construction Products in Armavir",
+    "ogDescription": "Concrete, pumice blocks, paving stones, curbstones, and construction materials from VM Shin Group in Armavir. Direct production and delivery from manufacturer.",
     "documentsTitle": "Documents, Quality Control and Recognition | VM SHIN GROUP",
     "documentsDesc": "Verification certificates for scales used in our concrete manufacturing processes, plus letters of appreciation.",
     "documentsOgTitle": "Documents, Quality Control and Recognition | VM SHIN GROUP",

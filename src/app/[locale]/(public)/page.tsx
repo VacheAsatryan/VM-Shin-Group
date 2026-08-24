@@ -7,6 +7,7 @@ import CalculatorSection from "@/components/sections/CalculatorSection";
 import HomeTrustSection from "@/components/sections/HomeTrustSection";
 import FirefliesBackground from "@/components/ui/FirefliesBackground";
 import IndustrialDustParticles from "@/components/ui/IndustrialDustParticles";
+import { CANONICAL_DOMAIN, getSeoAlternates, getHomepageJsonLd } from "@/lib/seo/metadata";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -15,23 +16,45 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "seo" });
+  const alternates = getSeoAlternates("", locale);
+  const ogLocale = locale === "hy" ? "hy_AM" : locale === "ru" ? "ru_RU" : "en_US";
+  const alternateLocales = ["hy_AM", "ru_RU", "en_US"].filter((l) => l !== ogLocale);
 
   return {
+    metadataBase: new URL(CANONICAL_DOMAIN),
     title: t("title"),
     description: t("description"),
+    alternates,
     openGraph: {
       title: t("ogTitle"),
       description: t("ogDescription"),
-      type: "website",
-      locale: locale === "hy" ? "hy_AM" : locale === "ru" ? "ru_RU" : "en_US",
+      url: alternates.canonical,
       siteName: "VM Shin Group",
+      type: "website",
+      locale: ogLocale,
+      alternateLocale: alternateLocales,
+      images: [
+        {
+          url: `${CANONICAL_DOMAIN}/images/logo.png`,
+          width: 800,
+          height: 600,
+          alt: "VM Shin Group Logo",
+        },
+      ],
     },
   };
 }
 
 export default function HomePage() {
+  const jsonLd = getHomepageJsonLd();
+
   return (
     <div className="flex-1 flex flex-col relative" style={{ background: "#080808" }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* ── Layer 1: Animated yellow lines & laser sweeps ──────────────── */}
       <div className="yellow-lines-bg" aria-hidden="true">
         <div className="yellow-lines-layer2" />

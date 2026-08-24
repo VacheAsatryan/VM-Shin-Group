@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import type { SupportedLocale } from "@/lib/supabase/types";
 import SafeImage from "@/components/ui/SafeImage";
 import CareerApplicationSection from "@/components/public/CareerApplicationSection";
+import { CANONICAL_DOMAIN, getSeoAlternates } from "@/lib/seo/metadata";
 
 interface PageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -13,6 +14,7 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps) {
   const { locale, slug } = await params;
   const currentLocale = (locale as SupportedLocale) || "hy";
+  const alternates = getSeoAlternates(`/careers/${slug}`, locale);
 
   const supabase = await createClient();
   const { data: career } = await supabase
@@ -24,7 +26,9 @@ export async function generateMetadata({ params }: PageProps) {
 
   if (!career) {
     return {
+      metadataBase: new URL(CANONICAL_DOMAIN),
       title: "Vacancy Not Found | VM SHIN GROUP",
+      alternates,
     };
   }
 
@@ -52,11 +56,14 @@ export async function generateMetadata({ params }: PageProps) {
   const description = getField("summary");
 
   return {
+    metadataBase: new URL(CANONICAL_DOMAIN),
     title: `${title} | VM SHIN GROUP Careers`,
     description,
+    alternates,
     openGraph: {
       title: `${title} | VM SHIN GROUP Careers`,
       description,
+      url: alternates.canonical,
       images: career.cover_image_url ? [{ url: career.cover_image_url }] : [],
     },
   };

@@ -146,33 +146,33 @@ export default function Footer() {
             </h3>
             <ul className="flex flex-col gap-2.5 text-xs font-semibold">
               <li>
-                <Link href="#calculator" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
+                <Link href="/products/pemzablok" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
                   {t("products.pemzablok")}
                 </Link>
               </li>
               <li>
-                <Link href="#calculator" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
+                <Link href="/products/concrete-block" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
                   {t("products.concreteBlock")}
                 </Link>
               </li>
               <li>
-                <Link href="#calculator" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
+                <Link href="/products/concrete" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
                   {t("products.concrete")}
                 </Link>
               </li>
               <li>
-                <Link href="#calculator" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
+                <Link href="/products/paving-stones" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
                   {t("products.pavingStones")}
                 </Link>
               </li>
 
               <li>
-                <Link href="#calculator" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
+                <Link href="/products/curbstones" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
                   {t("products.curbstones")}
                 </Link>
               </li>
               <li>
-                <Link href="#calculator" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
+                <Link href="/products/manholes" className="hover:text-primary-yellow transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-yellow">
                   {t("products.manholes")}
                 </Link>
               </li>

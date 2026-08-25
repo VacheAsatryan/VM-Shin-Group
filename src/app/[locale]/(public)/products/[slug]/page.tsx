@@ -4,7 +4,7 @@ import { PRODUCTS } from "@/config/products";
 import { getProductDetail } from "@/config/productDetails";
 import ProductDetailView from "@/components/products/ProductDetailView";
 import { routing } from "@/i18n/routing";
-import { CANONICAL_DOMAIN, getSeoAlternates, getProductJsonLd, getBreadcrumbJsonLd } from "@/lib/seo/metadata";
+import { CANONICAL_DOMAIN, getSeoAlternates, getProductJsonLd, getBreadcrumbJsonLd, getProductOffers } from "@/lib/seo/metadata";
 
 export async function generateStaticParams() {
   const params: Array<{ locale: string; slug: string }> = [];
@@ -91,58 +91,7 @@ export default async function ProductDetailPage({
     productDetail.variants.find((v) => v.id === productDetail.defaultVariantId) ||
     productDetail.variants[0];
 
-  let offers: Record<string, unknown> | undefined = undefined;
-
-  // We only create an Offer / AggregateOffer if the unit is "per piece" (unambiguous for schema.org/Offer)
-  // and the price is customer-visible, public, and not hidden (unlike concrete).
-  if (productDetail.id !== "concrete") {
-    const sellableVariants = productDetail.variants.filter(
-      (v) => v.priceStatus !== "to_be_confirmed" && v.price.amount > 0 && v.price.unitKey === "perPcs"
-    );
-
-    if (sellableVariants.length > 0) {
-      const prices = sellableVariants.map((v) => v.price.amount);
-      const lowPrice = Math.min(...prices);
-      const highPrice = Math.max(...prices);
-      const url = `${CANONICAL_DOMAIN}/${locale}/products/${slug}`;
-      const inStockVariants = sellableVariants.filter((v) => v.inStock);
-
-      const availability =
-        inStockVariants.length > 0
-          ? "https://schema.org/InStock"
-          : "https://schema.org/OutOfStock";
-
-      if (lowPrice === highPrice) {
-        offers = {
-          "@type": "Offer",
-          url,
-          priceCurrency: "AMD",
-          price: lowPrice,
-          availability,
-          seller: {
-            "@type": "Organization",
-            "@id": `${CANONICAL_DOMAIN}/#organization`,
-            name: "VM Shin Group",
-          },
-        };
-      } else {
-        offers = {
-          "@type": "AggregateOffer",
-          url,
-          priceCurrency: "AMD",
-          lowPrice,
-          highPrice,
-          offerCount: sellableVariants.length,
-          availability,
-          seller: {
-            "@type": "Organization",
-            "@id": `${CANONICAL_DOMAIN}/#organization`,
-            name: "VM Shin Group",
-          },
-        };
-      }
-    }
-  }
+  const offers = getProductOffers(productDetail, locale);
 
   const jsonLd = getProductJsonLd({
     name: productName,

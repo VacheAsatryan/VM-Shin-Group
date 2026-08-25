@@ -774,6 +774,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetailData> = {
       {
         id: "curbstone-road",
         slug: "curbstone-road",
+        titleKey: "variants.curbstoneRoad",
         sizeLabel: "80 × 15 × 30",
         subtitleKey: "variants.curbstoneRoad",
         dimensions: "80 × 15 × 30 cm",
@@ -800,6 +801,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetailData> = {
       {
         id: "curbstone-garden",
         slug: "curbstone-garden",
+        titleKey: "variants.curbstoneGarden",
         sizeLabel: "80 × 8 × 20",
         subtitleKey: "variants.curbstoneGarden",
         dimensions: "80 × 8 × 20 cm",

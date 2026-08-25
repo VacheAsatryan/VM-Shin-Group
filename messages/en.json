@@ -41,39 +41,39 @@
     "consultationCta": "Request Consultation",
     "productSeo": {
       "pemzablok": {
-        "title": "Pumice Blocks & Building Blocks in Armavir | VM Shin Group",
+        "title": "Pumice Blocks in Armavir | VM Shin Group",
         "description": "High-quality pumice blocks and concrete wall blocks from manufacturer VM Shin Group in Armavir, Armenia. Various sizes, insulation, and fast delivery.",
         "ogTitle": "Pumice Blocks in Armavir | VM Shin Group",
         "ogDescription": "Pumice blocks and wall construction blocks direct from manufacturer in Armavir, Armenia."
       },
       "concrete-block": {
-        "title": "Floor Slabs & Concrete Panels in Armavir | VM Shin Group",
+        "title": "Floor Slab Panels in Armavir | VM Shin Group",
         "description": "Durable floor slab panels and precast concrete blocks manufactured in Armavir, Armenia by VM Shin Group. Accurate m² calculations and site delivery.",
-        "ogTitle": "Floor Slab Panels & Precast Concrete | VM Shin Group",
+        "ogTitle": "Floor Slab Panels in Armavir | VM Shin Group",
         "ogDescription": "High-strength floor slabs and structural concrete panels directly from the manufacturer in Armavir."
       },
       "concrete": {
-        "title": "Ready-Mix Concrete Delivery in Armavir | VM Shin Group",
+        "title": "Ready-Mix Concrete in Armavir | VM Shin Group",
         "description": "High-grade ready-mix concrete manufactured in Armavir, Armenia by VM Shin Group. M100 to M400 concrete grades, volume calculation, and mixer delivery.",
         "ogTitle": "Ready-Mix Concrete in Armavir | VM Shin Group",
         "ogDescription": "Ready-mix concrete supply and mixer truck delivery across Armavir region from VM Shin Group."
       },
       "paving-stones": {
-        "title": "Paving Stones & Pavers in Armavir | VM Shin Group",
+        "title": "Paving Stones in Armavir | VM Shin Group",
         "description": "Paving stones, pavers, and sidewalk tiles manufactured in Armavir, Armenia by VM Shin Group. Multiple colors, sizes, area calculation, and delivery.",
-        "ogTitle": "Paving Stones & Pavers in Armavir | VM Shin Group",
+        "ogTitle": "Paving Stones in Armavir | VM Shin Group",
         "ogDescription": "Premium paving stones and outdoor pavers directly from manufacturer VM Shin Group in Armavir."
       },
       "curbstones": {
-        "title": "Curbstones & Border Stones in Armavir | VM Shin Group",
+        "title": "Curbstones in Armavir | VM Shin Group",
         "description": "Road and garden curbstones manufactured in Armavir, Armenia by VM Shin Group. High durability concrete border stones, calculation, and delivery.",
-        "ogTitle": "Curbstones & Border Stones in Armavir | VM Shin Group",
+        "ogTitle": "Curbstones in Armavir | VM Shin Group",
         "ogDescription": "Heavy-duty road and garden curbstones directly from manufacturer VM Shin Group in Armavir."
       },
       "manholes": {
-        "title": "Concrete Manholes & Covers in Armavir | VM Shin Group",
+        "title": "Concrete Manholes in Armavir | VM Shin Group",
         "description": "Precast concrete manholes, rings, and cover slabs manufactured in Armavir, Armenia by VM Shin Group. Utility manhole elements and site delivery.",
-        "ogTitle": "Concrete Manholes & Covers in Armavir | VM Shin Group",
+        "ogTitle": "Concrete Manholes in Armavir | VM Shin Group",
         "ogDescription": "Heavy-duty concrete manhole elements and cover slabs directly from manufacturer in Armavir."
       }
     },
@@ -121,8 +121,8 @@
       "pavingType2Title": "Paving Stone — Type 2",
       "pavingType1": "Paving Stone — Type 1",
       "pavingType2": "Paving Stone — Type 2",
-      "curbstoneRoad": "Road Curb (80×15×30 cm)",
-      "curbstoneGarden": "Garden Curb (80×8×20 cm)",
+      "curbstoneRoad": "Road Curbstone (80×15×30 cm)",
+      "curbstoneGarden": "Garden Curbstone (80×8×20 cm)",
       "manholeSubtitle": "Inspection Well Component",
       "manholeSmallV1": "Manhole — Small (1000 mm)",
       "manholeLargeV1": "Manhole — Large (1500 mm)",
@@ -134,9 +134,9 @@
       "manholeCoverSquareOpeningV1Large": "Large Manhole Cover — Square Opening (1500 mm)",
       "manholeCoverSlotV1Large": "Large Manhole Cover — Slot Opening (1500 mm)",
       "manholeCoverRoundHoleV1Large": "Large Manhole Cover — Round Opening (1500 mm)",
-      "slab120": "Type 1 — Width: 1.20 m",
+      "slab120": "Floor Slab Panel — 1.20 m Width",
       "slab120Subtitle": "Reinforced concrete floor slab (1.20 m)",
-      "slab060": "Type 2 — Width: 0.60 m",
+      "slab060": "Floor Slab Panel — 0.60 m Width",
       "slab060Subtitle": "Reinforced concrete floor slab (0.60 m)",
       "concreteM100": "M100 B7.5",
       "concreteM150": "M150 B12.5",
@@ -156,13 +156,13 @@
       "mix": "Mix"
     },
     "categories": {
-      "pemzablok": "Pumice Blocks",
+      "pemzablok": "Pumice Block",
       "concrete-block": "Floor Slab Panel",
       "concrete": "Ready-Mix Concrete",
       "paving-stones": "Paving Stones",
       "tiles": "Tiles",
       "curbstones": "Curbstones",
-      "manholes": "Manholes / Inspection Wells",
+      "manholes": "Concrete Manhole",
       "largeManholeCover": "Large Manhole Cover"
     },
     "descriptions": {
@@ -407,7 +407,7 @@
       "pavingStones": "Paving Stones",
       "tiles": "Concrete Tiles",
       "curbstones": "Curbstones",
-      "manholes": "Manholes"
+      "manholes": "Concrete Manhole"
     },
     "inputs": {
       "wallLength": "Wall Length (m)",
@@ -491,8 +491,8 @@
       "coverLargeCastIron": "Cast-Iron Cover for Large Manhole (1500 mm)",
       "coverSmallStandard": "Standard Cover for Small Manhole (1000 mm)",
       "coverSmallCastIron": "Cast-Iron Cover for Small Manhole (1000 mm)",
-      "slab120": "Type 1 — Width: 1.20 m",
-      "slab060": "Type 2 — Width: 0.60 m"
+      "slab120": "Floor Slab Panel — 1.20 m Width",
+      "slab060": "Floor Slab Panel — 0.60 m Width"
     },
     "units": {
       "blocks": "pcs",
@@ -606,12 +606,12 @@
     },
     "products": {
       "title": "Products",
-      "pemzablok": "Pumice Blocks",
-      "concreteBlock": "Floor Slab Panels",
+      "pemzablok": "Pumice Block",
+      "concreteBlock": "Floor Slab Panel",
       "concrete": "Ready-Mix Concrete",
       "pavingStones": "Paving Stones",
       "curbstones": "Curbstones",
-      "manholes": "Manhole Products"
+      "manholes": "Concrete Manhole"
     }
   },
   "documents": {

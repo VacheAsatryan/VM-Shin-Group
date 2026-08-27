@@ -93,14 +93,20 @@ export default async function ProductDetailPage({
 
   const offers = getProductOffers(productDetail, locale);
 
-  const jsonLd = getProductJsonLd({
-    name: productName,
-    description: productDescription,
-    image: defaultVariant?.image || productDetail.image || "/images/logo.png",
-    slug,
-    locale,
-    offers,
-  });
+  // For concrete, prices are not exposed in structured data (confirmed by owner).
+  // Emitting a Product schema without offers/review/aggregateRating causes a
+  // Google Search Console critical error, so we skip the Product JSON-LD entirely.
+  const productJsonLd =
+    productDetail.id !== "concrete"
+      ? getProductJsonLd({
+          name: productName,
+          description: productDescription,
+          image: defaultVariant?.image || productDetail.image || "/images/logo.png",
+          slug,
+          locale,
+          offers,
+        })
+      : null;
 
   const breadcrumbJsonLd = getBreadcrumbJsonLd({
     productName,
@@ -114,10 +120,12 @@ export default async function ProductDetailPage({
 
   return (
     <div className="flex-1 bg-background text-foreground flex flex-col selection:bg-primary-yellow selection:text-black">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {productJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+        />
+      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}

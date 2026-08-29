@@ -16,7 +16,7 @@ export function calculateConcreteVolume(
     rawVolumeM3 = l * w * d;
   }
 
-  const volumeM3 = Number((rawVolumeM3 * (1 + reserve)).toFixed(2));
+  const volumeM3 = rawVolumeM3 * (1 + reserve);
 
   return {
     primaryQuantity: volumeM3,

@@ -137,7 +137,7 @@ export default function EstimateStep({
           </span>
           <div className="flex items-baseline gap-2">
             <span className="text-4xl sm:text-5xl font-black font-mono text-primary-yellow tracking-tight">
-              {result.metrics.primaryQuantity.toLocaleString()}
+              {result.metrics.primaryQuantity.toLocaleString(undefined, { maximumFractionDigits: 6 })}
             </span>
             <span className="text-sm sm:text-base font-bold text-primary-yellow/90 font-mono uppercase">
               {t(`units.${result.metrics.primaryUnitKey}`)}
@@ -160,7 +160,7 @@ export default function EstimateStep({
             <div className="p-3.5 rounded-lg bg-background/60 border border-gold-border flex items-center justify-between">
               <span className="text-xs text-text-secondary">{result.category === "concrete-block" ? t("results.panelsCount") : t("results.secondaryQuantity")}:</span>
               <span className="text-sm font-bold font-mono text-text-primary">
-                {result.metrics.secondaryQuantity.toLocaleString()} {t(`units.${result.metrics.secondaryUnitKey}`)}
+                {result.metrics.secondaryQuantity.toLocaleString(undefined, { maximumFractionDigits: 6 })} {t(`units.${result.metrics.secondaryUnitKey}`)}
               </span>
             </div>
           ) : null}

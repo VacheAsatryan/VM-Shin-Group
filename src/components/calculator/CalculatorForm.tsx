@@ -43,9 +43,9 @@ export default function CalculatorForm({ input, onChange }: CalculatorFormProps)
           type="number"
           value={input.lengthMeters}
           onChange={handleLengthChange}
-          min={0.1}
-          max={500}
-          step={0.5}
+          min={0}
+          max={1000}
+          step="any"
           suffix="m"
         />
 
@@ -56,9 +56,9 @@ export default function CalculatorForm({ input, onChange }: CalculatorFormProps)
           type="number"
           value={input.heightMeters}
           onChange={handleHeightChange}
-          min={0.1}
-          max={100}
-          step={0.1}
+          min={0}
+          max={1000}
+          step="any"
           suffix="m"
         />
       </div>

@@ -20,7 +20,7 @@ export interface CalculatorResultData {
 export function calculateMaterials(input: CalculatorInput): CalculatorResultData {
   const length = Math.max(0, Number(input.lengthMeters) || 0);
   const height = Math.max(0, Number(input.heightMeters) || 0);
-  const areaSqMeters = Number((length * height).toFixed(2));
+  const areaSqMeters = length * height;
 
   const selectedBlock =
     BLOCK_OPTIONS.find((b) => b.id === input.selectedBlockId) || BLOCK_OPTIONS[0];

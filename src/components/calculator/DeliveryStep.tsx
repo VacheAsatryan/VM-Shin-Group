@@ -239,7 +239,7 @@ export default function DeliveryStep({
             <div className="flex items-center justify-between text-xs font-semibold">
               <span className="text-text-secondary">{t("results.primaryQuantity")}:</span>
               <span className="font-mono text-text-primary">
-                {result.metrics.primaryQuantity.toLocaleString()} {t("units.m3")}
+                {result.metrics.primaryQuantity.toLocaleString(undefined, { maximumFractionDigits: 6 })} {t("units.m3")}
               </span>
             </div>
 

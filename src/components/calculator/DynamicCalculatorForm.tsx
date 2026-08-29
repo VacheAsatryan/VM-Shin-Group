@@ -144,10 +144,10 @@ export default function DynamicCalculatorForm({
                   type="number"
                   value={input.wallCount}
                   onChange={(e) =>
-                    onChangeInput({ ...input, wallCount: parseInt(e.target.value, 10) || 1 })
+                    onChangeInput({ ...input, wallCount: parseFloat(e.target.value) || 0 })
                   }
-                  min={1}
-                  step={1}
+                  min={0}
+                  step="any"
                 />
                 <CalculatorField
                   id="wall-reserve"
@@ -483,10 +483,10 @@ export default function DynamicCalculatorForm({
             type="number"
             value={input.quantity}
             onChange={(e) =>
-              onChangeInput({ ...input, quantity: parseInt(e.target.value, 10) || 1 })
+              onChangeInput({ ...input, quantity: parseFloat(e.target.value) || 0 })
             }
-            min={1}
-            step={1}
+            min={0}
+            step="any"
             suffix="pcs"
           />
         </div>

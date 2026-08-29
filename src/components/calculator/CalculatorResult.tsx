@@ -93,7 +93,7 @@ export default function CalculatorResult({
           </span>
           <div className="flex items-baseline gap-1.5 mt-auto">
             <span className="text-2xl sm:text-3xl font-black font-mono text-primary-yellow tracking-tight">
-              {result.metrics.primaryQuantity.toLocaleString()}
+              {result.metrics.primaryQuantity.toLocaleString(undefined, { maximumFractionDigits: 6 })}
             </span>
             <span className="text-xs font-bold text-primary-yellow/80 font-mono uppercase">
               {t(`units.${result.metrics.primaryUnitKey}`)}
@@ -123,7 +123,7 @@ export default function CalculatorResult({
             </span>
             <div className="flex items-baseline gap-1.5 mt-auto">
               <span className="text-2xl sm:text-3xl font-black font-mono text-text-primary tracking-tight">
-                {result.metrics.secondaryQuantity.toLocaleString()}
+                {result.metrics.secondaryQuantity.toLocaleString(undefined, { maximumFractionDigits: 6 })}
               </span>
               <span className="text-xs font-bold text-primary-yellow/80 font-mono uppercase">
                 {t(`units.${result.metrics.secondaryUnitKey}`)}

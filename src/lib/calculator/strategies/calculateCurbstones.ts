@@ -14,9 +14,9 @@ export function calculateCurbstones(
 
   if (input.mode === "quantity") {
     primaryQuantity = Math.max(0, input.quantity || 0);
-    coverageLinearMeters = Number((primaryQuantity / itemsPerLinearMeter).toFixed(2));
+    coverageLinearMeters = primaryQuantity / itemsPerLinearMeter;
   } else {
-    coverageLinearMeters = Number((linearLength * (1 + reserve)).toFixed(2));
+    coverageLinearMeters = linearLength * (1 + reserve);
     primaryQuantity = Math.ceil(coverageLinearMeters * itemsPerLinearMeter);
   }
 

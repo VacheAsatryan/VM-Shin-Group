@@ -34,7 +34,7 @@ export default function PriceSummary({
         <div className="flex items-center justify-between text-xs sm:text-sm font-semibold">
           <span className="text-text-secondary">{t("results.primaryQuantity")}:</span>
           <span className="text-text-primary font-mono font-bold">
-            {quantity ? `${quantity.toLocaleString()} ${t("units.m3")}` : "0"}
+            {quantity ? `${quantity.toLocaleString(undefined, { maximumFractionDigits: 6 })} ${t("units.m3")}` : "0"}
           </span>
         </div>
 
